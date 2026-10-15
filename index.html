@@ -323,14 +323,12 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </header>
 <main class="main">
 
-<!-- خانه -->
 <section class="view active" id="v-home">
 <div class="wiz">
 <div class="wprog">
 <div class="ptrack"><div class="pfill" id="pfill" style="width:33.33%"></div></div>
 <span class="plabel" id="plabel">۱ از ۳</span>
 </div>
-
 <div class="step active" data-step="1">
 <div class="whead"><h2 id="ht1">خوش اومدی 👋</h2><p id="hs1">برای شروع، وارد شو یا اکانت بساز</p></div>
 <div class="tabs">
@@ -357,7 +355,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </div>
 <button type="submit" class="btn">ورود</button>
 </form>
-
 <form class="af" id="fSignup" novalidate>
 <div class="f" data-field="sphone">
 <label for="sphone">شماره تلفن</label>
@@ -389,7 +386,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </form>
 <p class="ferr" id="e1"></p>
 </div>
-
 <div class="step" data-step="2">
 <div class="whead"><h2>خودت رو معرفی کن</h2><p>اسم، پایه و رشته</p></div>
 <form id="fInfo" novalidate>
@@ -428,7 +424,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </div>
 </form>
 </div>
-
 <div class="step" data-step="3">
 <div class="whead"><h2>دروس و زمان</h2><p id="s3sub">قوی‌ترین تا ضعیف‌ترین</p></div>
 <div class="hint"><span>👆</span><span>روی دروس به ترتیب <strong>از قوی‌ترین تا ضعیف‌ترین</strong> بزن.</span></div>
@@ -449,7 +444,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 <button type="button" class="btn" id="finish">پایان 🚀</button>
 </div>
 </div>
-
 <div class="step" data-step="4">
 <div class="welcome">
 <span class="em">🎉</span>
@@ -464,11 +458,9 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 <button type="button" class="btn" id="enterMain">ورود به آموزیار</button>
 </div>
 </div>
-
 </div>
 </section>
 
-<!-- آزمون -->
 <section class="view" id="v-quiz">
 <div class="qwrap">
 <div class="qs active" id="qi">
@@ -514,7 +506,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </div>
 </section>
 
-<!-- تمرین -->
 <section class="view" id="v-practice">
 <div class="practice-wrap">
 <div class="qs active" id="pm">
@@ -555,7 +546,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </div>
 </section>
 
-<!-- پیشرفت -->
 <section class="view" id="v-progress">
 <div class="dash">
 <div class="dcard">
@@ -586,7 +576,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </div>
 </section>
 
-<!-- دستاوردها -->
 <section class="view" id="v-awards">
 <div class="awrap">
 <div class="aheader">
@@ -598,7 +587,6 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 </div>
 </section>
 
-<!-- پروفایل -->
 <section class="view" id="v-profile">
 <div class="set">
 <div class="ucard">
@@ -673,11 +661,14 @@ body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4p
 (function(){
 "use strict";
 
+/* ⚠️ متغیرهای مهم قبل از هر چیز */
+let chartInst=null;
+
 /* ============ تنظیمات ============ */
 const CK={
-auth:"amozyar:v1:auth",profile:"amozyar:v1:profile",settings:"amozyar:v1:settings",
-theme:"amozyar:v1:theme",quiz:"amozyar:v1:quiz",quizH:"amozyar:v1:quizH",
-practice:"amozyar:v1:practice",awards:"amozyar:v1:awards",xp:"amozyar:v1:xp",streak:"amozyar:v1:streak"
+auth:"amozyar:v2:auth",profile:"amozyar:v2:profile",settings:"amozyar:v2:settings",
+theme:"amozyar:v2:theme",quiz:"amozyar:v2:quiz",quizH:"amozyar:v2:quizH",
+practice:"amozyar:v2:practice",awards:"amozyar:v2:awards",xp:"amozyar:v2:xp",streak:"amozyar:v2:streak"
 };
 
 const MAJORS={math:{l:"ریاضی فیزیک"},exp:{l:"علوم تجربی"},human:{l:"علوم انسانی"}};
@@ -946,7 +937,7 @@ const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>r.querySelectorAll(s);
 const store={
 read(k){try{return JSON.parse(localStorage.getItem(k))||{};}catch(e){return{};}},
-write(k,d){try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}},
+write(k,d){try{localStorage.setItem(k,JSON.stringify(d));}catch(e);},
 del(k){try{localStorage.removeItem(k);}catch(e){}}
 };
 const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -955,9 +946,9 @@ function norm(s){return String(s).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".i
 function validPhone(p){return /^09\d{9}$/.test(norm(p));}
 function getQ(name,bank){if(bank[name])return bank[name];return bank[findCat(name)]||bank.general||[];}
 
-/* ============ Toast ============ */
 function toast(icon,title,sub="",type=""){
 const c=$("#toasts");
+if(!c)return;
 const t=document.createElement("div");
 t.className="toast "+type;
 t.innerHTML=`<span class="i">${icon}</span><div class="t">${sub?`<small>${sub}</small>`:""}<strong>${title}</strong></div>`;
@@ -966,7 +957,6 @@ setTimeout(()=>t.classList.add("show"),30);
 setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),400);},2800);
 }
 
-/* ============ Confetti ============ */
 function confetti(){
 const c=$("#confetti");if(!c)return;
 c.classList.add("show");
@@ -989,9 +979,9 @@ anim();
 /* ============ Theme ============ */
 function applyTheme(t){
 document.documentElement.dataset.theme=t;
-$("#themeBtn").textContent=t==="dark"?"☀️":"🌙";
+const b=$("#themeBtn");
+if(b)b.textContent=t==="dark"?"☀️":"🌙";
 store.write(CK.theme,{theme:t});
-if(typeof chartInst!=="undefined"&&chartInst){const qh=store.read(CK.quizH)||{list:[]};const ph=store.read(CK.practice)||{sessions:[]};renderChart(qh.list||[],ph.sessions||[]);}
 }
 $("#themeBtn").addEventListener("click",()=>{
 const cur=document.documentElement.dataset.theme||"light";
@@ -1017,7 +1007,6 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!
 function setErr(fn,msg){const f=$(`[data-field="${fn}"]`);if(!f)return;f.classList.add("has-error");if(msg){const e=f.querySelector(".f-err");if(e)e.textContent=msg;}}
 function clearErr(form){form.querySelectorAll(".f").forEach(f=>f.classList.remove("has-error"));}
 
-/* Tab switch */
 $$(".tab").forEach(t=>t.addEventListener("click",()=>{
 $$(".tab").forEach(x=>x.classList.remove("active"));
 t.classList.add("active");
@@ -1029,7 +1018,6 @@ $("#ht1").textContent=isL?"خوش اومدی 👋":"بساز و شروع کن �
 $("#hs1").textContent=isL?"برای شروع، وارد شو":"یه اکانت جدید بساز";
 }));
 
-/* Toggle pass */
 document.addEventListener("click",e=>{
 const t=e.target.closest(".tp");if(!t)return;
 const inp=document.getElementById(t.dataset.t);
@@ -1041,7 +1029,6 @@ t.innerHTML=isP
 :`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
 });
 
-/* Tel input */
 document.querySelectorAll('input[type=tel]').forEach(inp=>{
 inp.addEventListener("input",e=>{
 let v=e.target.value;
@@ -1052,7 +1039,6 @@ e.target.value=v;
 });
 });
 
-/* Login */
 $("#fLogin").addEventListener("submit",e=>{
 e.preventDefault();
 $("#e1").classList.remove("show");clearErr($("#fLogin"));
@@ -1066,7 +1052,6 @@ store.write(CK.auth,st.auth);
 goStep(2);
 });
 
-/* Signup */
 $("#fSignup").addEventListener("submit",e=>{
 e.preventDefault();
 $("#e1").classList.remove("show");clearErr($("#fSignup"));
@@ -1081,12 +1066,10 @@ store.write(CK.auth,st.auth);
 goStep(2);
 });
 
-/* Clear errors on input */
 document.querySelectorAll(".iw input").forEach(inp=>inp.addEventListener("input",()=>{
 const f=inp.closest(".f");if(f)f.classList.remove("has-error");
 }));
 
-/* Info */
 $("#fInfo").addEventListener("submit",e=>{
 e.preventDefault();
 $("#e2").classList.remove("show");clearErr($("#fInfo"));
@@ -1105,7 +1088,6 @@ refreshChip();
 goStep(3);
 });
 
-/* Subjects */
 function renderSubs(){
 const subs=(SUBJECTS[st.info.major]||{})[st.info.grade]||[];
 $("#sorder").innerHTML="";
@@ -1143,7 +1125,6 @@ $("#tests").addEventListener("input",()=>{
 const v=+$("#tests").value;st.subjects.tests=v;$("#testsv").textContent=fa(v)+" تست";
 });
 
-/* Finish */
 $("#finish").addEventListener("click",()=>{
 $("#e3").classList.remove("show");
 if(st.subjects.ranked.length<2){$("#e3").textContent="حداقل ۲ درس رو انتخاب کن";$("#e3").classList.add("show");return;}
@@ -1251,7 +1232,7 @@ $("#retry").addEventListener("click",()=>{prepQuiz();showQ("i");});
 $("#cont").addEventListener("click",()=>{startP();switchTab("practice");});
 
 /* ============ Practice ============ */
-const practice={sub:"",level:2,streak:0,wrongStreak:0,asked:[],c:0,w:0,ans:false,cur:null,startedAt:null};
+const practice={sub:"",level:2,streak:0,wrongStreak:0,asked:[],c:0,w:0,ans:false,cur:null};
 function startP(){
 const p=store.read(CK.profile);
 const ranked=p.subjects||[];
@@ -1262,7 +1243,7 @@ if(!sub){toast("⚠️","درسی یافت نشد","","danger");return;}
 practice.sub=sub;
 practice.level=qr.level==="advanced"?3:qr.level==="beginner"?1:2;
 practice.streak=0;practice.wrongStreak=0;practice.asked=[];
-practice.c=0;practice.w=0;practice.startedAt=new Date().toISOString();
+practice.c=0;practice.w=0;
 updatePUI();nextPQ();showPS("m");
 }
 function updatePUI(){
@@ -1416,7 +1397,6 @@ $("#asub").textContent=c===0?"هنوز شروع نکردی!":`${fa(c)} از ${fa
 }
 
 /* ============ Dashboard ============ */
-let chartInst=null;
 function renderDash(){
 const qh=store.read(CK.quizH)||{list:[]};
 const ph=store.read(CK.practice)||{sessions:[]};
@@ -1441,6 +1421,7 @@ renderWeak(qh.list||[],ph.sessions||[]);
 function renderChart(ql,ps){
 const canvas=$("#chart");if(!canvas)return;
 if(chartInst){chartInst.destroy();chartInst=null;}
+if(typeof Chart==="undefined"){canvas.parentElement.innerHTML='<div class="empty"><div class="i">📈</div><p>نمودار در دسترس نیست</p></div>';return;}
 const all=[...ql.map(q=>({date:q.date,pct:q.pct})),...ps.map(p=>({date:p.date,pct:p.rate}))].sort((a,b)=>new Date(a.date)-new Date(b.date));
 if(!all.length){canvas.parentElement.innerHTML='<div class="empty"><div class="i">📈</div><p>هنوز داده‌ای نیست</p></div>';return;}
 if(!canvas.parentElement.querySelector("canvas")){canvas.parentElement.innerHTML='<canvas id="chart"></canvas>';return renderChart(ql,ps);}
@@ -1603,7 +1584,6 @@ setInterval(checkAwards,30000);
 console.log("%c🎓 آموزیار بارگذاری شد","font-size:16px;font-weight:900;color:#5b3df5");
 console.log("📚 آزمون:",Object.values(QB).reduce((s,a)=>s+a.length,0),"سوال");
 console.log("💪 تمرین:",Object.values(PB).reduce((s,a)=>s+a.length,0),"سوال");
-console.log("🏆 دستاوردها:",AWARDS.length,"نشان");
 
 })();
 </script>
