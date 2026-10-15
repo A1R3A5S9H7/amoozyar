@@ -6,10 +6,6 @@
 <meta name="description" content="آموزیار — پلتفرم یادگیری تطبیقی برای دانش‌آموزان متوسطه دوم">
 <meta name="theme-color" content="#5b3df5">
 <meta name="author" content="تیم آموزیار">
-<meta name="keywords" content="یادگیری تطبیقی, آموزش, آزمون, تمرین">
-<meta property="og:title" content="آموزیار | یادگیری تطبیقی">
-<meta property="og:description" content="هر دانش‌آموز، مسیر خودش">
-<meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <title>آموزیار | یادگیری تطبیقی</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +13,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 <style>
-/* ═══ TOKENS ═══ */
 :root{--paper:#eef0ff;--grid:#d9ddf7;--ink:#1d2457;--ink-soft:#6b7299;--ink-mute:#9aa0c6;--line:#e5e8f5;--field-bg:#f7f8fc;--accent:#5b3df5;--accent-2:#7c5cff;--accent-soft:rgba(91,61,245,.10);--accent-ring:rgba(91,61,245,.18);--c-math:#5b3df5;--c-exp:#12b58f;--c-human:#ff7a3d;--sun:#ffc93c;--pink:#ff5c93;--success:#10b981;--success-soft:rgba(16,185,129,.12);--danger:#e11d48;--danger-soft:rgba(225,29,72,.08);--gold:#f59e0b;--card:#fff;--glass-bg:linear-gradient(135deg,rgba(255,255,255,.48),rgba(255,255,255,.18));--glass-border:rgba(255,255,255,.55);--glass-shadow:0 8px 32px rgba(31,38,135,.12),0 2px 8px rgba(31,38,135,.06),inset 0 1px 1px rgba(255,255,255,.85);--radius-xl:28px;--radius-lg:20px;--radius-md:14px;--radius-sm:10px;--shadow-card:0 1px 3px rgba(29,36,87,.04),0 12px 32px rgba(29,36,87,.08),0 32px 64px rgba(29,36,87,.06);--shadow-btn:0 1px 2px rgba(29,36,87,.08),0 4px 12px rgba(91,61,245,.24),0 12px 24px rgba(91,61,245,.16);--font:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;--fs-base:16px;--ease:cubic-bezier(.4,0,.2,1)}
 body.dark{--paper:#0f1030;--grid:#1e2044;--ink:#e8eaff;--ink-soft:#a0a4cc;--ink-mute:#6a6e9a;--line:#2a2c55;--field-bg:#181a3d;--card:#1a1c40;--glass-bg:linear-gradient(135deg,rgba(30,32,68,.6),rgba(30,32,68,.35));--glass-border:rgba(255,255,255,.12);--shadow-card:0 1px 3px rgba(0,0,0,.3),0 12px 32px rgba(0,0,0,.4);--glass-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 1px rgba(255,255,255,.08)}
 *,*::before,*::after{box-sizing:border-box}
@@ -34,8 +29,11 @@ body.bg-plain{background-image:none}
 .brand h1{margin:0;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:900;color:var(--accent);letter-spacing:-.5px;line-height:1.15}
 .brand p{margin:2px 0 0;font-size:.82rem;font-weight:500;color:var(--ink-soft)}
 .top-actions{display:flex;align-items:center;gap:8px}
-.icon-btn{width:40px;height:40px;border:0;background:var(--glass-bg);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-border);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:var(--glass-shadow);transition:transform .18s var(--ease);color:var(--ink)}
+.icon-btn{width:40px;height:40px;border:0;background:var(--glass-bg);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-border);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:var(--glass-shadow);transition:transform .18s var(--ease);color:var(--ink);position:relative}
 .icon-btn:hover{transform:translateY(-2px) scale(1.05)}
+.icon-btn .badge-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--danger);border-radius:50%;border:2px solid var(--card);display:none}
+.icon-btn.has-notif .badge-dot{display:block;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 .profile-chip{display:flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;background:var(--glass-bg);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);border:1px solid var(--glass-border);border-radius:999px;box-shadow:var(--glass-shadow);cursor:pointer;transition:transform .18s var(--ease);font-family:inherit;color:var(--ink)}
 .profile-chip:hover{transform:translateY(-2px)}
 .profile-chip .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff;box-shadow:0 4px 12px rgba(91,61,245,.35);flex-shrink:0}
@@ -177,6 +175,8 @@ body.bg-plain{background-image:none}
 .option-btn.wrong .opt-num{background:var(--danger);color:#fff}
 .option-btn.wrong .opt-icon{display:flex;background:var(--danger);color:#fff}
 .option-btn.dimmed{opacity:.55}
+.option-btn .kbd-hint{position:absolute;top:6px;inset-inline-end:8px;font-size:.68rem;color:var(--ink-mute);font-weight:700;background:var(--field-bg);padding:1px 6px;border-radius:4px;opacity:0;transition:opacity .2s}
+.option-btn:hover .kbd-hint{opacity:1}
 .result-card{background:var(--card);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:36px 28px 28px;text-align:center;position:relative;overflow:hidden}
 .result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
 .result-emoji{font-size:5rem;line-height:1;margin-bottom:12px;display:inline-block}
@@ -197,7 +197,7 @@ body.bg-plain{background-image:none}
 .result-actions{display:grid;grid-template-columns:auto auto 1fr;gap:8px}
 .result-actions .btn-primary{margin-top:0}
 .practice-wrap{max-width:560px;margin:30px auto}
-.practice-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--glass-bg);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-border);border-radius:var(--radius-lg);box-shadow:var(--glass-shadow);margin-bottom:16px}
+.practice-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--glass-bg);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-border);border-radius:var(--radius-lg);box-shadow:var(--glass-shadow);margin-bottom:16px;flex-wrap:wrap}
 .level-badge{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:800;transition:all .35s var(--ease)}
 .level-badge[data-level="1"]{background:rgba(255,122,61,.15);color:#b84a17}
 .level-badge[data-level="2"]{background:rgba(18,181,143,.15);color:#0a6b52}
@@ -205,6 +205,8 @@ body.bg-plain{background-image:none}
 body.dark .level-badge[data-level="1"]{color:#ffb088}
 body.dark .level-badge[data-level="2"]{color:#5ddbb9}
 body.dark .level-badge[data-level="3"]{color:#a99bff}
+.srs-badge{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:999px;font-size:.72rem;font-weight:800;background:var(--accent-soft);color:var(--accent);margin-inline-start:8px}
+.srs-badge.active{background:var(--gold);color:#fff;animation:pulse 1.5s infinite}
 .streak-indicator{display:flex;align-items:center;gap:4px}
 .streak-dot{width:10px;height:10px;border-radius:50%;background:var(--line);transition:all .3s var(--ease)}
 .streak-dot.on{background:var(--success);box-shadow:0 0 8px var(--success-soft);transform:scale(1.2)}
@@ -237,6 +239,23 @@ body.dark .level-badge[data-level="3"]{color:#a99bff}
 .sp-row .sp-bar{flex:1;height:8px;background:color-mix(in srgb,var(--line) 80%,var(--accent) 20%);border-radius:999px;overflow:hidden}
 .sp-row .sp-bar>div{height:100%;border-radius:999px;transition:width .5s var(--ease)}
 .sp-row .sp-val{flex:0 0 auto;font-weight:800;font-size:.85rem;color:var(--ink);min-width:44px;text-align:left}
+.weakness-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:.72rem;font-weight:700;background:var(--danger-soft);color:var(--danger);margin:3px;border:1px solid rgba(225,29,72,.2)}
+.strength-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:.72rem;font-weight:700;background:var(--success-soft);color:var(--success);margin:3px;border:1px solid rgba(16,185,129,.2)}
+.daily-goal{display:flex;align-items:center;gap:12px;padding:14px;background:linear-gradient(135deg,var(--accent-soft),transparent);border-radius:var(--radius-md);border:1.5px dashed var(--accent-ring)}
+.daily-goal .ring{position:relative;width:56px;height:56px;flex-shrink:0}
+.daily-goal .ring svg{transform:rotate(-90deg);width:100%;height:100%}
+.daily-goal .ring .track{fill:none;stroke:var(--line);stroke-width:5}
+.daily-goal .ring .fill{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .6s var(--ease)}
+.daily-goal .goal-info{flex:1}
+.daily-goal .goal-info strong{display:block;font-weight:800;font-size:.95rem;margin-bottom:2px}
+.daily-goal .goal-info small{color:var(--ink-soft);font-size:.78rem;font-weight:500}
+.heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+.heat-cell{aspect-ratio:1;border-radius:4px;background:var(--field-bg);transition:transform .2s}
+.heat-cell:hover{transform:scale(1.15)}
+.heat-cell.l1{background:color-mix(in srgb,var(--accent) 25%,var(--field-bg))}
+.heat-cell.l2{background:color-mix(in srgb,var(--accent) 50%,var(--field-bg))}
+.heat-cell.l3{background:color-mix(in srgb,var(--accent) 75%,var(--field-bg))}
+.heat-cell.l4{background:var(--accent)}
 .empty-state{text-align:center;padding:30px 20px;color:var(--ink-soft)}
 .empty-state .ico{font-size:3rem;line-height:1;margin-bottom:8px;opacity:.5}
 .awards-wrap{max-width:800px;margin:30px auto}
@@ -257,6 +276,9 @@ body.dark .level-badge[data-level="3"]{color:#a99bff}
 .award-card .aw-desc{margin:0;font-size:.75rem;color:var(--ink-soft);font-weight:500;line-height:1.5}
 .award-card .aw-lock{position:absolute;top:10px;inset-inline-end:10px;font-size:1rem;opacity:.5}
 .award-card.unlocked .aw-lock{display:none}
+.aw-progress{margin-top:10px;height:5px;background:var(--field-bg);border-radius:999px;overflow:hidden}
+.aw-progress>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:999px;transition:width .5s var(--ease)}
+.aw-progress-text{font-size:.68rem;color:var(--ink-soft);font-weight:600;margin-top:4px}
 .settings-card{max-width:560px;margin:30px auto;background:var(--card);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:28px 24px}
 .settings-card h2{margin:22px 0 6px;font-size:1.3rem;font-weight:800}
 .settings-card .sub{margin:0 0 24px;color:var(--ink-soft);font-size:.88rem}
@@ -317,9 +339,9 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 .tour-actions{display:grid;grid-template-columns:auto 1fr;gap:10px}
 .confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:9998}
 .kbd{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;background:var(--field-bg);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;font-size:.72rem;font-weight:700;font-family:ui-monospace,monospace;color:var(--ink-soft)}
-@media print{.top-bar,.dock-wrap,.tour-overlay,.toast-container,.icon-btn{display:none!important}.app-shell{padding:0}.dash-card,.settings-card,.result-card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}}
-@media(max-width:860px){.app-shell{padding:16px 14px 130px;gap:14px}.brand h1{font-size:1.35rem}.brand p{font-size:.72rem}.profile-chip .who small{display:none}.wizard{padding:26px 20px 22px;margin:20px auto}.settings-card{padding:22px 18px}.quiz-intro-card,.quiz-card,.result-card{padding:26px 20px 22px}.practice-card{padding:22px 18px 20px}.practice-summary{padding:26px 20px 22px}.quick-stats{grid-template-columns:repeat(2,1fr)}.awards-grid{grid-template-columns:1fr}}
-@media(max-width:420px){.wizard{padding:22px 16px 20px;border-radius:22px}.wizard-head h2{font-size:1.3rem}.dock-item .lbl{display:none}.dock{grid-template-columns:repeat(6,1fr)}.wizard-actions{grid-template-columns:1fr}.btn-ghost{order:2}.result-actions{grid-template-columns:1fr}.qi-info{grid-template-columns:1fr 1fr}.qi-info>div:last-child{grid-column:1/-1}.question-text{font-size:.98rem;padding:14px 16px}.option-btn{font-size:.9rem;padding:12px 14px}.quick-stats{grid-template-columns:1fr 1fr}.user-card{flex-direction:column;text-align:center}.action-grid{grid-template-columns:1fr}.practice-actions{grid-template-columns:1fr}}
+@media print{.top-bar,.dock-wrap,.tour-overlay,.toast-container,.icon-btn,.skip-link{display:none!important}.app-shell{padding:0}.dash-card,.settings-card,.result-card,.wizard{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;animation:none!important}.view{display:block!important;page-break-after:always}}
+@media(max-width:860px){.app-shell{padding:16px 14px 130px;gap:14px}.brand h1{font-size:1.35rem}.brand p{font-size:.72rem}.profile-chip .who small{display:none}.wizard{padding:26px 20px 22px;margin:20px auto}.settings-card{padding:22px 18px}.quiz-intro-card,.quiz-card,.result-card{padding:26px 20px 22px}.practice-card{padding:22px 18px 20px}.practice-summary{padding:26px 20px 22px}.quick-stats{grid-template-columns:repeat(2,1fr)}.awards-grid{grid-template-columns:1fr}.heatmap{grid-template-columns:repeat(7,1fr);gap:3px}}
+@media(max-width:420px){.wizard{padding:22px 16px 20px;border-radius:22px}.wizard-head h2{font-size:1.3rem}.dock-item .lbl{display:none}.dock{grid-template-columns:repeat(6,1fr)}.wizard-actions{grid-template-columns:1fr}.btn-ghost{order:2}.result-actions{grid-template-columns:1fr}.qi-info{grid-template-columns:1fr 1fr}.qi-info>div:last-child{grid-column:1/-1}.question-text{font-size:.98rem;padding:14px 16px}.option-btn{font-size:.9rem;padding:12px 14px}.option-btn .kbd-hint{display:none}.quick-stats{grid-template-columns:1fr 1fr}.user-card{flex-direction:column;text-align:center}.action-grid{grid-template-columns:1fr}.practice-actions{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}}
 @media(prefers-contrast:more){:root{--line:#333;--ink-soft:#333}}
 </style>
@@ -333,6 +355,9 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <div class="top-actions">
 <button type="button" class="icon-btn" id="helpBtn" aria-label="راهنما" title="راهنما (H)">❓</button>
 <button type="button" class="icon-btn" id="themeBtn" aria-label="حالت شب" title="حالت شب (D)">🌙</button>
+<button type="button" class="icon-btn" id="notifBtn" aria-label="اعلان‌ها" title="اعلان‌ها">
+<span>🔔</span><span class="badge-dot"></span>
+</button>
 <button type="button" class="profile-chip" id="profileChip" aria-label="پروفایل">
 <span class="who"><strong id="profileName">مهمان</strong><small id="profileMeta">وارد نشده</small></span>
 <span class="avatar" aria-hidden="true">👤</span>
@@ -522,7 +547,7 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 </div>
 <div class="result-actions">
 <button type="button" class="btn-ghost btn-sm" id="shareQuizBtn" title="اشتراک نتیجه">📤</button>
-<button type="button" class="btn-ghost btn-sm" id="retakeBtn">🔄</button>
+<button type="button" class="btn-ghost btn-sm" id="retakeBtn" title="تکرار">🔄</button>
 <button type="button" class="btn-primary" id="continueBtn">ادامه</button>
 </div>
 </div>
@@ -534,7 +559,10 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <div class="practice-wrap">
 <div class="quiz-screen active" id="practice-main">
 <div class="practice-header">
+<div>
 <div class="level-badge" id="levelBadge" data-level="2"><span id="levelIcon">💪</span><span id="levelText">سطح متوسط</span></div>
+<span class="srs-badge" id="srsBadge" title="سوالات غلط قبلی"><span>🧠</span><span id="srsCount">۰</span></span>
+</div>
 <div class="streak-indicator" id="streakDots" title="۳ پاسخ درست = سطح بالاتر">
 <span class="streak-dot"></span><span class="streak-dot"></span><span class="streak-dot"></span>
 </div>
@@ -564,7 +592,7 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <div class="stat"><span class="stat-num" id="sumPRate">۰٪</span><span class="stat-label">درصد</span></div>
 </div>
 <div class="result-actions">
-<button type="button" class="btn-ghost btn-sm" id="sharePracticeBtn">📤</button>
+<button type="button" class="btn-ghost btn-sm" id="sharePracticeBtn" title="اشتراک">📤</button>
 <button type="button" class="btn-ghost" id="newPracticeBtn">تمرین جدید</button>
 <button type="button" class="btn-primary" id="backHomeBtn">بازگشت</button>
 </div>
@@ -576,6 +604,22 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <section class="view" id="view-progress">
 <div class="dashboard-wrap">
 <div class="dash-card">
+<h3><span class="ico">🎯</span> هدف امروز</h3>
+<div class="daily-goal" id="dailyGoal">
+<div class="ring">
+<svg viewBox="0 0 60 60">
+<circle class="track" cx="30" cy="30" r="26"></circle>
+<circle class="fill" id="goalRing" cx="30" cy="30" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4"></circle>
+</svg>
+</div>
+<div class="goal-info">
+<strong id="goalTitle">هنوز شروع نکردی!</strong>
+<small id="goalDesc">هدف: ۱۰ تست یا ۵ دقیقه تمرین</small>
+</div>
+</div>
+</div>
+
+<div class="dash-card">
 <h3><span class="ico">📊</span> آمار کلی</h3>
 <div class="quick-stats">
 <div class="qs-item"><span class="ico">🎯</span><span class="num" id="stQuizCount">۰</span><span class="lbl">آزمون</span></div>
@@ -584,14 +628,27 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <div class="qs-item"><span class="ico">⚡</span><span class="num" id="stStreak">۰</span><span class="lbl">استریک</span></div>
 </div>
 </div>
+
 <div class="dash-card">
 <h3><span class="ico">📈</span> روند پیشرفت</h3>
 <div class="chart-wrap"><canvas id="progressChart"></canvas></div>
 </div>
+
+<div class="dash-card">
+<h3><span class="ico">🔍</span> تحلیل نقاط قوت و ضعف</h3>
+<div id="weaknessAnalysis"></div>
+</div>
+
 <div class="dash-card">
 <h3><span class="ico">📚</span> عملکرد درسی</h3>
 <div class="subject-progress-list" id="subjectProgressList"></div>
 </div>
+
+<div class="dash-card">
+<h3><span class="ico">🗓️</span> نقشه فعالیت (۳۵ روز اخیر)</h3>
+<div class="heatmap" id="heatmap"></div>
+</div>
+
 <div class="dash-card">
 <h3><span class="ico">🕐</span> تاریخچه تمرین‌ها</h3>
 <div id="historyList"></div>
@@ -667,7 +724,7 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <div class="about-row"><span>شماره تماس</span><span id="aboutPhone" dir="ltr" style="text-align:left">—</span></div>
 <div class="about-row"><span>مدرسه</span><span>—</span></div>
 <div class="about-row"><span>پایه و رشته</span><span id="aboutGradeMajor">—</span></div>
-<div class="about-row"><span>نسخه</span><span>۲.۰.۰</span></div>
+<div class="about-row"><span>نسخه</span><span id="aboutVersion">۲.۱.۰</span></div>
 <div class="about-row"><span>تاریخ</span><span id="aboutDate">—</span></div>
 <div class="about-row"><span>مخاطب</span><span>دانش‌آموزان متوسطه دوم</span></div>
 <div class="about-row"><span>فناوری</span><span>HTML، CSS، JavaScript</span></div>
@@ -696,7 +753,7 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <div class="tour-box">
 <div class="tour-ico" id="tourIco">👋</div>
 <h3 id="tourTitle">خوش اومدی به آموزیار!</h3>
-<p id="tourDesc">این یه اپ یادگیری تطبیقی‌ست که بر اساس سطحت، تمرین مناسب برات می‌سازه.</p>
+<p id="tourDesc"></p>
 <div class="tour-progress" id="tourProgress"></div>
 <div class="tour-actions">
 <button type="button" class="btn-ghost btn-sm" id="tourSkip">رد کردن</button>
@@ -708,8 +765,8 @@ body.dark .dock-item.active{background:linear-gradient(180deg,rgba(255,255,255,.
 <script>
 (function(){
 "use strict";
-const VERSION="2.0.0";
-const CONFIG={authKey:"amoozyar:v2:auth",profileKey:"amoozyar:v2:profile",settingsKey:"amoozyar:v2:settings",quizKey:"amoozyar:v2:quiz",quizHistKey:"amoozyar:v2:quizHistory",practiceKey:"amoozyar:v2:practiceHistory",awardsKey:"amoozyar:v2:awards",xpKey:"amoozyar:v2:xp",streakKey:"amoozyar:v2:streak",tourKey:"amoozyar:v2:tourDone",darkKey:"amoozyar:v2:dark",
+const VERSION="2.1.0";
+const CONFIG={authKey:"amoozyar:v2:auth",profileKey:"amoozyar:v2:profile",settingsKey:"amoozyar:v2:settings",quizKey:"amoozyar:v2:quiz",quizHistKey:"amoozyar:v2:quizHistory",practiceKey:"amoozyar:v2:practiceHistory",awardsKey:"amoozyar:v2:awards",xpKey:"amoozyar:v2:xp",streakKey:"amoozyar:v2:streak",tourKey:"amoozyar:v2:tourDone",darkKey:"amoozyar:v2:dark",srsKey:"amoozyar:v2:srs",dailyKey:"amoozyar:v2:daily",
 majors:{math:{label:"ریاضی فیزیک"},exp:{label:"علوم تجربی"},human:{label:"علوم انسانی"}},
 grades:{10:"دهم",11:"یازدهم",12:"دوازدهم"},
 subjectsByGradeAndMajor:{
@@ -740,39 +797,50 @@ general:[{q:"تعداد وعده‌های غذایی سالم در روز:",opti
 
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>r.querySelectorAll(s);
-
-// ═══ SANITIZE (امنیت) ═══
 function sanitize(str,maxLen){if(str==null)return"";let s=String(str).replace(/[<>'"&]/g,c=>({"<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;","&":"&amp;"}[c]));return maxLen?s.slice(0,maxLen):s;}
 function sanitizeHTML(str){return String(str||"").replace(/[<>]/g,"");}
-
-const store={read(k){try{return JSON.parse(localStorage.getItem(k))||{};}catch(e){return{};}},write(k,d){try{localStorage.setItem(k,JSON.stringify(d));return true;}catch(e){return false;}},remove(k){try{localStorage.removeItem(k);}catch(e){}}};
+const store={read(k){try{return JSON.parse(localStorage.getItem(k))||{};}catch(e){console.warn("Storage read error:",e);return{};}},write(k,d){try{localStorage.setItem(k,JSON.stringify(d));return true;}catch(e){console.warn("Storage write error:",e);return false;}},remove(k){try{localStorage.removeItem(k);}catch(e){}}};
 const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function normalizeNumber(s){return String(s).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[^\d]/g,"");}
 function isValidIranPhone(p){return /^09\d{9}$/.test(normalizeNumber(p));}
 function getQuestionsForSubject(name,bank){if(bank[name])return bank[name];const cat=findCategory(name);return bank[cat]||bank.general||[];}
+function getToday(){return new Date().toISOString().slice(0,10);}
+function formatDate(d){try{return new Date(d).toLocaleDateString("fa-IR");}catch(e){return"—";}}
+
+// ═══ ERROR BOUNDARY ═══
+window.addEventListener("error",e=>{console.warn("Error caught:",e.error);});
+window.addEventListener("unhandledrejection",e=>{console.warn("Promise rejected:",e.reason);});
 
 // ═══ TOAST ═══
-function showToast(msg,sub,ico){const c=$("#toastContainer");const t=document.createElement("div");t.className="toast";t.innerHTML=`<span class="t-ico">${ico||"✨"}</span><div class="t-body">${sub?`<span class="t-sub">${sub}</span>`:""}<span class="t-msg">${sanitizeHTML(msg)}</span></div>`;c.appendChild(t);requestAnimationFrame(()=>t.classList.add("show"));setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),500);},3200);}
+function showToast(msg,sub,ico){try{const c=$("#toastContainer");const t=document.createElement("div");t.className="toast";t.innerHTML=`<span class="t-ico">${ico||"✨"}</span><div class="t-body">${sub?`<span class="t-sub">${sanitizeHTML(sub)}</span>`:""}<span class="t-msg">${sanitizeHTML(msg)}</span></div>`;c.appendChild(t);requestAnimationFrame(()=>t.classList.add("show"));setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),500);},3200);}catch(e){console.warn(e);}}
 
 // ═══ CONFETTI ═══
-function launchConfetti(){const canvas=$("#confettiCanvas");if(!canvas)return;const ctx=canvas.getContext("2d");canvas.width=innerWidth;canvas.height=innerHeight;const colors=["#5b3df5","#7c5cff","#12b58f","#ff7a3d","#ff5c93","#ffc93c","#10b981"];const parts=[];for(let i=0;i<120;i++){parts.push({x:Math.random()*canvas.width,y:-20-Math.random()*200,w:6+Math.random()*8,h:6+Math.random()*8,c:colors[Math.floor(Math.random()*colors.length)],vx:(Math.random()-.5)*3,vy:2+Math.random()*3,rot:Math.random()*360,vr:(Math.random()-.5)*10,life:1});}let frames=0;function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.08;p.rot+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.c;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});frames++;if(frames<180)requestAnimationFrame(loop);else ctx.clearRect(0,0,canvas.width,canvas.height);}loop();}
+function launchConfetti(){try{const canvas=$("#confettiCanvas");if(!canvas)return;const ctx=canvas.getContext("2d");canvas.width=innerWidth;canvas.height=innerHeight;const colors=["#5b3df5","#7c5cff","#12b58f","#ff7a3d","#ff5c93","#ffc93c","#10b981"];const parts=[];for(let i=0;i<120;i++){parts.push({x:Math.random()*canvas.width,y:-20-Math.random()*200,w:6+Math.random()*8,h:6+Math.random()*8,c:colors[Math.floor(Math.random()*colors.length)],vx:(Math.random()-.5)*3,vy:2+Math.random()*3,rot:Math.random()*360,vr:(Math.random()-.5)*10});}let frames=0;function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.08;p.rot+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.c;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});frames++;if(frames<180)requestAnimationFrame(loop);else ctx.clearRect(0,0,canvas.width,canvas.height);}loop();}catch(e){console.warn(e);}}
+
+// ═══ VERSION MIGRATION ═══
+function migrateData(){try{const oldKeys=["amoozyar:v1:auth","amoozyar:v1:profile","amoozyar:v1:settings","amoozyar:v1:quiz","amoozyar:v1:practiceHistory","amoozyar:v1:awards","amoozyar:v1:xp","amoozyar:v1:streak"];const newKeys=[CONFIG.authKey,CONFIG.profileKey,CONFIG.settingsKey,CONFIG.quizKey,CONFIG.practiceKey,CONFIG.awardsKey,CONFIG.xpKey,CONFIG.streakKey];oldKeys.forEach((old,i)=>{try{if(localStorage.getItem(old)&&!localStorage.getItem(newKeys[i])){localStorage.setItem(newKeys[i],localStorage.getItem(old));localStorage.removeItem(old);}}catch(e){}});}catch(e){console.warn("Migration error:",e);}}
+migrateData();
+
+// ═══ SRS SYSTEM ═══
+const srs={getQueue(){const d=store.read(CONFIG.srsKey)||{items:[]};return d.items||[];},add(subject,question){const d=store.read(CONFIG.srsKey)||{items:[]};if(!d.items)d.items=[];const id=`${subject}::${question.q}`;const existing=d.items.find(x=>x.id===id);if(existing){existing.repeat=Math.min((existing.repeat||1)+1,5);existing.nextReview=Date.now()+(existing.repeat*24*60*60*1000);existing.lastSeen=Date.now();}else{d.items.push({id,subject,question,repeat:1,nextReview:Date.now()+(24*60*60*1000),lastSeen:Date.now()});}if(d.items.length>100)d.items=d.items.slice(-100);store.write(CONFIG.srsKey,d);},remove(id){const d=store.read(CONFIG.srsKey)||{items:[]};d.items=(d.items||[]).filter(x=>x.id!==id);store.write(CONFIG.srsKey,d);},getDue(subject){const now=Date.now();const items=this.getQueue();return items.filter(x=>x.nextReview<=now&&(!subject||x.subject===subject));},count(){return this.getDue().length;}};
+
+// ═══ DAILY GOAL ═══
+function getDailyProgress(){const d=store.read(CONFIG.dailyKey)||{};const today=getToday();if(d.date!==today)return{date:today,questions:0,minutes:0,xp:0};return d;}
+function updateDailyProgress(delta){const d=getDailyProgress();d.questions=(d.questions||0)+(delta.questions||0);d.minutes=(d.minutes||0)+(delta.minutes||0);d.xp=(d.xp||0)+(delta.xp||0);d.date=getToday();store.write(CONFIG.dailyKey,d);}
 
 // ═══ STATE ═══
 const state={step:1,auth:{phone:"",method:""},info:{firstName:"",lastName:"",grade:"",major:""},subjects:{ranked:[],selfStudy:8,testCount:30}};
 
 // ═══ NAVIGATION ═══
 const TOTAL_STEPS=3;
-function goToStep(step){state.step=step;const real=Math.min(step,TOTAL_STEPS);$("#progressFill").style.width=(real/TOTAL_STEPS*100)+"%";$("#progressLabel").textContent=fa(real)+" از "+fa(TOTAL_STEPS);$$(".step-panel").forEach(p=>p.classList.toggle("active",parseInt(p.dataset.step,10)===step));if(step===3&&state.info.major&&state.info.grade)renderSubjects(state.info.major,state.info.grade);window.scrollTo({top:0,behavior:"smooth"});}
+function goToStep(step){try{state.step=step;const real=Math.min(step,TOTAL_STEPS);$("#progressFill").style.width=(real/TOTAL_STEPS*100)+"%";$("#progressLabel").textContent=fa(real)+" از "+fa(TOTAL_STEPS);$$(".step-panel").forEach(p=>p.classList.toggle("active",parseInt(p.dataset.step,10)===step));if(step===3&&state.info.major&&state.info.grade)renderSubjects(state.info.major,state.info.grade);window.scrollTo({top:0,behavior:"smooth"});}catch(e){console.warn(e);}}
 document.addEventListener("click",e=>{const back=e.target.closest("[data-goto]");if(!back)return;goToStep(parseInt(back.dataset.goto,10));});
-
 function setFieldError(f,m){const el=$(`[data-field="${f}"]`);if(!el)return;el.classList.add("has-error");if(m){const e=el.querySelector(".field-error");if(e)e.textContent=m;}}
 function clearAllFieldErrors(form){form.querySelectorAll(".field").forEach(f=>f.classList.remove("has-error"));}
 function showFormError(el,m){el.textContent=m;el.classList.remove("show");void el.offsetWidth;el.classList.add("show");}
 function hideFormError(el){el.classList.remove("show");}
-
 document.addEventListener("click",e=>{const t=e.target.closest(".toggle-pass");if(!t)return;const inp=document.getElementById(t.dataset.target);if(!inp)return;const isPass=inp.type==="password";inp.type=isPass?"text":"password";t.innerHTML=isPass?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;});
-
 document.querySelectorAll('input[type=tel]').forEach(input=>{input.addEventListener("input",e=>{let v=e.target.value;v=v.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));v=v.replace(/[^\d]/g,"");if(v.length>11)v=v.slice(0,11);e.target.value=v;});});
 
 // ═══ STEP 1 ═══
@@ -796,7 +864,6 @@ selfStudyInput.addEventListener("input",()=>{const v=parseInt(selfStudyInput.val
 const testCountInput=$("#test-count"),testCountVal=$("#test-count-val");
 testCountInput.addEventListener("input",()=>{const v=parseInt(testCountInput.value,10);state.subjects.testCount=v;testCountVal.textContent=fa(v)+" تست";});
 $("#finishBtn").addEventListener("click",()=>{hideFormError(error3);if(state.subjects.ranked.length<2)return showFormError(error3,"حداقل ۲ درس انتخاب کن");store.write(CONFIG.profileKey,{...state.info,subjects:state.subjects.ranked,selfStudy:state.subjects.selfStudy,testCount:state.subjects.testCount,createdAt:new Date().toISOString(),version:VERSION});const gl=CONFIG.grades[state.info.grade]||"",ml=(CONFIG.majors[state.info.major]||{}).label||"";$("#welcome-title").textContent="خوش اومدی "+state.info.firstName+"!";$("#welcome-sub").textContent="پروفایل یادگیری تو آماده شد";$("#sum-grade").textContent=gl;$("#sum-major").textContent=ml;$("#sum-study").textContent=fa(state.subjects.selfStudy)+" ساعت";$("#sum-test").textContent=fa(state.subjects.testCount)+" تست";refreshProfileChip();launchConfetti();showToast("پروفایل آماده شد!","آماده یادگیری","🎓");goToStep(4);});
-
 $("#enterMainBtn").addEventListener("click",()=>{prepareQuiz();switchTab("quiz");});
 
 // ═══ QUIZ ═══
@@ -804,55 +871,58 @@ const quiz={subject:"",questions:[],currentIndex:0,correct:0,wrong:0,answered:fa
 function prepareQuiz(){const profile=store.read(CONFIG.profileKey);const ranked=profile.subjects||[];let chosen="",qs=[];for(const s of ranked){const q=getQuestionsForSubject(s,QUESTION_BANK);if(q&&q.length>0){chosen=s;qs=q;break;}}if(!chosen){$("#qi-subject").textContent="درس انتخابی";$("#startQuizBtn").disabled=true;$("#startQuizBtn").textContent="لطفاً دروس را دوباره انتخاب کن";return;}$("#qi-subject").textContent=chosen;$("#startQuizBtn").disabled=false;$("#startQuizBtn").textContent="شروع آزمون";quiz.subject=chosen;quiz.questions=shuffle(qs).slice(0,Math.min(10,qs.length));}
 function showQuizScreen(s){$$("#view-quiz .quiz-screen").forEach(x=>x.classList.remove("active"));const el=document.getElementById("quiz-"+s);if(el)el.classList.add("active");if(s!=="question")window.scrollTo({top:0,behavior:"smooth"});}
 $("#startQuizBtn").addEventListener("click",()=>{quiz.currentIndex=0;quiz.correct=0;quiz.wrong=0;quiz.answered=false;$("#qTotal").textContent=fa(quiz.questions.length);showQuizScreen("question");renderQuestion();});
-function renderQuestion(){const q=quiz.questions[quiz.currentIndex];if(!q)return;quiz.answered=false;const n=quiz.currentIndex+1,t=quiz.questions.length;$("#qCurrent").textContent=fa(n);$("#qTotal").textContent=fa(t);$("#quizProgress").style.width=((n-1)/t*100)+"%";const qt=$("#questionText");qt.textContent=q.q;qt.animate([{opacity:.3,transform:"translateY(4px)"},{opacity:1,transform:"translateY(0)"}],{duration:220,easing:"ease-out"});const list=$("#optionsList");list.innerHTML="";const frag=document.createDocumentFragment();q.options.forEach((opt,i)=>{const btn=document.createElement("button");btn.type="button";btn.className="option-btn";btn.dataset.index=i;btn.innerHTML=`<span class="opt-num">${fa(i+1)}</span><span class="opt-text">${sanitizeHTML(opt)}</span><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>`;btn.addEventListener("click",()=>selectAnswer(i));frag.appendChild(btn);});list.appendChild(frag);}
-function selectAnswer(idx){if(quiz.answered)return;quiz.answered=true;const q=quiz.questions[quiz.currentIndex];const ok=idx===q.correct;if(ok)quiz.correct++;else quiz.wrong++;$$(".option-btn",$("#optionsList")).forEach((btn,i)=>{btn.classList.add("locked");if(i===q.correct){btn.classList.add("correct");if(i!==idx)btn.querySelector(".opt-icon").innerHTML=`<span>✓</span>`;}else if(i===idx){btn.classList.add("wrong");btn.querySelector(".opt-icon").innerHTML=`<span>✕</span>`;}else btn.classList.add("dimmed");});const n=quiz.currentIndex+1,t=quiz.questions.length;$("#quizProgress").style.width=(n/t*100)+"%";setTimeout(()=>{quiz.currentIndex++;if(quiz.currentIndex>=quiz.questions.length)showResult();else renderQuestion();},700);}
-function showResult(){const total=quiz.questions.length,percent=Math.round(quiz.correct/total*100);let level,label,emoji,desc,color;if(percent>=80){level="advanced";label="سطح پیشرفته";emoji="🏆";desc="عالی! بریم سراغ تمرین‌های چالشی.";color="var(--c-math)";}else if(percent>=50){level="intermediate";label="سطح متوسط";emoji="💪";desc="خوبه! با تمرین هدفمند پیشرفت می‌کنی.";color="var(--c-exp)";}else{level="beginner";label="سطح مبتدی";emoji="🌱";desc="نگران نباش! از پایه شروع می‌کنیم.";color="var(--c-human)";}$("#resultEmoji").textContent=emoji;const le=$("#resultLevel");le.textContent=label;le.dataset.level=level;$("#resultDesc").textContent=desc;$("#statCorrect").textContent=fa(quiz.correct);$("#statWrong").textContent=fa(quiz.wrong);$("#statPercent").textContent=fa(percent)+"٪";$("#chartPercent").textContent=fa(percent)+"٪";$("#resultChart").style.background=`conic-gradient(${color} 0% ${percent}%, var(--line) ${percent}% 100%)`;store.write(CONFIG.quizKey,{subject:quiz.subject,level:level,correct:quiz.correct,wrong:quiz.wrong,total:total,percent:percent,date:new Date().toISOString()});const hist=store.read(CONFIG.quizHistKey)||{list:[]};hist.list.push({subject:quiz.subject,level:level,percent:percent,correct:quiz.correct,total:total,date:new Date().toISOString()});store.write(CONFIG.quizHistKey,hist);addXP(quiz.correct*10);checkAwards();if(percent===100){launchConfetti();showToast("نمره کامل!","۱۰۰٪ درست","💯");}showQuizScreen("result");}
+function renderQuestion(){const q=quiz.questions[quiz.currentIndex];if(!q)return;quiz.answered=false;const n=quiz.currentIndex+1,t=quiz.questions.length;$("#qCurrent").textContent=fa(n);$("#qTotal").textContent=fa(t);$("#quizProgress").style.width=((n-1)/t*100)+"%";const qt=$("#questionText");qt.textContent=q.q;qt.animate([{opacity:.3,transform:"translateY(4px)"},{opacity:1,transform:"translateY(0)"}],{duration:220,easing:"ease-out"});const list=$("#optionsList");list.innerHTML="";const frag=document.createDocumentFragment();q.options.forEach((opt,i)=>{const btn=document.createElement("button");btn.type="button";btn.className="option-btn";btn.dataset.index=i;btn.innerHTML=`<span class="opt-num">${fa(i+1)}</span><span class="opt-text">${sanitizeHTML(opt)}</span><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="kbd-hint">${fa(i+1)}</span>`;btn.addEventListener("click",()=>selectAnswer(i));frag.appendChild(btn);});list.appendChild(frag);}
+function selectAnswer(idx){if(quiz.answered)return;quiz.answered=true;const q=quiz.questions[quiz.currentIndex];const ok=idx===q.correct;if(ok)quiz.correct++;else{quiz.wrong++;srs.add(quiz.subject,q);}updateDailyProgress({questions:1,xp:ok?10:0});$$(".option-btn",$("#optionsList")).forEach((btn,i)=>{btn.classList.add("locked");if(i===q.correct){btn.classList.add("correct");if(i!==idx)btn.querySelector(".opt-icon").innerHTML=`<span>✓</span>`;}else if(i===idx){btn.classList.add("wrong");btn.querySelector(".opt-icon").innerHTML=`<span>✕</span>`;}else btn.classList.add("dimmed");});const n=quiz.currentIndex+1,t=quiz.questions.length;$("#quizProgress").style.width=(n/t*100)+"%";setTimeout(()=>{quiz.currentIndex++;if(quiz.currentIndex>=quiz.questions.length)showResult();else renderQuestion();},700);}
+function showResult(){const total=quiz.questions.length,percent=Math.round(quiz.correct/total*100);let level,label,emoji,desc,color;if(percent>=80){level="advanced";label="سطح پیشرفته";emoji="🏆";desc="عالی! بریم سراغ تمرین‌های چالشی.";color="var(--c-math)";}else if(percent>=50){level="intermediate";label="سطح متوسط";emoji="💪";desc="خوبه! با تمرین هدفمند پیشرفت می‌کنی.";color="var(--c-exp)";}else{level="beginner";label="سطح مبتدی";emoji="🌱";desc="نگران نباش! از پایه شروع می‌کنیم.";color="var(--c-human)";}$("#resultEmoji").textContent=emoji;const le=$("#resultLevel");le.textContent=label;le.dataset.level=level;$("#resultDesc").textContent=desc;$("#statCorrect").textContent=fa(quiz.correct);$("#statWrong").textContent=fa(quiz.wrong);$("#statPercent").textContent=fa(percent)+"٪";$("#chartPercent").textContent=fa(percent)+"٪";$("#resultChart").style.background=`conic-gradient(${color} 0% ${percent}%, var(--line) ${percent}% 100%)`;store.write(CONFIG.quizKey,{subject:quiz.subject,level:level,correct:quiz.correct,wrong:quiz.wrong,total:total,percent:percent,date:new Date().toISOString()});const hist=store.read(CONFIG.quizHistKey)||{list:[]};hist.list.push({subject:quiz.subject,level:level,percent:percent,correct:quiz.correct,total:total,date:new Date().toISOString()});store.write(CONFIG.quizHistKey,hist);addXP(quiz.correct*10);checkAwards();if(percent===100){launchConfetti();showToast("نمره کامل!","۱۰۰٪ درست","💯");}else{const srsCount=srs.count();if(srsCount>0)showToast(`${fa(srsCount)} سوال برای مرور`,`به سبد SRS اضافه شد`,"🧠");}showQuizScreen("result");}
 $("#retakeBtn").addEventListener("click",()=>{prepareQuiz();showQuizScreen("intro");});
 $("#continueBtn").addEventListener("click",()=>{startPractice();switchTab("practice");});
-$("#shareQuizBtn").addEventListener("click",()=>{const r=store.read(CONFIG.quizKey);const txt=`آموزیار 🎓\nدرس: ${r.subject}\nنتیجه: ${r.percent}٪\nسطح: ${r.level==="advanced"?"پیشرفته":r.level==="intermediate"?"متوسط":"مبتدی"}`;navigator.clipboard?.writeText(txt).then(()=>showToast("نتیجه کپی شد!","برای اشتراک","📤")).catch(()=>showToast("کپی نشد","دستی کپی کن","⚠️"));});
+$("#shareQuizBtn").addEventListener("click",()=>{const r=store.read(CONFIG.quizKey);const txt=`آموزیار 🎓\nدرس: ${r.subject}\nنتیجه: ${r.percent}٪\nسطح: ${r.level==="advanced"?"پیشرفته":r.level==="intermediate"?"متوسط":"مبتدی"}`;if(navigator.share){navigator.share({title:"نتیجه آموزیار",text:txt}).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>showToast("نتیجه کپی شد!","برای اشتراک","📤")).catch(()=>showToast("کپی نشد","دستی کپی کن","⚠️"));}});
 
 // ═══ PRACTICE ═══
-const practice={subject:"",level:2,streak:0,wrongStreak:0,askedIdx:[],sessionCorrect:0,sessionWrong:0,answered:false,currentQ:null,startedAt:null,isPaused:false};
-function startPractice(){const profile=store.read(CONFIG.profileKey);const ranked=profile.subjects||[];const qr=store.read(CONFIG.quizKey);let subj="";for(const s of ranked){const q=getQuestionsForSubject(s,PRACTICE_BANK);if(q&&q.length>0){subj=s;break;}}if(!subj){showToast("درس مناسب پیدا نشد","دوباره امتحان کن","⚠️");return;}practice.subject=subj;practice.level=qr.level==="advanced"?3:qr.level==="beginner"?1:2;practice.streak=0;practice.wrongStreak=0;practice.askedIdx=[];practice.sessionCorrect=0;practice.sessionWrong=0;practice.startedAt=new Date().toISOString();practice.isPaused=false;updatePracticeUI();nextPracticeQuestion();showPracticeScreen("main");}
-function updatePracticeUI(){const badge=$("#levelBadge");const icons={1:"🌱",2:"💪",3:"🏆"},labels={1:"سطح مبتدی",2:"سطح متوسط",3:"سطح پیشرفته"};badge.dataset.level=practice.level;$("#levelIcon").textContent=icons[practice.level];$("#levelText").textContent=labels[practice.level];const dots=$$("#streakDots .streak-dot");dots.forEach((d,i)=>d.classList.toggle("on",i<practice.streak));const total=practice.sessionCorrect+practice.sessionWrong,rate=total>0?Math.round(practice.sessionCorrect/total*100):0;$("#pCorrect").textContent=fa(practice.sessionCorrect);$("#pWrong").textContent=fa(practice.sessionWrong);$("#pRate").textContent=fa(rate)+"٪";}
-function nextPracticeQuestion(){const pool=getQuestionsForSubject(practice.subject,PRACTICE_BANK);const levelPool=pool.map((q,i)=>({q,i})).filter(x=>x.q.level===practice.level&&!practice.askedIdx.includes(x.i));let cand=levelPool;if(cand.length===0)cand=pool.map((q,i)=>({q,i})).filter(x=>!practice.askedIdx.includes(x.i));if(cand.length===0){practice.askedIdx=[];return nextPracticeQuestion();}const pick=cand[Math.floor(Math.random()*cand.length)];practice.askedIdx.push(pick.i);practice.currentQ=pick.q;practice.answered=false;renderPracticeQuestion(pick.q);}
-function renderPracticeQuestion(q){const qt=$("#pQuestionText");qt.textContent=q.q;qt.animate([{opacity:.3,transform:"translateY(4px)"},{opacity:1,transform:"translateY(0)"}],{duration:220,easing:"ease-out"});const list=$("#pOptionsList");list.innerHTML="";const frag=document.createDocumentFragment();q.options.forEach((opt,i)=>{const btn=document.createElement("button");btn.type="button";btn.className="option-btn";btn.innerHTML=`<span class="opt-num">${fa(i+1)}</span><span class="opt-text">${sanitizeHTML(opt)}</span><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>`;btn.addEventListener("click",()=>selectPracticeAnswer(i));frag.appendChild(btn);});list.appendChild(frag);}
-function selectPracticeAnswer(idx){if(practice.answered||practice.isPaused)return;practice.answered=true;const q=practice.currentQ,ok=idx===q.correct;if(ok){practice.sessionCorrect++;practice.streak++;practice.wrongStreak=0;addXP(5);if(practice.streak>=3&&practice.level<3){practice.level++;practice.streak=0;const b=$("#levelBadge");b.classList.add("flash");setTimeout(()=>b.classList.remove("flash"),700);showToast("سطح بالا رفت!","۳ درست پشت سر هم","🚀");}}else{practice.sessionWrong++;practice.wrongStreak++;practice.streak=0;if(practice.wrongStreak>=2&&practice.level>1){practice.level--;practice.wrongStreak=0;}}$$(".option-btn",$("#pOptionsList")).forEach((btn,i)=>{btn.classList.add("locked");if(i===q.correct)btn.classList.add("correct");else if(i===idx){btn.classList.add("wrong");btn.querySelector(".opt-icon").innerHTML=`<span>✕</span>`;}else btn.classList.add("dimmed");});updatePracticeUI();checkAwards();setTimeout(()=>nextPracticeQuestion(),700);}
+const practice={subject:"",level:2,streak:0,wrongStreak:0,askedIdx:[],sessionCorrect:0,sessionWrong:0,answered:false,currentQ:null,startedAt:null,isPaused:false,usingSRS:false};
+function startPractice(){try{const profile=store.read(CONFIG.profileKey);const ranked=profile.subjects||[];const qr=store.read(CONFIG.quizKey);let subj="";for(const s of ranked){const q=getQuestionsForSubject(s,PRACTICE_BANK);if(q&&q.length>0){subj=s;break;}}if(!subj){showToast("درس مناسب پیدا نشد","دوباره امتحان کن","⚠️");return;}practice.subject=subj;practice.level=qr.level==="advanced"?3:qr.level==="beginner"?1:2;practice.streak=0;practice.wrongStreak=0;practice.askedIdx=[];practice.sessionCorrect=0;practice.sessionWrong=0;practice.startedAt=new Date().toISOString();practice.isPaused=false;practice.usingSRS=false;updatePracticeUI();nextPracticeQuestion();showPracticeScreen("main");}catch(e){console.warn(e);}}
+function updatePracticeUI(){const badge=$("#levelBadge");const icons={1:"🌱",2:"💪",3:"🏆"},labels={1:"سطح مبتدی",2:"سطح متوسط",3:"سطح پیشرفته"};badge.dataset.level=practice.level;$("#levelIcon").textContent=icons[practice.level];$("#levelText").textContent=labels[practice.level];const dots=$$("#streakDots .streak-dot");dots.forEach((d,i)=>d.classList.toggle("on",i<practice.streak));const total=practice.sessionCorrect+practice.sessionWrong,rate=total>0?Math.round(practice.sessionCorrect/total*100):0;$("#pCorrect").textContent=fa(practice.sessionCorrect);$("#pWrong").textContent=fa(practice.sessionWrong);$("#pRate").textContent=fa(rate)+"٪";const srsCount=srs.count();$("#srsCount").textContent=fa(srsCount);$("#srsBadge").classList.toggle("active",srsCount>0);}
+function nextPracticeQuestion(){try{const due=srs.getDue(practice.subject);if(due.length>0&&Math.random()<0.3){const pick=due[Math.floor(Math.random()*due.length)];practice.currentQ=pick.question;practice.answered=false;practice.usingSRS=true;renderPracticeQuestion(pick.question,true);return;}practice.usingSRS=false;const pool=getQuestionsForSubject(practice.subject,PRACTICE_BANK);const levelPool=pool.map((q,i)=>({q,i})).filter(x=>x.q.level===practice.level&&!practice.askedIdx.includes(x.i));let cand=levelPool;if(cand.length===0)cand=pool.map((q,i)=>({q,i})).filter(x=>!practice.askedIdx.includes(x.i));if(cand.length===0){practice.askedIdx=[];return nextPracticeQuestion();}const pick=cand[Math.floor(Math.random()*cand.length)];practice.askedIdx.push(pick.i);practice.currentQ=pick.q;practice.answered=false;renderPracticeQuestion(pick.q,false);}catch(e){console.warn(e);}}
+function renderPracticeQuestion(q,isSRS){const qt=$("#pQuestionText");qt.textContent=(isSRS?"🧠 ":"")+q.q;qt.animate([{opacity:.3,transform:"translateY(4px)"},{opacity:1,transform:"translateY(0)"}],{duration:220,easing:"ease-out"});const list=$("#pOptionsList");list.innerHTML="";const frag=document.createDocumentFragment();q.options.forEach((opt,i)=>{const btn=document.createElement("button");btn.type="button";btn.className="option-btn";btn.innerHTML=`<span class="opt-num">${fa(i+1)}</span><span class="opt-text">${sanitizeHTML(opt)}</span><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="kbd-hint">${fa(i+1)}</span>`;btn.addEventListener("click",()=>selectPracticeAnswer(i));frag.appendChild(btn);});list.appendChild(frag);}
+function selectPracticeAnswer(idx){if(practice.answered||practice.isPaused)return;practice.answered=true;const q=practice.currentQ,ok=idx===q.correct;if(ok){practice.sessionCorrect++;practice.streak++;practice.wrongStreak=0;addXP(5);updateDailyProgress({questions:1,xp:5});if(practice.usingSRS)srs.remove(`${practice.subject}::${q.q}`);if(practice.streak>=3&&practice.level<3){practice.level++;practice.streak=0;const b=$("#levelBadge");b.classList.add("flash");setTimeout(()=>b.classList.remove("flash"),700);showToast("سطح بالا رفت!","۳ درست پشت سر هم","🚀");}}else{practice.sessionWrong++;practice.wrongStreak++;practice.streak=0;updateDailyProgress({questions:1});srs.add(practice.subject,q);if(practice.wrongStreak>=2&&practice.level>1){practice.level--;practice.wrongStreak=0;}}$$(".option-btn",$("#pOptionsList")).forEach((btn,i)=>{btn.classList.add("locked");if(i===q.correct)btn.classList.add("correct");else if(i===idx){btn.classList.add("wrong");btn.querySelector(".opt-icon").innerHTML=`<span>✕</span>`;}else btn.classList.add("dimmed");});updatePracticeUI();checkAwards();setTimeout(()=>nextPracticeQuestion(),700);}
 function showPracticeScreen(s){$$("#view-practice .quiz-screen").forEach(x=>x.classList.remove("active"));const el=document.getElementById("practice-"+s);if(el)el.classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
 $("#endPracticeBtn").addEventListener("click",()=>{const total=practice.sessionCorrect+practice.sessionWrong,rate=total>0?Math.round(practice.sessionCorrect/total*100):0;$("#sumPCorrect").textContent=fa(practice.sessionCorrect);$("#sumPWrong").textContent=fa(practice.sessionWrong);$("#sumPRate").textContent=fa(rate)+"٪";const hist=store.read(CONFIG.practiceKey)||{};if(!hist.sessions)hist.sessions=[];hist.sessions.push({subject:practice.subject,level:practice.level,correct:practice.sessionCorrect,wrong:practice.sessionWrong,rate:rate,date:new Date().toISOString(),startedAt:practice.startedAt});store.write(CONFIG.practiceKey,hist);updateStreak();checkAwards();showPracticeScreen("summary");});
 $("#newPracticeBtn").addEventListener("click",()=>startPractice());
 $("#backHomeBtn").addEventListener("click",()=>switchTab("home"));
 $("#pauseBtn").addEventListener("click",()=>{practice.isPaused=!practice.isPaused;$("#pauseBtn").textContent=practice.isPaused?"▶️":"⏸️";if(practice.isPaused)showToast("تمرین متوقف شد","برای ادامه دکمه رو بزن","⏸️");else showToast("ادامه بده!","","▶️");});
-$("#sharePracticeBtn").addEventListener("click",()=>{const total=practice.sessionCorrect+practice.sessionWrong,rate=total>0?Math.round(practice.sessionCorrect/total*100):0;const txt=`آموزیار 🎯\nتمرین ${practice.subject}\nدرست: ${practice.sessionCorrect}\nغلط: ${practice.sessionWrong}\nدرصد: ${rate}٪`;navigator.clipboard?.writeText(txt).then(()=>showToast("نتیجه کپی شد!","","📤"));});
+$("#sharePracticeBtn").addEventListener("click",()=>{const total=practice.sessionCorrect+practice.sessionWrong,rate=total>0?Math.round(practice.sessionCorrect/total*100):0;const txt=`آموزیار 🎯\nتمرین ${practice.subject}\nدرست: ${practice.sessionCorrect}\nغلط: ${practice.sessionWrong}\nدرصد: ${rate}٪`;if(navigator.share){navigator.share({title:"نتیجه آموزیار",text:txt}).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>showToast("نتیجه کپی شد!","","📤"));}});
 
-function addXP(a){const d=store.read(CONFIG.xpKey)||{xp:0,level:1};d.xp=(d.xp||0)+a;d.level=Math.floor(d.xp/100)+1;store.write(CONFIG.xpKey,d);}
-function updateStreak(){const d=store.read(CONFIG.streakKey)||{days:[],count:0,best:0};const today=new Date().toISOString().slice(0,10);if(!d.days)d.days=[];if(!d.days.includes(today))d.days.push(today);const uniq=[...new Set(d.days)].sort().reverse();let streak=0,cd=new Date(today);for(let i=0;i<uniq.length;i++){const ds=cd.toISOString().slice(0,10);if(uniq.includes(ds)){streak++;cd.setDate(cd.getDate()-1);}else break;}d.count=streak;d.best=Math.max(d.best||0,streak);store.write(CONFIG.streakKey,d);}
+function addXP(a){try{const d=store.read(CONFIG.xpKey)||{xp:0,level:1};const oldLevel=d.level||1;d.xp=(d.xp||0)+a;d.level=Math.floor(d.xp/100)+1;store.write(CONFIG.xpKey,d);if(d.level>oldLevel)showToast(`سطح ${fa(d.level)}!`,"ادامه بده","⭐");}catch(e){console.warn(e);}}
+function updateStreak(){try{const d=store.read(CONFIG.streakKey)||{days:[],count:0,best:0};const today=getToday();if(!d.days)d.days=[];if(!d.days.includes(today))d.days.push(today);const uniq=[...new Set(d.days)].sort().reverse();let streak=0,cd=new Date(today);for(let i=0;i<uniq.length;i++){const ds=cd.toISOString().slice(0,10);if(uniq.includes(ds)){streak++;cd.setDate(cd.getDate()-1);}else break;}d.count=streak;d.best=Math.max(d.best||0,streak);store.write(CONFIG.streakKey,d);}catch(e){console.warn(e);}}
 
 // ═══ AWARDS ═══
 const AWARDS=[
-{id:"first-quiz",icon:"🎯",name:"اولین قدم",desc:"اولین آزمون رو تموم کن",check:()=>{const h=store.read(CONFIG.quizHistKey);return h.list&&h.list.length>=1;}},
-{id:"first-practice",icon:"💪",name:"شروع تمرین",desc:"اولین جلسه تمرین رو کامل کن",check:()=>{const h=store.read(CONFIG.practiceKey);return h.sessions&&h.sessions.length>=1;}},
-{id:"perfect-score",icon:"💯",name:"نمره کامل",desc:"تو یه آزمون ۱۰۰٪ بگیری",check:()=>{const h=store.read(CONFIG.quizHistKey);return h.list&&h.list.some(q=>q.percent===100);}},
-{id:"level-up",icon:"🏆",name:"پیشرفت",desc:"به سطح پیشرفته برسی",check:()=>{const q=store.read(CONFIG.quizKey);return q.level==="advanced";}},
-{id:"hundred-correct",icon:"🔥",name:"صد تایی",desc:"۱۰۰ پاسخ درست بده",check:()=>{const h=store.read(CONFIG.practiceKey),qh=store.read(CONFIG.quizHistKey);const a=(h.sessions||[]).reduce((s,x)=>s+(x.correct||0),0);const b=(qh.list||[]).reduce((s,x)=>s+(x.correct||0),0);return(a+b)>=100;}},
-{id:"streak-3",icon:"⚡",name:"سه‌روزه",desc:"۳ روز پشت سر هم تمرین کن",check:()=>{const s=store.read(CONFIG.streakKey);return s.count>=3;}},
-{id:"streak-7",icon:"🌟",name:"هفت‌روزه",desc:"یه هفته پشت سر هم فعال باش",check:()=>{const s=store.read(CONFIG.streakKey);return s.count>=7;}},
-{id:"three-sessions",icon:"📚",name:"درس‌خوان",desc:"۳ جلسه تمرین کامل کن",check:()=>{const h=store.read(CONFIG.practiceKey);return h.sessions&&h.sessions.length>=3;}},
-{id:"level-5",icon:"🚀",name:"سطح ۵",desc:"به سطح ۵ برسی",check:()=>{const xp=store.read(CONFIG.xpKey);return xp.level>=5;}},
-{id:"master",icon:"👑",name:"استاد",desc:"همه ۹ نشان دیگه رو بگیری",check:()=>{const a=store.read(CONFIG.awardsKey)||{};return(a.unlocked||[]).length>=9;}}];
-function checkAwards(){const d=store.read(CONFIG.awardsKey)||{unlocked:[]};if(!d.unlocked)d.unlocked=[];AWARDS.forEach(a=>{if(!d.unlocked.includes(a.id)&&a.check()){d.unlocked.push(a.id);showToast(a.name,"دستاورد جدید!",a.icon);}});store.write(CONFIG.awardsKey,d);}
-function renderAwards(){const d=store.read(CONFIG.awardsKey)||{unlocked:[]};const un=d.unlocked||[];const grid=$("#awardsGrid");grid.innerHTML="";const frag=document.createDocumentFragment();AWARDS.forEach(a=>{const u=un.includes(a.id);const c=document.createElement("div");c.className="award-card"+(u?" unlocked":"");c.innerHTML=`<span class="aw-lock">🔒</span><span class="aw-ico">${a.icon}</span><h4 class="aw-name">${a.name}</h4><p class="aw-desc">${a.desc}</p>`;frag.appendChild(c);});grid.appendChild(frag);const c=un.length,t=AWARDS.length;$("#awardsSubtitle").textContent=c===0?"هنوز شروع نکردی!":`${fa(c)} از ${fa(t)} نشان رو گرفتی`;}
+{id:"first-quiz",icon:"🎯",name:"اولین قدم",desc:"اولین آزمون رو تموم کن",progress:()=>{const h=store.read(CONFIG.quizHistKey);return Math.min((h.list||[]).length,1);},total:1,check:()=>{const h=store.read(CONFIG.quizHistKey);return h.list&&h.list.length>=1;}},
+{id:"first-practice",icon:"💪",name:"شروع تمرین",desc:"اولین جلسه تمرین رو کامل کن",progress:()=>{const h=store.read(CONFIG.practiceKey);return Math.min((h.sessions||[]).length,1);},total:1,check:()=>{const h=store.read(CONFIG.practiceKey);return h.sessions&&h.sessions.length>=1;}},
+{id:"perfect-score",icon:"💯",name:"نمره کامل",desc:"تو یه آزمون ۱۰۰٪ بگیری",progress:()=>{const h=store.read(CONFIG.quizHistKey);return h.list&&h.list.some(q=>q.percent===100)?1:0;},total:1,check:()=>{const h=store.read(CONFIG.quizHistKey);return h.list&&h.list.some(q=>q.percent===100);}},
+{id:"level-up",icon:"🏆",name:"پیشرفت",desc:"به سطح پیشرفته برسی",progress:()=>{const q=store.read(CONFIG.quizKey);return q.level==="advanced"?1:0;},total:1,check:()=>{const q=store.read(CONFIG.quizKey);return q.level==="advanced";}},
+{id:"hundred-correct",icon:"🔥",name:"صد تایی",desc:"۱۰۰ پاسخ درست بده",progress:()=>{const h=store.read(CONFIG.practiceKey),qh=store.read(CONFIG.quizHistKey);const a=(h.sessions||[]).reduce((s,x)=>s+(x.correct||0),0);const b=(qh.list||[]).reduce((s,x)=>s+(x.correct||0),0);return Math.min(a+b,100);},total:100,check:()=>{const h=store.read(CONFIG.practiceKey),qh=store.read(CONFIG.quizHistKey);const a=(h.sessions||[]).reduce((s,x)=>s+(x.correct||0),0);const b=(qh.list||[]).reduce((s,x)=>s+(x.correct||0),0);return(a+b)>=100;}},
+{id:"streak-3",icon:"⚡",name:"سه‌روزه",desc:"۳ روز پشت سر هم تمرین کن",progress:()=>{const s=store.read(CONFIG.streakKey);return Math.min(s.count||0,3);},total:3,check:()=>{const s=store.read(CONFIG.streakKey);return s.count>=3;}},
+{id:"streak-7",icon:"🌟",name:"هفت‌روزه",desc:"یه هفته پشت سر هم فعال باش",progress:()=>{const s=store.read(CONFIG.streakKey);return Math.min(s.count||0,7);},total:7,check:()=>{const s=store.read(CONFIG.streakKey);return s.count>=7;}},
+{id:"three-sessions",icon:"📚",name:"درس‌خوان",desc:"۳ جلسه تمرین کامل کن",progress:()=>{const h=store.read(CONFIG.practiceKey);return Math.min((h.sessions||[]).length,3);},total:3,check:()=>{const h=store.read(CONFIG.practiceKey);return h.sessions&&h.sessions.length>=3;}},
+{id:"level-5",icon:"🚀",name:"سطح ۵",desc:"به سطح ۵ برسی",progress:()=>{const xp=store.read(CONFIG.xpKey);return Math.min(xp.level||1,5);},total:5,check:()=>{const xp=store.read(CONFIG.xpKey);return xp.level>=5;}},
+{id:"master",icon:"👑",name:"استاد",desc:"همه ۹ نشان دیگه رو بگیری",progress:()=>{const a=store.read(CONFIG.awardsKey)||{};return Math.min((a.unlocked||[]).length,9);},total:9,check:()=>{const a=store.read(CONFIG.awardsKey)||{};return(a.unlocked||[]).length>=9;}}];
+function checkAwards(){try{const d=store.read(CONFIG.awardsKey)||{unlocked:[]};if(!d.unlocked)d.unlocked=[];AWARDS.forEach(a=>{if(!d.unlocked.includes(a.id)&&a.check()){d.unlocked.push(a.id);showToast(a.name,"دستاورد جدید!",a.icon);launchConfetti();}});store.write(CONFIG.awardsKey,d);}catch(e){console.warn(e);}}
+function renderAwards(){const d=store.read(CONFIG.awardsKey)||{unlocked:[]};const un=d.unlocked||[];const grid=$("#awardsGrid");grid.innerHTML="";const frag=document.createDocumentFragment();AWARDS.forEach(a=>{const u=un.includes(a.id);const c=document.createElement("div");c.className="award-card"+(u?" unlocked":"");let prog="";if(!u&&a.progress&&a.total){try{const p=a.progress(),pct=Math.min(100,Math.round(p/a.total*100));prog=`<div class="aw-progress"><div style="width:${pct}%"></div></div><div class="aw-progress-text">${fa(p)} از ${fa(a.total)}</div>`;}catch(e){}}c.innerHTML=`<span class="aw-lock">🔒</span><span class="aw-ico">${a.icon}</span><h4 class="aw-name">${a.name}</h4><p class="aw-desc">${a.desc}</p>${prog}`;frag.appendChild(c);});grid.appendChild(frag);const c=un.length,t=AWARDS.length;$("#awardsSubtitle").textContent=c===0?"هنوز شروع نکردی!":`${fa(c)} از ${fa(t)} نشان رو گرفتی`;}
 
 // ═══ DASHBOARD ═══
 let progressChartInstance=null;
-function renderDashboard(){const qh=store.read(CONFIG.quizHistKey)||{list:[]};const ph=store.read(CONFIG.practiceKey)||{sessions:[]};const sd=store.read(CONFIG.streakKey)||{count:0};const qc=(qh.list||[]).length,pc=(ph.sessions||[]).length;const tc=(qh.list||[]).reduce((s,q)=>s+(q.correct||0),0)+(ph.sessions||[]).reduce((s,p)=>s+(p.correct||0),0);$("#stQuizCount").textContent=fa(qc);$("#stPracticeCount").textContent=fa(pc);$("#stTotalCorrect").textContent=fa(tc);$("#stStreak").textContent=fa(sd.count||0);renderProgressChart(qh.list||[],ph.sessions||[]);renderSubjectProgress(qh.list||[],ph.sessions||[]);renderHistory(ph.sessions||[]);}
+function renderDashboard(){try{const qh=store.read(CONFIG.quizHistKey)||{list:[]};const ph=store.read(CONFIG.practiceKey)||{sessions:[]};const sd=store.read(CONFIG.streakKey)||{count:0};const qc=(qh.list||[]).length,pc=(ph.sessions||[]).length;const tc=(qh.list||[]).reduce((s,q)=>s+(q.correct||0),0)+(ph.sessions||[]).reduce((s,p)=>s+(p.correct||0),0);$("#stQuizCount").textContent=fa(qc);$("#stPracticeCount").textContent=fa(pc);$("#stTotalCorrect").textContent=fa(tc);$("#stStreak").textContent=fa(sd.count||0);renderDailyGoal();renderProgressChart(qh.list||[],ph.sessions||[]);renderWeakness(qh.list||[],ph.sessions||[]);renderSubjectProgress(qh.list||[],ph.sessions||[]);renderHeatmap(ph.sessions||[],qh.list||[]);renderHistory(ph.sessions||[]);}catch(e){console.warn(e);}}
+function renderDailyGoal(){const p=getDailyProgress();const total=p.questions||0;const goal=10;const pct=Math.min(100,Math.round(total/goal*100));const ring=$("#goalRing");if(ring){const circ=2*Math.PI*26;ring.style.strokeDashoffset=circ-(pct/100)*circ;}if(total>=goal){$("#goalTitle").textContent="🎉 هدف امروز کامل شد!";$("#goalDesc").textContent=`${fa(total)} تست — آفرین!`;}else if(total===0){$("#goalTitle").textContent="هنوز شروع نکردی!";$("#goalDesc").textContent=`هدف: ${fa(goal)} تست امروز`;}else{$("#goalTitle").textContent=`${fa(total)} از ${fa(goal)} تست`;$("#goalDesc").textContent=`${fa(pct)}٪ — ادامه بده!`;}}
+function renderWeakness(ql,ps){const el=$("#weaknessAnalysis");const byS={};const add=(subj,ok)=>{if(!subj)return;if(!byS[subj])byS[subj]={c:0,t:0};byS[subj].t++;if(ok)byS[subj].c++;};ql.forEach(q=>{if(!q.subject)return;for(let i=0;i<q.correct;i++)add(q.subject,true);for(let i=0;i<(q.total-q.correct);i++)add(q.subject,false);});ps.forEach(p=>{if(!p.subject)return;for(let i=0;i<p.correct;i++)add(p.subject,true);for(let i=0;i<p.wrong;i++)add(p.subject,false);});const entries=Object.entries(byS).filter(([k,v])=>v.t>=3);if(entries.length===0){el.innerHTML=`<div class="empty-state"><div class="ico">🔍</div><p style="margin:0;font-size:.88rem">حداقل ۳ پاسخ تو هر درس بدی، تحلیل میاد</p></div>`;return;}const sorted=entries.map(([k,v])=>({k,rate:Math.round(v.c/v.t*100),t:v.t})).sort((a,b)=>a.rate-b.rate);const weak=sorted.filter(x=>x.rate<60).slice(0,3);const strong=sorted.filter(x=>x.rate>=80).slice(0,3);let html="";if(weak.length){html+=`<div style="margin-bottom:12px"><div style="font-size:.82rem;font-weight:700;color:var(--danger);margin-bottom:8px">⚠️ نقاط ضعف (نیاز به تمرین)</div><div>${weak.map(x=>`<span class="weakness-tag">📉 ${sanitizeHTML(x.k)} — ${fa(x.rate)}٪</span>`).join("")}</div></div>`;}if(strong.length){html+=`<div><div style="font-size:.82rem;font-weight:700;color:var(--success);margin-bottom:8px">✨ نقاط قوت</div><div>${strong.map(x=>`<span class="strength-tag">💪 ${sanitizeHTML(x.k)} — ${fa(x.rate)}٪</span>`).join("")}</div></div>`;}if(!html){html=`<div style="text-align:center;color:var(--ink-soft);font-size:.85rem">عملکردت متعادله 👍</div>`;}el.innerHTML=html;}
 function renderProgressChart(ql,ps){const canvas=$("#progressChart");if(!canvas)return;if(progressChartInstance){progressChartInstance.destroy();progressChartInstance=null;}const all=[...ql.map(q=>({date:q.date,percent:q.percent})),...ps.map(p=>({date:p.date,percent:p.rate}))].sort((a,b)=>new Date(a.date)-new Date(b.date));if(all.length===0){canvas.parentElement.innerHTML=`<div class="empty-state"><div class="ico">📈</div><p style="margin:0;font-size:.88rem">هنوز داده‌ای برای نمایش نیست</p></div>`;return;}if(typeof Chart==="undefined"){canvas.parentElement.innerHTML=`<div class="empty-state"><div class="ico">📈</div><p style="margin:0;font-size:.88rem">نمودار در حال بارگذاری...</p></div>`;setTimeout(()=>renderProgressChart(ql,ps),800);return;}const labels=all.map((_,i)=>fa(i+1));const data=all.map(a=>a.percent);const accentColor=getComputedStyle(document.documentElement).getPropertyValue("--accent").trim()||"#5b3df5";progressChartInstance=new Chart(canvas,{type:"line",data:{labels,datasets:[{label:"درصد",data,borderColor:accentColor,backgroundColor:accentColor+"22",borderWidth:3,tension:.4,fill:true,pointBackgroundColor:"#fff",pointBorderColor:accentColor,pointBorderWidth:2,pointRadius:5,pointHoverRadius:7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{rtl:true,titleFont:{family:"Vazirmatn"},bodyFont:{family:"Vazirmatn"},callbacks:{label:ctx=>`${ctx.parsed.y}٪`}}},scales:{y:{beginAtZero:true,max:100,ticks:{font:{family:"Vazirmatn"},callback:v=>v+"٪"},grid:{color:"#e5e8f5"}},x:{ticks:{font:{family:"Vazirmatn"},maxTicksLimit:10},grid:{display:false}}}}});}
 function renderSubjectProgress(ql,ps){const list=$("#subjectProgressList");const byS={};ql.forEach(q=>{if(!q.subject)return;if(!byS[q.subject])byS[q.subject]={correct:0,total:0};byS[q.subject].correct+=q.correct||0;byS[q.subject].total+=q.total||0;});ps.forEach(p=>{if(!p.subject)return;if(!byS[p.subject])byS[p.subject]={correct:0,total:0};byS[p.subject].correct+=p.correct||0;byS[p.subject].total+=(p.correct||0)+(p.wrong||0);});const entries=Object.entries(byS);if(entries.length===0){list.innerHTML=`<div class="empty-state"><div class="ico">📚</div><p style="margin:0;font-size:.88rem">هنوز تمرینی انجام ندی</p></div>`;return;}list.innerHTML="";const accentColor=getComputedStyle(document.documentElement).getPropertyValue("--accent").trim()||"#5b3df5";const frag=document.createDocumentFragment();entries.forEach(([name,data])=>{const rate=data.total>0?Math.round(data.correct/data.total*100):0;const row=document.createElement("div");row.className="sp-row";let bc=accentColor;if(rate>=80)bc="#10b981";else if(rate<50)bc="#e11d48";row.innerHTML=`<span class="sp-name">${sanitizeHTML(name)}</span><div class="sp-bar"><div style="width:${rate}%;background:${bc}"></div></div><span class="sp-val">${fa(rate)}٪</span>`;frag.appendChild(row);});list.appendChild(frag);}
-function renderHistory(sessions){const list=$("#historyList");if(!sessions||sessions.length===0){list.innerHTML=`<div class="empty-state"><div class="ico">🕐</div><p style="margin:0;font-size:.88rem">هنوز جلسه‌ای ثبت نشده</p></div>`;return;}const recent=[...sessions].reverse().slice(0,8);list.innerHTML="";const frag=document.createDocumentFragment();recent.forEach(s=>{const d=new Date(s.date);const ds=fa(d.toLocaleDateString("fa-IR"));const row=document.createElement("div");row.className="sp-row";row.innerHTML=`<span class="sp-name" style="min-width:auto">${sanitizeHTML(s.subject)}</span><span style="flex:1;color:var(--ink-soft);font-size:.78rem">${ds}</span><span class="sp-val" style="color:${s.rate>=70?"#10b981":s.rate>=50?"#f59e0b":"#e11d48"}">${fa(s.rate)}٪</span>`;frag.appendChild(row);});list.appendChild(frag);}
+function renderHeatmap(ps,ql){const el=$("#heatmap");if(!el)return;const activity={};const addDay=d=>{if(!d)return;const day=d.slice(0,10);activity[day]=(activity[day]||0)+1;};ps.forEach(p=>addDay(p.date));ql.forEach(q=>addDay(q.date));const days=[];const today=new Date();for(let i=34;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));}el.innerHTML="";const frag=document.createDocumentFragment();days.forEach(d=>{const c=activity[d]||0;const cell=document.createElement("div");cell.className="heat-cell";if(c>=1&&c<3)cell.classList.add("l1");else if(c>=3&&c<6)cell.classList.add("l2");else if(c>=6&&c<10)cell.classList.add("l3");else if(c>=10)cell.classList.add("l4");cell.title=`${formatDate(d)}: ${fa(c)} فعالیت`;frag.appendChild(cell);});el.appendChild(frag);}
+function renderHistory(sessions){const list=$("#historyList");if(!sessions||sessions.length===0){list.innerHTML=`<div class="empty-state"><div class="ico">🕐</div><p style="margin:0;font-size:.88rem">هنوز جلسه‌ای ثبت نشده</p></div>`;return;}const recent=[...sessions].reverse().slice(0,8);list.innerHTML="";const frag=document.createDocumentFragment();recent.forEach(s=>{const ds=formatDate(s.date);const row=document.createElement("div");row.className="sp-row";row.innerHTML=`<span class="sp-name" style="min-width:auto">${sanitizeHTML(s.subject)}</span><span style="flex:1;color:var(--ink-soft);font-size:.78rem">${ds}</span><span class="sp-val" style="color:${s.rate>=70?"#10b981":s.rate>=50?"#f59e0b":"#e11d48"}">${fa(s.rate)}٪</span>`;frag.appendChild(row);});list.appendChild(frag);}
 
 // ═══ PROFILE ═══
 function refreshProfileChip(){const d=store.read(CONFIG.profileKey);const ne=$("#profileName"),me=$("#profileMeta");if(d.firstName){ne.textContent=d.firstName+" "+(d.lastName||"");const gl=CONFIG.grades[d.grade]||"",ml=(CONFIG.majors[d.major]||{}).label||"";me.textContent=[gl,ml].filter(Boolean).join(" · ")||"آماده شروع";}else{ne.textContent="مهمان";me.textContent="وارد نشده";}}
-function renderProfilePage(){const d=store.read(CONFIG.profileKey);const auth=store.read(CONFIG.authKey);const xp=store.read(CONFIG.xpKey)||{xp:0,level:1};if(d.firstName){$("#userNameFull").textContent=d.firstName+" "+(d.lastName||"");const gl=CONFIG.grades[d.grade]||"",ml=(CONFIG.majors[d.major]||{}).label||"";$("#userMetaFull").textContent=[gl,ml].filter(Boolean).join(" · ");const b=$("#userBadges");b.innerHTML="";if(gl)b.innerHTML+=`<span class="ub">📚 ${gl}</span>`;if(ml)b.innerHTML+=`<span class="ub">🎓 ${ml}</span>`;b.innerHTML+=`<span class="ub">⚡ سطح ${fa(xp.level)}</span>`;$("#aboutAuthor").textContent=d.firstName+" "+(d.lastName||"");$("#aboutGradeMajor").textContent=[gl,ml].filter(Boolean).join(" · ");if(auth.phone){$("#aboutPhone").textContent=auth.phone.replace(/(\d{4})(\d{3})(\d{4})/,"$1 $2 $3");}else $("#aboutPhone").textContent="—";if(d.createdAt){const dt=new Date(d.createdAt);$("#aboutDate").textContent=fa(dt.toLocaleDateString("fa-IR"));}}else{$("#userNameFull").textContent="مهمان";$("#userMetaFull").textContent="وارد نشده";$("#userBadges").innerHTML="";$("#aboutAuthor").textContent="—";$("#aboutPhone").textContent="—";$("#aboutGradeMajor").textContent="—";}}
+function renderProfilePage(){const d=store.read(CONFIG.profileKey);const auth=store.read(CONFIG.authKey);const xp=store.read(CONFIG.xpKey)||{xp:0,level:1};if(d.firstName){$("#userNameFull").textContent=d.firstName+" "+(d.lastName||"");const gl=CONFIG.grades[d.grade]||"",ml=(CONFIG.majors[d.major]||{}).label||"";$("#userMetaFull").textContent=[gl,ml].filter(Boolean).join(" · ");const b=$("#userBadges");b.innerHTML="";if(gl)b.innerHTML+=`<span class="ub">📚 ${gl}</span>`;if(ml)b.innerHTML+=`<span class="ub">🎓 ${ml}</span>`;b.innerHTML+=`<span class="ub">⚡ سطح ${fa(xp.level)}</span>`;$("#aboutAuthor").textContent=d.firstName+" "+(d.lastName||"");$("#aboutGradeMajor").textContent=[gl,ml].filter(Boolean).join(" · ");if(auth.phone){$("#aboutPhone").textContent=auth.phone.replace(/(\d{4})(\d{3})(\d{4})/,"$1 $2 $3");}else $("#aboutPhone").textContent="—";if(d.createdAt){$("#aboutDate").textContent=formatDate(d.createdAt);}}else{$("#userNameFull").textContent="مهمان";$("#userMetaFull").textContent="وارد نشده";$("#userBadges").innerHTML="";$("#aboutAuthor").textContent="—";$("#aboutPhone").textContent="—";$("#aboutGradeMajor").textContent="—";}}
 
 // ═══ DOCK ═══
 const dock=$("#dock");
@@ -870,19 +940,17 @@ applySettings(settings);
 $("#colorRow").addEventListener("click",e=>{const d=e.target.closest(".color-dot");if(!d)return;settings.color=d.dataset.color;store.write(CONFIG.settingsKey,settings);applySettings(settings);if(progressChartInstance)renderDashboard();});
 $("#fontRow").addEventListener("click",e=>{const b=e.target.closest(".seg-btn");if(!b)return;settings.fontSize=b.dataset.size;store.write(CONFIG.settingsKey,settings);applySettings(settings);});
 $("#bgRow").addEventListener("click",e=>{const b=e.target.closest(".seg-btn");if(!b)return;settings.background=b.dataset.bg;store.write(CONFIG.settingsKey,settings);applySettings(settings);});
-$("#resetBtn").addEventListener("click",()=>{if(!confirm("همه داده‌ها پاک می‌شن. مطمئنی؟"))return;Object.values(CONFIG).forEach(k=>{if(typeof k==="string"&&k.startsWith("amoozyar"))store.remove(k);});showToast("همه داده‌ها پاک شد","","🗑️");setTimeout(()=>location.reload(),800);});
+$("#resetBtn").addEventListener("click",()=>{if(!confirm("همه داده‌ها پاک می‌شن. مطمئنی؟"))return;Object.keys(localStorage).forEach(k=>{if(k.startsWith("amoozyar:"))store.remove(k);});showToast("همه داده‌ها پاک شد","","🗑️");setTimeout(()=>location.reload(),800);});
 
 // ═══ EXPORT / IMPORT ═══
-function exportBackup(){const data={version:VERSION,exportedAt:new Date().toISOString(),keys:{}};Object.keys(localStorage).forEach(k=>{if(k.startsWith("amoozyar:")){try{data.keys[k]=JSON.parse(localStorage.getItem(k));}catch(e){}}});const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=`amozyar-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);showToast("پشتیبان دانلود شد","","📥");}
+function exportBackup(){try{const data={version:VERSION,exportedAt:new Date().toISOString(),keys:{}};Object.keys(localStorage).forEach(k=>{if(k.startsWith("amoozyar:")){try{data.keys[k]=JSON.parse(localStorage.getItem(k));}catch(e){}}});const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=`amozyar-backup-${getToday()}.json`;a.click();URL.revokeObjectURL(url);showToast("پشتیبان دانلود شد","","📥");}catch(e){showToast("خطا در پشتیبان‌گیری","","⚠️");}}
 $("#exportBtn").addEventListener("click",exportBackup);
 $("#importBtn").addEventListener("click",()=>$("#importFile").click());
 $("#importFile").addEventListener("change",e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const data=JSON.parse(ev.target.result);if(!data.keys){showToast("فایل نامعتبر","","⚠️");return;}Object.entries(data.keys).forEach(([k,v])=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}});showToast("بازیابی شد","","✅");setTimeout(()=>location.reload(),800);}catch(err){showToast("خطا در خواندن فایل","","⚠️");}};reader.readAsText(file);});
-
-// ═══ PRINT ═══
 $("#printBtn").addEventListener("click",()=>{switchTab("progress");setTimeout(()=>window.print(),500);});
 
 // ═══ SELF-TEST ═══
-$("#testBtn").addEventListener("click",()=>{const tests=[];const add=(name,fn)=>{try{const r=fn();tests.push({name,ok:r!==false});}catch(e){tests.push({name,ok:false});}};add("ذخیره‌سازی",()=>{store.write("test:t",{a:1});const d=store.read("test:t");store.remove("test:t");return d.a===1;});add("اعتبارسنجی تلفن",()=>isValidIranPhone("09123456789")&&!isValidIranPhone("123"));add("دسته‌بندی دروس",()=>findCategory("ریاضی ۱")==="math"&&findCategory("فیزیک ۲")==="science");add("بانک سوال",()=>Object.keys(QUESTION_BANK).length>=9);add("بانک تمرین",()=>Object.keys(PRACTICE_BANK).length>=9);add("درجه‌بندی سطح",()=>{const q=PRACTICE_BANK.math;return q.some(x=>x.level===1)&&q.some(x=>x.level===3);});add("تعداد نشان‌ها",()=>AWARDS.length===10);const passed=tests.filter(t=>t.ok).length;if(passed===tests.length){launchConfetti();showToast(`${passed}/${tests.length} تست موفق`,"همه چیز درسته","✅");}else{const failed=tests.filter(t=>!t.ok).map(t=>t.name).join("، ");showToast(`${passed}/${tests.length} موفق`,"مشکل: "+failed,"⚠️");}});
+$("#testBtn").addEventListener("click",()=>{const tests=[];const add=(name,fn)=>{try{const r=fn();tests.push({name,ok:r!==false});}catch(e){tests.push({name,ok:false});}};add("ذخیره‌سازی",()=>{store.write("test:t",{a:1});const d=store.read("test:t");store.remove("test:t");return d.a===1;});add("اعتبارسنجی تلفن",()=>isValidIranPhone("09123456789")&&!isValidIranPhone("123"));add("دسته‌بندی دروس",()=>findCategory("ریاضی ۱")==="math"&&findCategory("فیزیک ۲")==="science");add("بانک سوال",()=>Object.keys(QUESTION_BANK).length>=9);add("بانک تمرین",()=>Object.keys(PRACTICE_BANK).length>=9);add("درجه‌بندی سطح",()=>{const q=PRACTICE_BANK.math;return q.some(x=>x.level===1)&&q.some(x=>x.level===3);});add("تعداد نشان‌ها",()=>AWARDS.length===10);add("SRS",()=>{srs.add("تست","test");const c=srs.count();srs.remove("تست::test");return true;});add("هدف روزانه",()=>{const p=getDailyProgress();return p!==null;});const passed=tests.filter(t=>t.ok).length;if(passed===tests.length){launchConfetti();showToast(`${passed}/${tests.length} تست موفق`,"همه چیز درسته","✅");}else{const failed=tests.filter(t=>!t.ok).map(t=>t.name).join("، ");showToast(`${passed}/${tests.length} موفق`,"مشکل: "+failed,"⚠️");}});
 
 // ═══ DARK MODE ═══
 function applyDark(isDark){document.body.classList.toggle("dark",isDark);$("#themeBtn").textContent=isDark?"☀️":"🌙";store.write(CONFIG.darkKey,{dark:isDark});}
@@ -890,8 +958,12 @@ const darkState=store.read(CONFIG.darkKey)||{dark:false};
 applyDark(darkState.dark);
 $("#themeBtn").addEventListener("click",()=>{const cur=store.read(CONFIG.darkKey)||{dark:false};applyDark(!cur.dark);if(progressChartInstance)renderDashboard();});
 
+// ═══ NOTIFICATIONS ═══
+function updateNotifBadge(){const srsCount=srs.count();const badge=$("#notifBtn");badge.classList.toggle("has-notif",srsCount>0);}
+$("#notifBtn").addEventListener("click",()=>{const due=srs.count();if(due===0){showToast("اعلان جدیدی نداری","","🔔");}else{showToast(`${fa(due)} سوال برای مرور داری!`,"برو سراغ تمرین","🧠");switchTab("practice");}});
+
 // ═══ TOUR ═══
-const TOUR_STEPS=[{ico:"👋",title:"خوش اومدی به آموزیار!",desc:"این یه اپ یادگیری تطبیقی‌ست که بر اساس سطحت، تمرین مناسب برات می‌سازه."},{ico:"📝",title:"آزمون تعیین سطح",desc:"اول با یه آزمون ۱۰ سوالی سطحت مشخص می‌شه: مبتدی، متوسط یا پیشرفته."},{ico:"🎯",title:"تمرین تطبیقی",desc:"تو تمرین، اگه ۳ پاسخ درست بدی سطحت بالا می‌ره. ۲ پاسخ غلط، سطحت پایین میاد!"},{ico:"📊",title:"داشبورد پیشرفت",desc:"نمودار روند پیشرفت، عملکرد درسی و تاریخچه تمرین‌هات رو ببین."},{ico:"🏆",title:"دستاوردها",desc:"با تمرین، ۱۰ نشان مختلف می‌گیری. هرچی بیشتر تمرین کنی، نشان بیشتر!"}];
+const TOUR_STEPS=[{ico:"👋",title:"خوش اومدی به آموزیار!",desc:"این یه اپ یادگیری تطبیقی‌ست که بر اساس سطحت، تمرین مناسب برات می‌سازه."},{ico:"📝",title:"آزمون تعیین سطح",desc:"اول با یه آزمون ۱۰ سوالی سطحت مشخص می‌شه: مبتدی، متوسط یا پیشرفته."},{ico:"🎯",title:"تمرین تطبیقی",desc:"تو تمرین، اگه ۳ پاسخ درست بدی سطحت بالا می‌ره. ۲ پاسخ غلط، سطحت پایین میاد! سوالات غلط هم بعداً دوباره میان (سیستم SRS)."},{ico:"📊",title:"داشبورد پیشرفت",desc:"نمودار روند، تحلیل نقاط ضعف، نقشه فعالیت روزانه و کلی آمار."},{ico:"🏆",title:"دستاوردها",desc:"با تمرین، ۱۰ نشان مختلف می‌گیری. هرچی بیشتر تمرین کنی، نشان بیشتر!"}];
 let tourIdx=0;
 function showTour(){const done=store.read(CONFIG.tourKey);if(done.done)return;tourIdx=0;renderTour();$("#tourOverlay").classList.add("show");}
 function renderTour(){const s=TOUR_STEPS[tourIdx];$("#tourIco").textContent=s.ico;$("#tourTitle").textContent=s.title;$("#tourDesc").textContent=s.desc;$("#tourNext").textContent=tourIdx===TOUR_STEPS.length-1?"شروع کن!":"بعدی";const p=$("#tourProgress");p.innerHTML="";TOUR_STEPS.forEach((_,i)=>{const d=document.createElement("span");d.className="tour-dot"+(i===tourIdx?" active":"");p.appendChild(d);});}
@@ -900,19 +972,10 @@ $("#tourSkip").addEventListener("click",()=>{$("#tourOverlay").classList.remove(
 $("#helpBtn").addEventListener("click",()=>{tourIdx=0;renderTour();$("#tourOverlay").classList.add("show");});
 
 // ═══ KEYBOARD ═══
-document.addEventListener("keydown",e=>{if(e.target.matches("input,textarea"))return;const k=e.key.toLowerCase();if(k==="d"){$("#themeBtn").click();}else if(k==="h"||k==="?"){$("#helpBtn").click();}else if(k==="escape"){$("#tourOverlay").classList.remove("show");}else if(k==="1"){switchTab("home");}else if(k==="2"){switchTab("quiz");}else if(k==="3"){switchTab("practice");}else if(k==="4"){switchTab("progress");}else if(k==="5"){switchTab("awards");}else if(k==="6"){switchTab("profile");}});
+document.addEventListener("keydown",e=>{if(e.target.matches("input,textarea"))return;const k=e.key.toLowerCase();if(k==="d"){$("#themeBtn").click();}else if(k==="h"||k==="?"){$("#helpBtn").click();}else if(k==="escape"){$("#tourOverlay").classList.remove("show");}else if(k==="1"&&!$("#view-quiz").classList.contains("active")){switchTab("home");}else if(k==="2"&&!$("#view-quiz").classList.contains("active")){switchTab("quiz");}else if(k==="3"&&!$("#view-practice").classList.contains("active")){switchTab("practice");}else if(k==="4"){switchTab("progress");}else if(k==="5"){switchTab("awards");}else if(k==="6"){switchTab("profile");}else if(["1","2","3","4"].includes(k)){const activeView=document.querySelector(".view.active");if(activeView&&(activeView.id==="view-quiz"||activeView.id==="view-practice")){const btns=activeView.querySelectorAll(".option-btn:not(.locked)");const idx=parseInt(k,10)-1;if(btns[idx])btns[idx].click();}}});
 
 // ═══ INIT ═══
-selfStudyVal.textContent=fa(selfStudyInput.value)+" ساعت";
-testCountVal.textContent=fa(testCountInput.value)+" تست";
-refreshProfileChip();
-checkAwards();
-setInterval(checkAwards,30000);
-setTimeout(showTour,1000);
-console.log(`✅ آموزیار v${VERSION} — نمره کامل`);
-console.log(`📚 ${Object.values(QUESTION_BANK).reduce((s,a)=>s+a.length,0)} سوال آزمون`);
-console.log(`💪 ${Object.values(PRACTICE_BANK).reduce((s,a)=>s+a.length,0)} سوال تمرین`);
-console.log(`🏆 ${AWARDS.length} نشان | 🎨 ${VERSION}`);
+try{selfStudyVal.textContent=fa(selfStudyInput.value)+" ساعت";testCountVal.textContent=fa(testCountInput.value)+" تست";refreshProfileChip();checkAwards();updateNotifBadge();setInterval(checkAwards,30000);setInterval(updateNotifBadge,10000);setTimeout(showTour,1000);console.log(`✅ آموزیار v${VERSION} — نسخه ارتقاءیافته`);console.log(`📚 ${Object.values(QUESTION_BANK).reduce((s,a)=>s+a.length,0)} سوال آزمون`);console.log(`💪 ${Object.values(PRACTICE_BANK).reduce((s,a)=>s+a.length,0)} سوال تمرین`);console.log(`🏆 ${AWARDS.length} نشان | 🧠 SRS فعال | 🎯 هدف روزانه`);}catch(e){console.warn("Init error:",e);}
 })();
 </script>
 </body>
