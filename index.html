@@ -2,686 +2,545 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>آموزیار | یادگیری تطبیقی</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 <style>
-:root{--paper:#eef0ff;--grid:#d9ddf7;--ink:#1d2457;--ink-soft:#6b7299;--ink-mute:#9aa0c6;--line:#e5e8f5;--field:#f7f8fc;--card:#fff;--accent:#5b3df5;--accent2:#7c5cff;--ring:rgba(91,61,245,.18);--soft:rgba(91,61,245,.10);--sun:#ffc93c;--success:#10b981;--success-soft:rgba(16,185,129,.12);--danger:#e11d48;--danger-soft:rgba(225,29,72,.08);--gold:#f59e0b;--r-xl:28px;--r-lg:20px;--r-md:14px;--r-sm:10px;--font:"Vazirmatn",Tahoma,sans-serif;--fs:16px;--ease:cubic-bezier(.4,0,.2,1);--shadow:0 1px 3px rgba(29,36,87,.04),0 12px 32px rgba(29,36,87,.08);--shadow-btn:0 4px 12px rgba(91,61,245,.24),0 12px 24px rgba(91,61,245,.16);--glass:linear-gradient(135deg,rgba(255,255,255,.48),rgba(255,255,255,.18));--glass-b:rgba(255,255,255,.55);--glass-s:0 8px 32px rgba(31,38,135,.12),0 2px 8px rgba(31,38,135,.06),inset 0 1px 1px rgba(255,255,255,.85)}
-[data-theme=dark]{--paper:#0d1020;--grid:#1a1e36;--ink:#e8ebff;--ink-soft:#8b92b8;--ink-mute:#5c6389;--line:#252a44;--field:#151a30;--card:#141830;--ring:rgba(124,92,255,.25);--soft:rgba(124,92,255,.15);--glass:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));--glass-b:rgba(255,255,255,.12);--glass-s:0 8px 32px rgba(0,0,0,.4),inset 0 1px 1px rgba(255,255,255,.08);--shadow:0 1px 3px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.3)}
-*,*::before,*::after{box-sizing:border-box}
-html{font-size:var(--fs)}
-body{margin:0;font-family:var(--font);color:var(--ink);background:var(--paper);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s;min-height:100vh}
-body.bg-grid{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
-body.bg-dots{background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4px);background-size:22px 22px}
-.shell{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;max-width:1200px;margin:0 auto;padding:20px 20px 130px;gap:20px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 4px;flex-wrap:wrap}
-.brand h1{margin:0;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--accent);letter-spacing:-.5px;line-height:1.15}
-.brand p{margin:2px 0 0;font-size:.78rem;color:var(--ink-soft);font-weight:500}
-.actions{display:flex;align-items:center;gap:8px}
-.ibtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--glass-b);background:var(--glass);backdrop-filter:blur(20px);box-shadow:var(--glass-s);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--ink);transition:transform .2s}
-.ibtn:hover{transform:translateY(-2px) scale(1.05)}
-.pchip{display:flex;align-items:center;gap:10px;padding:5px 10px 5px 5px;background:var(--glass);backdrop-filter:blur(24px);border:1px solid var(--glass-b);border-radius:999px;box-shadow:var(--glass-s);cursor:pointer;color:var(--ink);font-family:inherit;transition:transform .18s}
-.pchip:hover{transform:translateY(-2px)}
-.pchip .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;flex-shrink:0}
-.pchip .who{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;font-size:.78rem}
-.pchip .who strong{font-weight:700}
-.pchip .who small{color:var(--ink-soft);font-size:.68rem}
-.main{position:relative}
-.view{display:none;animation:fade .32s var(--ease)}
-.view.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@keyframes panel{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
-@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.wiz{max-width:520px;margin:30px auto;background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:32px 28px 28px;position:relative;overflow:hidden}
-.wiz::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.35}
-.wprog{display:flex;align-items:center;gap:12px;margin-bottom:24px}
-.ptrack{flex:1;height:6px;background:var(--line);border-radius:999px;overflow:hidden}
-.pfill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px;transition:width .35s;box-shadow:0 0 12px var(--ring)}
-.plabel{font-size:.78rem;font-weight:700;color:var(--ink-soft);white-space:nowrap}
-.whead{text-align:center;margin-bottom:24px}
-.whead h2{margin:0 0 6px;font-size:1.5rem;font-weight:800}
-.whead p{margin:0;color:var(--ink-soft);font-size:.88rem}
-.step{display:none}
-.step.active{display:block;animation:panel .3s var(--ease)}
-.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--field);padding:4px;border-radius:14px;margin-bottom:24px}
-.tab{padding:10px 12px;border:0;background:transparent;font-family:inherit;font-weight:700;font-size:.92rem;color:var(--ink-soft);border-radius:10px;cursor:pointer;transition:all .25s}
-.tab.active{background:var(--card);color:var(--accent);box-shadow:0 2px 8px rgba(29,36,87,.08)}
-.af{display:none}
-.af.active{display:block}
-.f{margin-bottom:16px}
-.f label{display:block;margin-bottom:7px;font-weight:600;font-size:.84rem;padding-inline-start:2px}
-.iw{position:relative;display:flex;align-items:center}
-.iico{position:absolute;inset-inline-start:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--ink-mute);pointer-events:none;display:flex;align-items:center;justify-content:center}
-.iico svg{width:100%;height:100%;display:block}
-.iw input{width:100%;font:inherit;font-size:.96rem;font-weight:500;padding:14px 16px;padding-inline-start:46px;padding-inline-end:46px;background:var(--field);color:var(--ink);border:1.5px solid transparent;border-radius:var(--r-md);outline:none;transition:all .2s}
-.iw input::placeholder{color:var(--ink-mute);font-weight:400}
-.iw input:focus{background:var(--card);border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
-.iw:focus-within .iico{color:var(--accent)}
-.f.has-error .iw input{border-color:var(--danger);background:var(--danger-soft)}
-.tp{position:absolute;inset-inline-end:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;background:transparent;border-radius:10px;color:var(--ink-mute);cursor:pointer;display:flex;align-items:center;justify-content:center}
-.tp:hover{color:var(--ink);background:rgba(0,0,0,.04)}
-.tp svg{width:20px;height:20px}
-.f-err{display:block;margin:6px 0 0;padding:0 2px;font-size:.78rem;font-weight:600;color:var(--danger);opacity:0;max-height:0;overflow:hidden;transition:all .25s}
-.f.has-error .f-err{opacity:1;max-height:40px}
-.btn{width:100%;font:inherit;font-size:1rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));border:0;border-radius:var(--r-md);padding:15px 20px;cursor:pointer;box-shadow:var(--shadow-btn);transition:all .2s;margin-top:6px}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(91,61,245,.32)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Vazirmatn,Tahoma,Arial,sans-serif;background:#eef0ff;color:#1d2457;line-height:1.7;min-height:100vh;padding:16px 16px 110px}
+h1,h2,h3{font-weight:800;line-height:1.3}
+button{font-family:inherit;cursor:pointer;border:0;font-weight:700;transition:all .2s}
+input{font-family:inherit;width:100%;padding:13px 14px;border:2px solid #e5e8f5;border-radius:12px;font-size:15px;background:#f7f8fc;outline:none;color:#1d2457}
+input:focus{border-color:#5b3df5;background:#fff}
+
+.hdr{display:flex;justify-content:space-between;align-items:center;max-width:640px;margin:0 auto 16px;gap:10px}
+.logo h1{font-size:24px;color:#5b3df5}
+.logo p{font-size:12px;color:#6b7299}
+.uchip{padding:8px 14px;background:#fff;border-radius:999px;box-shadow:0 3px 10px rgba(29,36,87,.08);font-size:13px;font-weight:700;color:#1d2457}
+
+.wrap{max-width:640px;margin:0 auto}
+.card{background:#fff;border-radius:20px;box-shadow:0 10px 30px rgba(29,36,87,.08);padding:24px 20px;margin-bottom:14px;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#5b3df5,transparent);opacity:.4}
+.card h2{font-size:20px;text-align:center;margin-bottom:18px}
+.card h3{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+
+.btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#5b3df5,#7c5cff);color:#fff;font-size:15px;border-radius:12px;box-shadow:0 5px 15px rgba(91,61,245,.3);margin-top:8px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(91,61,245,.35)}
 .btn:active{transform:translateY(0)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.bghost{padding:15px 22px;font:inherit;font-weight:600;font-size:.92rem;color:var(--ink-soft);background:transparent;border:1.5px solid var(--line);border-radius:var(--r-md);cursor:pointer;transition:all .2s}
-.bghost:hover{background:var(--field);color:var(--ink)}
-.wact{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:20px}
-.wact .btn{margin-top:0}
-.ferr{display:none;margin:12px 0 0;padding:11px 14px;background:var(--danger-soft);border:1px solid rgba(225,29,72,.2);border-radius:var(--r-sm);color:var(--danger);font-weight:600;font-size:.84rem;text-align:center}
-.ferr.show{display:block;animation:shake .4s}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn2{padding:13px 18px;background:transparent;color:#6b7299;border:2px solid #e5e8f5;font-size:14px;border-radius:12px}
+.btn2:hover{background:#f7f8fc;color:#1d2457}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:#f7f8fc;padding:4px;border-radius:14px;margin-bottom:20px}
+.tab{padding:10px;background:transparent;color:#6b7299;font-size:14px;border-radius:10px}
+.tab.on{background:#fff;color:#5b3df5;box-shadow:0 2px 8px rgba(29,36,87,.08)}
+
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.err{color:#e11d48;font-size:12px;margin-top:5px;font-weight:600;display:none}
+.err.on{display:block}
+
+.step{display:none}
+.step.on{display:block}
+
 .grades{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.gc{position:relative;padding:12px 8px;background:var(--field);border:1.5px solid transparent;border-radius:var(--r-md);cursor:pointer;text-align:center;transition:all .22s}
-.gc:hover{background:var(--card);transform:translateY(-1px)}
-.gc input{position:absolute;opacity:0;pointer-events:none}
-.gc .gl{display:block;font-weight:700;font-size:.95rem}
-.gc .gn{display:block;font-size:.7rem;color:var(--ink-soft);font-weight:500;margin-top:2px}
-.gc:has(input:checked){background:var(--card);border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
-.gc:has(input:checked) .gl{color:var(--accent)}
-.majors{display:grid;gap:10px;margin-bottom:16px}
-.mc{position:relative;display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--field);border:1.5px solid transparent;border-radius:var(--r-md);cursor:pointer;transition:all .22s}
-.mc:hover{background:var(--card);transform:translateY(-1px)}
-.mc input{position:absolute;opacity:0;pointer-events:none}
-.mc .ico{font-size:1.5rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--card);flex-shrink:0}
-.mc .info{display:flex;flex-direction:column;gap:2px;text-align:right;flex:1}
-.mc .info strong{font-weight:700;font-size:.95rem}
-.mc .info small{color:var(--ink-soft);font-size:.76rem;font-weight:500}
-.mc .chk{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;opacity:0;transform:scale(.5);transition:all .22s;flex-shrink:0}
-.mc input:checked~.chk{opacity:1;transform:scale(1)}
-.mc:has(input:checked){background:var(--card);border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
-.mc:has(input:checked) .ico{background:var(--accent);color:#fff}
-.hint{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#fff8e0;border:1px solid rgba(255,201,60,.5);border-radius:var(--r-md);font-size:.82rem;color:#6b5400;margin-bottom:16px;line-height:1.6}
-[data-theme=dark] .hint{background:rgba(255,201,60,.1);color:var(--sun);border-color:rgba(255,201,60,.3)}
-.subj-wrap{max-height:320px;overflow-y:auto;padding:12px;background:var(--field);border-radius:var(--r-md);margin-bottom:18px}
-.subj-wrap::-webkit-scrollbar{width:8px}
-.subj-wrap::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
-.subj-order{display:flex;flex-wrap:wrap;gap:8px}
-.subj-order:empty::before{content:'هنوز درسی انتخاب نکردی...';color:var(--ink-mute);font-size:.82rem;display:block;text-align:center;padding:20px 0;width:100%}
-.sbtn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:999px;font-family:inherit;font-weight:600;font-size:.88rem;color:var(--ink);cursor:pointer;transition:all .2s}
-.sbtn:hover{border-color:var(--ring);transform:translateY(-1px)}
-.sbtn.ranked{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 4px 12px var(--ring)}
-.sbtn .badge{display:none;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:rgba(255,255,255,.25);color:#fff;font-size:.72rem;font-weight:800}
-.sbtn.ranked .badge{display:inline-flex}
-.range{padding:16px;background:var(--field);border-radius:var(--r-md);margin-bottom:12px}
-.range .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.range .top label{font-weight:600;font-size:.88rem}
-.range .top .val{font-weight:800;font-size:.85rem;color:var(--accent);background:var(--card);padding:4px 12px;border-radius:999px;min-width:76px;text-align:center}
-.range input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:var(--line);outline:none;cursor:pointer}
-.range input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--card);border:3px solid var(--accent);cursor:grab}
-.range .scale{display:flex;justify-content:space-between;font-size:.7rem;color:var(--ink-mute);margin-top:6px}
-.welcome{text-align:center;padding:20px 0 10px}
-.welcome .em{font-size:4rem;line-height:1;margin-bottom:14px;display:inline-block;animation:bounce 1.5s infinite}
-.welcome h2{margin:0 0 6px;font-size:1.6rem;font-weight:800}
-.welcome .sub{margin:0 0 22px;color:var(--ink-soft);font-size:.9rem}
-.welcome .sum{display:inline-flex;flex-direction:column;gap:6px;padding:16px 22px;background:var(--field);border-radius:var(--r-md);margin-bottom:22px;min-width:260px}
-.welcome .sum .row{display:flex;justify-content:space-between;gap:20px;font-size:.86rem}
-.welcome .sum .row span:first-child{color:var(--ink-soft);font-weight:500}
-.welcome .sum .row span:last-child{font-weight:700}
-.qwrap{max-width:600px;margin:30px auto}
-.qs{display:none}
-.qs.active{display:block;animation:panel .3s}
-.qic{background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:36px 28px 28px;text-align:center;position:relative;overflow:hidden}
-.qic::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
-.qic .big{font-size:4.5rem;margin-bottom:16px;display:inline-block;animation:bounce 2s infinite}
-.qic h2{margin:0 0 8px;font-size:1.6rem;font-weight:800}
-.qic .d{margin:0 0 24px;color:var(--ink-soft);font-size:.92rem;line-height:1.7}
-.qic .d strong{color:var(--accent);font-weight:800}
-.qic .info{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:26px}
-.qic .info>div{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;background:var(--field);border-radius:var(--r-md);font-size:.78rem;color:var(--ink-soft);font-weight:600;text-align:center}
-.qic .info>div span:first-child{font-size:1.4rem}
-.qcard{background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:28px 26px 26px;position:relative;overflow:hidden}
-.qcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.35}
-.qhead{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.qhead .ptrack{flex:1;height:6px;background:var(--line);border-radius:999px;overflow:hidden}
-.qhead .pfill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px;transition:width .35s}
-.qhead .plabel{font-size:.82rem;font-weight:800;white-space:nowrap}
-.qtext{font-size:1.08rem;font-weight:700;line-height:1.75;margin-bottom:22px;padding:18px 20px;background:var(--field);border-radius:var(--r-md);border-inline-start:4px solid var(--accent)}
-.qopts{display:flex;flex-direction:column;gap:10px}
-.opt{position:relative;display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-md);font-family:inherit;font-size:.96rem;font-weight:600;color:var(--ink);text-align:right;cursor:pointer;transition:all .18s}
-.opt:hover:not(.locked){border-color:var(--accent);background:var(--soft);transform:translateX(-3px)}
-.opt.locked{pointer-events:none;cursor:default}
-.opt .onum{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--field);color:var(--ink-soft);font-size:.82rem;font-weight:800;flex-shrink:0}
-.opt .otext{flex:1}
-.opt .oico{width:22px;height:22px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:.9rem;font-weight:900;flex-shrink:0}
-.opt .oico svg{width:14px;height:14px}
-.opt.correct{background:var(--success-soft);border-color:var(--success);color:#065f46}
-.opt.correct .onum{background:var(--success);color:#fff}
-.opt.correct .oico{display:flex;background:var(--success);color:#fff}
-.opt.wrong{background:var(--danger-soft);border-color:var(--danger);color:#9f1239}
-.opt.wrong .onum{background:var(--danger);color:#fff}
-.opt.wrong .oico{display:flex;background:var(--danger);color:#fff}
-.opt.dimmed{opacity:.55}
-.rwrap{background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:36px 28px 28px;text-align:center;position:relative;overflow:hidden}
-.rwrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
-.rwrap .em{font-size:5rem;line-height:1;margin-bottom:12px;display:inline-block;animation:pop .6s}
-.rwrap .lvl{margin:0 0 8px;font-size:1.7rem;font-weight:900}
-.rwrap .lvl[data-level=beginner]{color:#ff7a3d}
-.rwrap .lvl[data-level=intermediate]{color:#12b58f}
-.rwrap .lvl[data-level=advanced]{color:var(--accent)}
-.rwrap .desc{margin:0 0 24px;color:var(--ink-soft);font-size:.92rem;line-height:1.7}
-.rstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:26px}
-.stat{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 8px;background:var(--field);border-radius:var(--r-md)}
-.stat .n{font-size:1.6rem;font-weight:900;color:var(--accent);line-height:1}
-.stat .l{font-size:.78rem;color:var(--ink-soft);font-weight:600}
-.rchart{width:140px;height:140px;margin:0 auto 24px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center}
-.rchart::after{content:'';position:absolute;inset:18px;background:var(--card);border-radius:50%}
-.rchart .inner{position:relative;z-index:1;text-align:center}
-.rchart .pct{font-size:1.8rem;font-weight:900;line-height:1;display:block}
-.rchart .lbl{font-size:.7rem;color:var(--ink-soft);font-weight:600;margin-top:2px}
-.ract{display:grid;grid-template-columns:auto 1fr;gap:10px}
-.ract .btn{margin-top:0}
-.practice-wrap{max-width:600px;margin:30px auto}
-.phead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--glass-b);border-radius:var(--r-lg);box-shadow:var(--glass-s);margin-bottom:16px;flex-wrap:wrap}
-.lbadge{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:800;transition:all .35s}
-.lbadge[data-level="1"]{background:rgba(255,122,61,.15);color:#b84a17}
-.lbadge[data-level="2"]{background:rgba(18,181,143,.15);color:#0a6b52}
-.lbadge[data-level="3"]{background:rgba(91,61,245,.15);color:#3d24c9}
-[data-theme=dark] .lbadge[data-level="1"]{color:#ffb08c}
-[data-theme=dark] .lbadge[data-level="2"]{color:#5eebc4}
-[data-theme=dark] .lbadge[data-level="3"]{color:#b9a6ff}
-.streak{display:flex;align-items:center;gap:4px}
-.sdot{width:10px;height:10px;border-radius:50%;background:var(--line);transition:all .3s}
-.sdot.on{background:var(--success);transform:scale(1.2)}
-.pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
-.pstats>div{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;background:var(--field);border-radius:var(--r-sm)}
-.pstats .n{font-size:1.15rem;font-weight:900;line-height:1}
-.pstats .l{font-size:.68rem;color:var(--ink-soft);font-weight:600}
-.pact{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@keyframes lu{0%{transform:scale(1)}50%{transform:scale(1.25);box-shadow:0 0 20px var(--ring)}100%{transform:scale(1)}}
-.lbadge.flash{animation:lu .6s}
-.sumwrap{background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:36px 28px 28px;text-align:center;position:relative;overflow:hidden}
-.sumwrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
-.sumwrap .em{font-size:5rem;margin-bottom:12px;display:inline-block}
-.sumwrap h2{margin:0 0 8px;font-size:1.5rem;font-weight:800}
-.sumwrap .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
-.dash{max-width:820px;margin:30px auto;display:flex;flex-direction:column;gap:16px}
-.dcard{background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:24px 22px;position:relative;overflow:hidden}
-.dcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
-.dcard h3{margin:0 0 16px;font-size:1.1rem;font-weight:800;display:flex;align-items:center;gap:8px}
-.qstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.qs-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 6px;background:var(--field);border-radius:var(--r-md);text-align:center}
-.qs-item .i{font-size:1.5rem;margin-bottom:2px}
-.qs-item .n{font-size:1.3rem;font-weight:900;color:var(--accent);line-height:1}
-.qs-item .l{font-size:.7rem;color:var(--ink-soft);font-weight:600}
-.chart-wrap{position:relative;height:220px}
-.splist{display:flex;flex-direction:column;gap:10px}
-.sprow{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--field);border-radius:var(--r-md)}
-.sprow .name{flex:0 0 auto;font-weight:700;font-size:.88rem;min-width:80px}
-.sprow .bar{flex:1;height:8px;background:var(--line);border-radius:999px;overflow:hidden}
-.sprow .bar>div{height:100%;border-radius:999px;transition:width .5s}
-.sprow .val{flex:0 0 auto;font-weight:800;font-size:.85rem;min-width:44px;text-align:left}
-.empty{text-align:center;padding:30px 20px;color:var(--ink-soft)}
-.empty .i{font-size:3rem;margin-bottom:8px;opacity:.5}
-.awrap{max-width:820px;margin:30px auto}
-.aheader{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:var(--r-xl);padding:28px 24px;text-align:center;margin-bottom:20px;box-shadow:0 12px 40px var(--ring);position:relative;overflow:hidden}
-.aheader .big{font-size:3rem;margin-bottom:8px;display:inline-block;animation:bounce 2s infinite}
-.aheader h2{margin:0 0 6px;font-size:1.5rem;font-weight:900;color:#fff}
-.aheader p{margin:0;font-size:.88rem;opacity:.92;color:#fff}
-.agrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.acard{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:20px 18px;text-align:center;position:relative;overflow:hidden;transition:all .25s;opacity:.55;filter:grayscale(1)}
-.acard.unlocked{opacity:1;filter:none}
-.acard.unlocked:hover{transform:translateY(-4px)}
-.acard.unlocked::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--sun))}
-.acard .i{font-size:2.5rem;margin-bottom:10px;display:inline-block}
-.acard .nm{margin:0 0 4px;font-size:.95rem;font-weight:800}
-.acard .ds{margin:0;font-size:.75rem;color:var(--ink-soft);font-weight:500;line-height:1.5}
-.acard .lk{position:absolute;top:10px;inset-inline-end:10px;font-size:1rem;opacity:.5}
-.acard.unlocked .lk{display:none}
-.set{max-width:560px;margin:30px auto;background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:28px 24px}
-.set h2{margin:22px 0 6px;font-size:1.3rem;font-weight:800}
-.set .sub{margin:0 0 24px;color:var(--ink-soft);font-size:.88rem}
-.ucard{display:flex;align-items:center;gap:16px;padding:18px;background:linear-gradient(135deg,var(--soft),rgba(124,92,255,.05));border-radius:var(--r-lg);margin-bottom:22px}
-.ucard .avL{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;flex-shrink:0}
-.ucard .info{flex:1}
-.ucard .info strong{display:block;font-size:1.05rem;font-weight:800;margin-bottom:2px}
-.ucard .info small{display:block;color:var(--ink-soft);font-size:.82rem;font-weight:500;margin-bottom:6px}
-.ucard .badges{display:flex;gap:6px;flex-wrap:wrap}
-.ucard .ub{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;background:var(--card);border-radius:999px;font-size:.72rem;font-weight:700}
-.sg{margin-bottom:22px}
-.sg>label{display:block;font-weight:700;font-size:.88rem;margin-bottom:10px}
-.crow{display:flex;gap:10px;flex-wrap:wrap}
-.cdot{width:40px;height:40px;border-radius:50%;border:3px solid var(--card);cursor:pointer;padding:0;box-shadow:0 2px 8px rgba(29,36,87,.12);transition:all .18s}
-.cdot:hover{transform:translateY(-2px) scale(1.05)}
-.cdot.active{box-shadow:0 0 0 3px var(--ink);transform:scale(1.05)}
-.seg{display:flex;gap:4px;padding:4px;background:var(--field);border-radius:12px}
-.sbtn2{flex:1;padding:9px 8px;border:0;background:transparent;font-family:inherit;font-weight:600;font-size:.86rem;color:var(--ink-soft);border-radius:9px;cursor:pointer;transition:all .2s}
-.sbtn2.active{background:var(--card);color:var(--accent);box-shadow:0 2px 6px rgba(29,36,87,.08)}
-.reset{width:100%;margin-top:8px;padding:13px;font-family:inherit;font-weight:600;font-size:.9rem;background:transparent;color:var(--danger);border:1.5px solid var(--danger-soft);border-radius:var(--r-md);cursor:pointer;transition:all .2s}
-.reset:hover{background:var(--danger-soft);border-color:var(--danger)}
-.about{margin-top:22px;padding:20px 18px;background:linear-gradient(135deg,var(--field),#eef0ff);border:1.5px dashed var(--ring);border-radius:var(--r-lg)}
-[data-theme=dark] .about{background:linear-gradient(135deg,var(--field),#1a1f3a)}
-.about h3{margin:0 0 12px;font-size:1rem;font-weight:800;color:var(--accent);display:flex;align-items:center;gap:8px}
-.about .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-size:.82rem;border-bottom:1px dashed rgba(91,61,245,.1)}
-.about .row:last-child{border-bottom:0}
-.about .row span:first-child{color:var(--ink-soft);font-weight:500}
-.about .row span:last-child{font-weight:700}
-.dock-wrap{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:50;width:min(680px,calc(100% - 32px))}
-.dock{position:relative;display:grid;grid-template-columns:repeat(6,1fr);align-items:center;gap:2px;padding:8px;border-radius:999px;background:var(--glass);backdrop-filter:blur(30px);border:1px solid var(--glass-b);box-shadow:var(--glass-s);overflow:hidden}
-.dock::before{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 80% at 50% -30%,rgba(255,255,255,.5),transparent 65%);pointer-events:none}
-.ditem{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px 2px;border:0;border-radius:999px;background:transparent;cursor:pointer;font-family:inherit;color:var(--ink-soft);font-weight:600;font-size:.7rem;transition:all .2s}
-.ditem .i{font-size:1.25rem;line-height:1;transition:transform .25s;display:inline-block}
-.ditem .l{font-size:.62rem}
-.ditem:hover{color:var(--ink)}
-.ditem.active{color:var(--accent);background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.5));box-shadow:0 4px 14px var(--ring),inset 0 1px 1px rgba(255,255,255,.95)}
-[data-theme=dark] .ditem.active{background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,.05))}
-.ditem.active .i{transform:translateY(-2px) scale(1.1)}
-.toasts{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:calc(100% - 32px)}
-.toast{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:14px 22px;border-radius:16px;box-shadow:0 12px 40px var(--ring);display:flex;align-items:center;gap:12px;font-weight:700;transform:translateY(-100px);opacity:0;transition:all .5s cubic-bezier(.3,1.6,.5,1);pointer-events:auto}
-.toast.show{transform:translateY(0);opacity:1}
-.toast .i{font-size:1.6rem}
-.toast .t{display:flex;flex-direction:column;gap:2px;text-align:right}
-.toast .t small{font-size:.7rem;opacity:.85;font-weight:500}
-.toast .t strong{font-size:.92rem}
-.toast.success{background:linear-gradient(135deg,#10b981,#059669)}
-.toast.danger{background:linear-gradient(135deg,#e11d48,#9f1239)}
-#confetti{position:fixed;inset:0;pointer-events:none;z-index:9998;display:none}
-#confetti.show{display:block}
-@media(max-width:860px){
-.shell{padding:16px 14px 130px;gap:14px}
-.brand h1{font-size:1.3rem}
-.brand p{font-size:.7rem}
-.pchip .who small{display:none}
-.wiz,.set{padding:24px 18px}
-.qic,.qcard,.rwrap{padding:24px 18px}
-.qstats{grid-template-columns:repeat(2,1fr)}
-.agrid{grid-template-columns:1fr}
-}
-@media(max-width:480px){
-.wiz{padding:22px 16px}
-.whead h2{font-size:1.3rem}
-.dock{grid-template-columns:repeat(6,1fr);padding:6px 4px}
-.ditem .l{display:none}
-.wact,.ract,.pact{grid-template-columns:1fr}
-.bghost{order:2}
-.qic .info{grid-template-columns:1fr 1fr}
-.qic .info>div:last-child{grid-column:1/-1}
-.qtext{font-size:.98rem;padding:14px 16px}
-.opt{font-size:.9rem;padding:12px 14px}
-.ucard{flex-direction:column;text-align:center}
+.grade{padding:12px 6px;background:#f7f8fc;border:2px solid transparent;border-radius:12px;text-align:center;cursor:pointer;user-select:none}
+.grade:hover{background:#eef0ff}
+.grade.on{background:#fff;border-color:#5b3df5;box-shadow:0 0 0 4px rgba(91,61,245,.15)}
+.grade b{display:block;font-size:14px;margin-bottom:2px}
+.grade small{font-size:11px;color:#6b7299}
+
+.majors{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.major{padding:13px 14px;background:#f7f8fc;border:2px solid transparent;border-radius:12px;cursor:pointer;user-select:none;display:flex;align-items:center;gap:10px}
+.major:hover{background:#eef0ff}
+.major.on{background:#fff;border-color:#5b3df5;box-shadow:0 0 0 4px rgba(91,61,245,.15)}
+.major .ic{font-size:22px}
+.major .tx b{display:block;font-size:14px;margin-bottom:2px}
+.major .tx small{font-size:11px;color:#6b7299}
+
+.subj{display:flex;flex-wrap:wrap;gap:7px;padding:12px;background:#f7f8fc;border-radius:12px;margin-bottom:14px;min-height:56px}
+.sub{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;background:#fff;border:2px solid #e5e8f5;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;user-select:none;color:#1d2457}
+.sub:hover{border-color:#c7cbf0}
+.sub.on{background:#5b3df5;border-color:#5b3df5;color:#fff}
+.sub .n{display:none;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:rgba(255,255,255,.3);font-size:11px;justify-content:center;align-items:center;font-weight:800}
+.sub.on .n{display:inline-flex}
+
+.rng{padding:14px;background:#f7f8fc;border-radius:12px;margin-bottom:12px}
+.rng .tp{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px;font-weight:700}
+.rng .v{color:#5b3df5}
+.rng input[type=range]{width:100%;height:6px;background:#e5e8f5;border-radius:999px;-webkit-appearance:none;padding:0;border:0}
+.rng input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #5b3df5;cursor:pointer;box-shadow:0 2px 6px rgba(91,61,245,.3)}
+
+.wlc{text-align:center;padding:10px 0}
+.wlc .em{font-size:60px;line-height:1;margin-bottom:12px;display:inline-block;animation:bounce 1.5s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.wlc h2{font-size:20px;margin-bottom:6px}
+.wlc p{color:#6b7299;font-size:14px;margin-bottom:18px}
+.wlc .smry{background:#f7f8fc;border-radius:14px;padding:16px;margin-bottom:18px;text-align:right}
+.wlc .smry .r{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-bottom:1px solid #e5e8f5}
+.wlc .smry .r:last-child{border-bottom:0}
+.wlc .smry .r span:first-child{color:#6b7299}
+.wlc .smry .r span:last-child{font-weight:800}
+
+.prog{height:8px;background:#e5e8f5;border-radius:999px;overflow:hidden;margin-bottom:8px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,#5b3df5,#7c5cff);border-radius:999px;transition:width .4s;width:0}
+.qinfo{text-align:center;font-size:13px;color:#6b7299;margin-bottom:14px}
+.qinfo b{color:#5b3df5}
+.qtxt{padding:16px;background:#f7f8fc;border-radius:14px;border-right:4px solid #5b3df5;margin-bottom:16px;font-size:15px;font-weight:700;line-height:1.7}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:center;gap:12px;padding:13px 14px;background:#fff;border:2px solid #e5e8f5;border-radius:14px;cursor:pointer;font-size:14px;font-weight:600;text-align:right;width:100%;color:#1d2457}
+.opt:hover:not(.done){border-color:#5b3df5;background:#f0edff;transform:translateX(-2px)}
+.opt.done{cursor:default}
+.opt .num{width:28px;height:28px;border-radius:50%;background:#f7f8fc;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0;color:#6b7299}
+.opt .tx{flex:1}
+.opt .ic{width:22px;height:22px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;color:#fff}
+.opt.ok{background:#d1fae5;border-color:#10b981;color:#065f46}
+.opt.ok .num{background:#10b981;color:#fff}
+.opt.ok .ic{display:flex;background:#10b981}
+.opt.no{background:#ffe4e6;border-color:#e11d48;color:#9f1239}
+.opt.no .num{background:#e11d48;color:#fff}
+.opt.no .ic{display:flex;background:#e11d48}
+.opt.dim{opacity:.5}
+
+.result{text-align:center;padding:10px 0}
+.result .em{font-size:64px;line-height:1;margin-bottom:10px;display:inline-block}
+.result .lvl{font-size:24px;font-weight:900;margin-bottom:8px}
+.result .lvl[data-lv=beginner]{color:#ff7a3d}
+.result .lvl[data-lv=intermediate]{color:#12b58f}
+.result .lvl[data-lv=advanced]{color:#5b3df5}
+.result .desc{color:#6b7299;font-size:14px;margin-bottom:20px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.stat{padding:14px 6px;background:#f7f8fc;border-radius:14px;text-align:center}
+.stat b{display:block;font-size:22px;color:#5b3df5;line-height:1.1;margin-bottom:2px}
+.stat small{font-size:11px;color:#6b7299;font-weight:700}
+.bar{height:12px;background:#e5e8f5;border-radius:999px;overflow:hidden;margin:8px 0 18px}
+.bar i{display:block;height:100%;border-radius:999px;transition:width .6s;background:linear-gradient(90deg,#10b981,#059669)}
+.bar i.warn{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.bar i.bad{background:linear-gradient(90deg,#e11d48,#be123c)}
+.acts{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:14px}
+.acts .btn{margin-top:0}
+
+.lvbox{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;background:#f0edff;border-radius:999px;font-size:13px;font-weight:800;color:#5b3df5;margin:0 auto 12px;width:fit-content}
+.lvbox[data-lv="1"]{background:#ffe8d6;color:#b84a17}
+.lvbox[data-lv="2"]{background:#d3f5e9;color:#0a6b52}
+.lvbox[data-lv="3"]{background:#e5dfff;color:#3d24c9}
+.dots{display:flex;gap:5px;justify-content:center;margin-bottom:16px}
+.dot{width:10px;height:10px;border-radius:50%;background:#e5e8f5;transition:all .3s}
+.dot.on{background:#10b981;transform:scale(1.2)}
+.pacts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+
+.rows{display:flex;flex-direction:column;gap:10px}
+.prow{padding:10px 12px;background:#f7f8fc;border-radius:12px}
+.prow .t{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px}
+.pbar{height:8px;background:#e5e8f5;border-radius:999px;overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:999px;transition:width .5s;background:linear-gradient(90deg,#10b981,#059669)}
+.pbar i.warn{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.pbar i.bad{background:linear-gradient(90deg,#e11d48,#be123c)}
+
+.awards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.award{padding:14px 10px;background:#fff;border-radius:14px;box-shadow:0 4px 12px rgba(29,36,87,.06);text-align:center;opacity:.4;filter:grayscale(1);transition:all .3s}
+.award.on{opacity:1;filter:none;box-shadow:0 6px 18px rgba(29,36,87,.1);border-top:3px solid #f59e0b}
+.award .i{font-size:28px;margin-bottom:6px;line-height:1}
+.award .n{font-size:12px;font-weight:800;margin-bottom:2px}
+.award .d{font-size:10px;color:#6b7299;line-height:1.4}
+
+.ucard{display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#f0edff,#fff);border-radius:16px;margin-bottom:20px}
+.ucard .av{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#5b3df5,#7c5cff);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;flex-shrink:0}
+.ucard .tx b{display:block;font-size:15px;font-weight:800;margin-bottom:3px}
+.ucard .tx small{font-size:12px;color:#6b7299}
+
+.set{margin-bottom:18px}
+.set>label{display:block;font-size:13px;font-weight:700;margin-bottom:10px}
+.colors{display:flex;gap:9px;flex-wrap:wrap}
+.color{width:38px;height:38px;border-radius:50%;border:3px solid #fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .2s}
+.color:hover{transform:scale(1.1)}
+.color.on{box-shadow:0 0 0 3px #1d2457}
+.seg{display:flex;gap:4px;padding:4px;background:#f7f8fc;border-radius:12px}
+.seg button{flex:1;padding:10px;background:transparent;color:#6b7299;font-size:13px;border-radius:8px}
+.seg button.on{background:#fff;color:#5b3df5;box-shadow:0 2px 6px rgba(29,36,87,.08)}
+
+.about{margin-top:18px;padding:16px;background:#f7f8fc;border:2px dashed #c7cbf0;border-radius:14px}
+.about h3{font-size:13px;color:#5b3df5;margin-bottom:10px}
+.arow{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px dashed #e5e8f5}
+.arow:last-child{border-bottom:0}
+.arow span:first-child{color:#6b7299}
+.arow span:last-child{font-weight:700}
+
+.dock{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#fff;border-radius:999px;box-shadow:0 10px 30px rgba(29,36,87,.15);padding:8px;display:flex;gap:2px;z-index:50;max-width:calc(100% - 24px);overflow-x:auto;scrollbar-width:none}
+.dock::-webkit-scrollbar{display:none}
+.dock button{padding:8px 12px;background:transparent;color:#6b7299;font-size:11px;font-weight:700;border-radius:999px;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap;min-width:56px}
+.dock button:hover{color:#1d2457}
+.dock button.on{background:#f0edff;color:#5b3df5}
+.dock .ico{font-size:17px;line-height:1}
+
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(135deg,#5b3df5,#7c5cff);color:#fff;padding:13px 22px;border-radius:14px;box-shadow:0 10px 30px rgba(91,61,245,.4);font-weight:700;z-index:1000;transition:transform .4s;font-size:13px;max-width:calc(100% - 32px);text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0)}
+
+.msg{text-align:center;padding:26px 16px;color:#6b7299;font-size:13px}
+.msg .i{font-size:40px;margin-bottom:8px;line-height:1}
+.hidden{display:none!important}
+
+@media (max-width:520px){
+body{padding:12px 12px 100px}
+.logo h1{font-size:20px}
+.logo p{font-size:11px}
+.card{padding:20px 16px;border-radius:16px}
+.card h2{font-size:18px}
+.wlc .em{font-size:50px}
+.result .em{font-size:52px}
+.result .lvl{font-size:20px}
+.awards{grid-template-columns:1fr}
+.stats{gap:6px}
+.stat b{font-size:18px}
+.acts{grid-template-columns:1fr}
+.acts .btn2{order:2}
+.dock button{min-width:50px;padding:7px 10px;font-size:10px}
+.dock .ico{font-size:15px}
 }
 </style>
 </head>
-<body class="bg-grid">
-<div class="shell">
-<header class="top">
-<div class="brand"><h1>آموزیار</h1><p>هر دانش‌آموز، مسیر خودش</p></div>
-<div class="actions">
-<button class="ibtn" id="themeBtn" aria-label="تغییر حالت">🌙</button>
-<button class="pchip" id="pchip">
-<span class="who"><strong id="pname">مهمان</strong><small id="pmeta">وارد نشده</small></span>
-<span class="av">👤</span>
-</button>
-</div>
-</header>
-<main class="main">
+<body>
 
-<section class="view active" id="v-home">
-<div class="wiz">
-<div class="wprog">
-<div class="ptrack"><div class="pfill" id="pfill" style="width:33.33%"></div></div>
-<span class="plabel" id="plabel">۱ از ۳</span>
+<header class="hdr">
+<div class="logo">
+<h1>آموزیار</h1>
+<p>هر دانش‌آموز، مسیر خودش</p>
 </div>
-<div class="step active" data-step="1">
-<div class="whead"><h2 id="ht1">خوش اومدی 👋</h2><p id="hs1">برای شروع، وارد شو یا اکانت بساز</p></div>
+<button class="uchip" id="userChip">👤 مهمان</button>
+</header>
+
+<main class="wrap">
+
+<!-- ═══════ خانه ═══════ -->
+<section id="v-home">
+
+<div class="card" id="step1">
 <div class="tabs">
-<button class="tab active" data-tab="login">ورود</button>
-<button class="tab" data-tab="signup">ساخت اکانت</button>
+<button class="tab on" data-tab="login" type="button">ورود</button>
+<button class="tab" data-tab="signup" type="button">ساخت اکانت</button>
 </div>
-<form class="af active" id="fLogin" novalidate>
-<div class="f" data-field="lphone">
-<label for="lphone">شماره تلفن</label>
-<div class="iw">
-<span class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>
+
+<form id="fLogin" novalidate>
+<div class="fld">
+<label>شماره تلفن همراه</label>
 <input type="tel" id="lphone" placeholder="09123456789" maxlength="11" dir="ltr" style="text-align:left">
+<div class="err" data-err="lphone">شماره معتبر وارد کن (۱۱ رقم با ۰۹ شروع بشه)</div>
 </div>
-<small class="f-err">شماره معتبر وارد کن</small>
-</div>
-<div class="f" data-field="lpass">
-<label for="lpass">رمز عبور</label>
-<div class="iw">
-<span class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-<input type="password" id="lpass" placeholder="••••••••">
-<button type="button" class="tp" data-t="lpass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
-</div>
-<small class="f-err">رمز حداقل ۶ کاراکتر</small>
+<div class="fld">
+<label>رمز عبور</label>
+<input type="password" id="lpass" placeholder="حداقل ۶ کاراکتر">
+<div class="err" data-err="lpass">رمز عبور حداقل ۶ کاراکتر باشه</div>
 </div>
 <button type="submit" class="btn">ورود</button>
 </form>
-<form class="af" id="fSignup" novalidate>
-<div class="f" data-field="sphone">
-<label for="sphone">شماره تلفن</label>
-<div class="iw">
-<span class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>
+
+<form id="fSignup" novalidate style="display:none">
+<div class="fld">
+<label>شماره تلفن همراه</label>
 <input type="tel" id="sphone" placeholder="09123456789" maxlength="11" dir="ltr" style="text-align:left">
+<div class="err" data-err="sphone">شماره معتبر وارد کن (۱۱ رقم با ۰۹ شروع بشه)</div>
 </div>
-<small class="f-err">شماره معتبر وارد کن</small>
-</div>
-<div class="f" data-field="spass">
-<label for="spass">رمز عبور</label>
-<div class="iw">
-<span class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+<div class="fld">
+<label>رمز عبور</label>
 <input type="password" id="spass" placeholder="حداقل ۶ کاراکتر">
-<button type="button" class="tp" data-t="spass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+<div class="err" data-err="spass">رمز عبور حداقل ۶ کاراکتر باشه</div>
 </div>
-<small class="f-err">رمز حداقل ۶ کاراکتر</small>
-</div>
-<div class="f" data-field="spass2">
-<label for="spass2">تکرار رمز</label>
-<div class="iw">
-<span class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+<div class="fld">
+<label>تکرار رمز عبور</label>
 <input type="password" id="spass2" placeholder="••••••••">
-<button type="button" class="tp" data-t="spass2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
-</div>
-<small class="f-err">رمزها یکسان نیستن</small>
+<div class="err" data-err="spass2">رمزها یکسان نیستن</div>
 </div>
 <button type="submit" class="btn">ساخت اکانت</button>
 </form>
-<p class="ferr" id="e1"></p>
 </div>
-<div class="step" data-step="2">
-<div class="whead"><h2>خودت رو معرفی کن</h2><p>اسم، پایه و رشته</p></div>
+
+<div class="card hidden" id="step2">
+<h2>خودت رو معرفی کن</h2>
 <form id="fInfo" novalidate>
-<div class="f" data-field="fname">
-<label for="fname">نام</label>
-<div class="iw">
-<span class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+<div class="fld">
+<label>نام</label>
 <input type="text" id="fname" placeholder="سارا">
+<div class="err" data-err="fname">نامت رو بنویس</div>
 </div>
-<small class="f-err">نامت رو بنویس</small>
-</div>
-<div class="f" data-field="lname">
-<label for="lname">نام خانوادگی</label>
-<div class="iw">
-<span class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+<div class="fld">
+<label>نام خانوادگی</label>
 <input type="text" id="lname" placeholder="محمدی">
+<div class="err" data-err="lname">نام خانوادگیت رو بنویس</div>
 </div>
-<small class="f-err">نام خانوادگیت رو بنویس</small>
+
+<label style="display:block;font-size:13px;font-weight:700;margin-bottom:8px">پایه تحصیلی</label>
+<div class="grades" id="gradeBox">
+<div class="grade" data-g="10"><b>دهم</b><small>پایه ۱۰</small></div>
+<div class="grade" data-g="11"><b>یازدهم</b><small>پایه ۱۱</small></div>
+<div class="grade" data-g="12"><b>دوازدهم</b><small>پایه ۱۲</small></div>
 </div>
-<label style="display:block;font-weight:600;font-size:.84rem;margin:0 0 8px 2px">پایه تحصیلی</label>
-<div class="grades">
-<label class="gc"><input type="radio" name="grade" value="10"><span class="gl">دهم</span><span class="gn">پایه ۱۰</span></label>
-<label class="gc"><input type="radio" name="grade" value="11"><span class="gl">یازدهم</span><span class="gn">پایه ۱۱</span></label>
-<label class="gc"><input type="radio" name="grade" value="12"><span class="gl">دوازدهم</span><span class="gn">پایه ۱۲</span></label>
+
+<label style="display:block;font-size:13px;font-weight:700;margin-bottom:8px">رشته تحصیلی</label>
+<div class="majors" id="majorBox">
+<div class="major" data-m="math"><div class="ic">➗</div><div class="tx"><b>ریاضی فیزیک</b><small>ریاضی، فیزیک، شیمی</small></div></div>
+<div class="major" data-m="exp"><div class="ic">🧪</div><div class="tx"><b>علوم تجربی</b><small>زیست، شیمی، فیزیک</small></div></div>
+<div class="major" data-m="human"><div class="ic">📚</div><div class="tx"><b>علوم انسانی</b><small>ادبیات، عربی، تاریخ</small></div></div>
 </div>
-<label style="display:block;font-weight:600;font-size:.84rem;margin:12px 0 8px 2px">رشته تحصیلی</label>
-<div class="majors">
-<label class="mc"><input type="radio" name="major" value="math"><span class="ico">➗</span><span class="info"><strong>ریاضی فیزیک</strong><small>ریاضی، فیزیک، شیمی</small></span><span class="chk">✓</span></label>
-<label class="mc"><input type="radio" name="major" value="exp"><span class="ico">🧪</span><span class="info"><strong>علوم تجربی</strong><small>زیست، شیمی، فیزیک</small></span><span class="chk">✓</span></label>
-<label class="mc"><input type="radio" name="major" value="human"><span class="ico">📚</span><span class="info"><strong>علوم انسانی</strong><small>ادبیات، عربی، تاریخ</small></span><span class="chk">✓</span></label>
-</div>
-<p class="ferr" id="e2"></p>
-<div class="wact">
-<button type="button" class="bghost" data-go="1">عقب</button>
+
+<div class="err" data-err="info" style="text-align:center;margin-bottom:12px">پایه و رشته‌ات رو انتخاب کن</div>
+
+<div class="acts">
+<button type="button" class="btn2" id="backToStep1">عقب</button>
 <button type="submit" class="btn">ادامه</button>
 </div>
 </form>
 </div>
-<div class="step" data-step="3">
-<div class="whead"><h2>دروس و زمان</h2><p id="s3sub">قوی‌ترین تا ضعیف‌ترین</p></div>
-<div class="hint"><span>👆</span><span>روی دروس به ترتیب <strong>از قوی‌ترین تا ضعیف‌ترین</strong> بزن.</span></div>
-<div class="subj-wrap"><div class="subj-order" id="sorder"></div></div>
-<div class="range">
-<div class="top"><label for="study">مطالعه خودخوان روزانه</label><span class="val" id="studyv">۸ ساعت</span></div>
-<input type="range" id="study" min="1" max="24" value="8">
-<div class="scale"><span>۱</span><span>۲۴ ساعت</span></div>
+
+<div class="card hidden" id="step3">
+<h2>دروس و زمان</h2>
+<p style="text-align:center;font-size:13px;color:#6b7299;margin-bottom:16px">روی دروس به ترتیب <b>قوی‌ترین تا ضعیف‌ترین</b> بزن</p>
+
+<div class="subj" id="subjectBox"></div>
+
+<div class="rng">
+<div class="tp"><label>مطالعه خودخوان روزانه</label><span class="v" id="studyVal">۸ ساعت</span></div>
+<input type="range" id="studyRange" min="1" max="24" value="8">
 </div>
-<div class="range">
-<div class="top"><label for="tests">تست روزانه</label><span class="val" id="testsv">۳۰ تست</span></div>
-<input type="range" id="tests" min="10" max="120" step="5" value="30">
-<div class="scale"><span>۱۰</span><span>۱۲۰ تست</span></div>
+
+<div class="rng">
+<div class="tp"><label>تست روزانه</label><span class="v" id="testVal">۳۰ تست</span></div>
+<input type="range" id="testRange" min="10" max="120" step="5" value="30">
 </div>
-<p class="ferr" id="e3"></p>
-<div class="wact">
-<button type="button" class="bghost" data-go="2">عقب</button>
-<button type="button" class="btn" id="finish">پایان 🚀</button>
+
+<div class="err" data-err="subj" style="text-align:center;margin-bottom:12px">حداقل ۲ درس انتخاب کن</div>
+
+<div class="acts">
+<button type="button" class="btn2" id="backToStep2">عقب</button>
+<button type="button" class="btn" id="finishBtn">پایان 🚀</button>
 </div>
 </div>
-<div class="step" data-step="4">
-<div class="welcome">
-<span class="em">🎉</span>
-<h2 id="wtitle">خوش اومدی!</h2>
-<p class="sub" id="wsub">پروفایل یادگیری تو آماده شد</p>
-<div class="sum">
-<div class="row"><span>پایه</span><span id="wgrade">—</span></div>
-<div class="row"><span>رشته</span><span id="wmajor">—</span></div>
-<div class="row"><span>مطالعه</span><span id="wstudy">—</span></div>
-<div class="row"><span>تست</span><span id="wtests">—</span></div>
+
+<div class="card hidden" id="step4">
+<div class="wlc">
+<div class="em">🎉</div>
+<h2 id="welcomeTitle">خوش اومدی!</h2>
+<p>پروفایل یادگیری تو آماده شد</p>
+<div class="smry">
+<div class="r"><span>پایه</span><span id="wGrade">—</span></div>
+<div class="r"><span>رشته</span><span id="wMajor">—</span></div>
+<div class="r"><span>مطالعه</span><span id="wStudy">—</span></div>
+<div class="r"><span>تست</span><span id="wTest">—</span></div>
 </div>
-<button type="button" class="btn" id="enterMain">ورود به آموزیار</button>
+<button type="button" class="btn" id="enterApp">ورود به آموزیار</button>
+</div>
+</div>
+
+</section>
+
+<!-- ═══════ آزمون ═══════ -->
+<section id="v-quiz" class="hidden">
+<div class="card" id="quizIntro">
+<h2>🎯 آزمون تعیین سطح</h2>
+<p style="text-align:center;color:#6b7299;font-size:14px;margin-bottom:20px">سطحت تو درس <b id="quizSubjectName">—</b> رو می‌سنجیم</p>
+<div class="stats">
+<div class="stat"><b>۱۰</b><small>سوال</small></div>
+<div class="stat"><b>∞</b><small>زمان</small></div>
+<div class="stat"><b>🎯</b><small>هدف</small></div>
+</div>
+<button type="button" class="btn" id="startQuizBtn">شروع آزمون</button>
+</div>
+
+<div class="card hidden" id="quizBox">
+<div class="prog"><i id="quizProgress"></i></div>
+<p class="qinfo"><b id="qCur">۱</b> از <b id="qTot">۱۰</b></p>
+<div class="qtxt" id="qText"></div>
+<div class="opts" id="qOpts"></div>
+</div>
+
+<div class="card hidden" id="quizResult">
+<div class="result">
+<div class="em" id="rEmoji">🎉</div>
+<h2 class="lvl" id="rLevel" data-lv="intermediate">سطح متوسط</h2>
+<p class="desc" id="rDesc">آماده‌ای!</p>
+<div class="stats">
+<div class="stat"><b id="rCorrect">۰</b><small>درست</small></div>
+<div class="stat"><b id="rWrong">۰</b><small>غلط</small></div>
+<div class="stat"><b id="rPercent">۰٪</b><small>درصد</small></div>
+</div>
+<div class="bar"><i id="rBar"></i></div>
+<div class="acts">
+<button type="button" class="btn2" id="retryQuiz">تکرار</button>
+<button type="button" class="btn" id="goToPractice">ادامه</button>
 </div>
 </div>
 </div>
 </section>
 
-<section class="view" id="v-quiz">
-<div class="qwrap">
-<div class="qs active" id="qi">
-<div class="qic">
-<div class="big">🎯</div>
-<h2>آزمون تعیین سطح</h2>
-<p class="d">سطحت تو درس <strong id="qisub">—</strong> رو می‌سنجیم.</p>
-<div class="info">
-<div><span>📝</span><span>۱۰ سوال</span></div>
-<div><span>⏱️</span><span>بدون محدودیت</span></div>
-<div><span>🎯</span><span>تشخیص سطح</span></div>
+<!-- ═══════ تمرین ═══════ -->
+<section id="v-practice" class="hidden">
+<div class="card" id="practiceBox">
+<div class="lvbox" id="levelBox" data-lv="2"><span id="levelIcon">💪</span><span id="levelText">سطح متوسط</span></div>
+<div class="dots" id="streakDots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<div class="stats">
+<div class="stat"><b id="pCorrect">۰</b><small>درست</small></div>
+<div class="stat"><b id="pWrong">۰</b><small>غلط</small></div>
+<div class="stat"><b id="pPercent">۰٪</b><small>درصد</small></div>
 </div>
-<button class="btn" id="startQuiz">شروع آزمون</button>
-</div>
-</div>
-<div class="qs" id="qq">
-<div class="qcard">
-<div class="qhead">
-<div class="ptrack"><div class="pfill" id="qprog" style="width:10%"></div></div>
-<span class="plabel"><span id="qc">۱</span> از <span id="qt">۱۰</span></span>
-</div>
-<div class="qtext" id="qtext"></div>
-<div class="qopts" id="qopts"></div>
+<div class="qtxt" id="pText"></div>
+<div class="opts" id="pOpts"></div>
+<div class="pacts">
+<button type="button" class="btn2" id="endPractice">پایان</button>
+<button type="button" class="btn2" id="skipPractice">رد کردن</button>
 </div>
 </div>
-<div class="qs" id="qr">
-<div class="rwrap">
-<div class="em" id="rem">🎉</div>
-<h2 class="lvl" id="rlvl" data-level="intermediate">سطح متوسط</h2>
-<p class="desc" id="rdesc">آماده‌ای!</p>
-<div class="rchart" id="rchart"><div class="inner"><span class="pct" id="rpct">۰٪</span><span class="lbl">درصد</span></div></div>
-<div class="rstats">
-<div class="stat"><span class="n" id="rc">۰</span><span class="l">درست</span></div>
-<div class="stat"><span class="n" id="rw">۰</span><span class="l">غلط</span></div>
-<div class="stat"><span class="n" id="rp">۰٪</span><span class="l">درصد</span></div>
-</div>
-<div class="ract">
-<button class="bghost" id="retry">تکرار</button>
-<button class="btn" id="cont">ادامه</button>
-</div>
-</div>
-</div>
-</div>
-</section>
 
-<section class="view" id="v-practice">
-<div class="practice-wrap">
-<div class="qs active" id="pm">
-<div class="phead">
-<div class="lbadge" id="lbadge" data-level="2"><span id="lico">💪</span><span id="ltxt">سطح متوسط</span></div>
-<div class="streak" id="sdots"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span></div>
-</div>
-<div class="qcard">
-<div class="pstats">
-<div><span class="n" id="pc">۰</span><span class="l">درست</span></div>
-<div><span class="n" id="pw">۰</span><span class="l">غلط</span></div>
-<div><span class="n" id="pr">۰٪</span><span class="l">درصد</span></div>
-</div>
-<div class="qtext" id="ptext"></div>
-<div class="qopts" id="popts"></div>
-</div>
-<div class="pact">
-<button class="bghost" id="pend">پایان</button>
-<button class="bghost" id="pskip">رد کردن ➡️</button>
-</div>
-</div>
-<div class="qs" id="ps">
-<div class="sumwrap">
-<span class="em">🎯</span>
+<div class="card hidden" id="practiceSummary">
+<div class="result">
+<div class="em">🎯</div>
 <h2>تمرین تموم شد!</h2>
-<p style="color:var(--ink-soft);font-size:.9rem;margin:0 0 8px">عملکردت:</p>
-<div class="grid">
-<div class="stat"><span class="n" id="sc">۰</span><span class="l">درست</span></div>
-<div class="stat"><span class="n" id="sw">۰</span><span class="l">غلط</span></div>
-<div class="stat"><span class="n" id="sr">۰٪</span><span class="l">درصد</span></div>
+<p class="desc">عملکردت تو این جلسه</p>
+<div class="stats">
+<div class="stat"><b id="sCorrect">۰</b><small>درست</small></div>
+<div class="stat"><b id="sWrong">۰</b><small>غلط</small></div>
+<div class="stat"><b id="sPercent">۰٪</b><small>درصد</small></div>
 </div>
-<div class="ract">
-<button class="bghost" id="newP">تمرین جدید</button>
-<button class="btn" id="backH">بازگشت</button>
+<div class="acts">
+<button type="button" class="btn2" id="newPractice">تمرین جدید</button>
+<button type="button" class="btn" id="goHome">بازگشت</button>
 </div>
-</div>
-</div>
-</div>
-</section>
-
-<section class="view" id="v-progress">
-<div class="dash">
-<div class="dcard">
-<h3><span>📊</span> آمار کلی</h3>
-<div class="qstats">
-<div class="qs-item"><span class="i">🎯</span><span class="n" id="sq">۰</span><span class="l">آزمون</span></div>
-<div class="qs-item"><span class="i">💪</span><span class="n" id="sp">۰</span><span class="l">تمرین</span></div>
-<div class="qs-item"><span class="i">✓</span><span class="n" id="stc">۰</span><span class="l">کل درست</span></div>
-<div class="qs-item"><span class="i">🔥</span><span class="n" id="ss">۰</span><span class="l">استریک</span></div>
-<div class="qs-item"><span class="i">⚡</span><span class="n" id="sx">۰</span><span class="l">XP</span></div>
-<div class="qs-item"><span class="i">🏅</span><span class="n" id="sl">۱</span><span class="l">سطح</span></div>
-<div class="qs-item"><span class="i">📈</span><span class="n" id="savg">۰٪</span><span class="l">میانگین</span></div>
-<div class="qs-item"><span class="i">🕐</span><span class="n" id="stime">۰</span><span class="l">دقیقه</span></div>
-</div>
-</div>
-<div class="dcard">
-<h3><span>📈</span> روند پیشرفت</h3>
-<div class="chart-wrap"><canvas id="chart"></canvas></div>
-</div>
-<div class="dcard">
-<h3><span>📚</span> عملکرد درسی</h3>
-<div class="splist" id="splist"></div>
-</div>
-<div class="dcard">
-<h3><span>🎯</span> نقاط ضعف</h3>
-<div class="splist" id="weaklist"></div>
 </div>
 </div>
 </section>
 
-<section class="view" id="v-awards">
-<div class="awrap">
-<div class="aheader">
-<span class="big">🏆</span>
-<h2>دستاوردهای تو</h2>
-<p id="asub">هنوز شروع نکردی!</p>
+<!-- ═══════ پیشرفت ═══════ -->
+<section id="v-progress" class="hidden">
+<div class="card">
+<h3>📊 آمار کلی</h3>
+<div class="stats" style="grid-template-columns:repeat(2,1fr)">
+<div class="stat"><b id="stQuiz">۰</b><small>آزمون</small></div>
+<div class="stat"><b id="stPractice">۰</b><small>تمرین</small></div>
+<div class="stat"><b id="stCorrect">۰</b><small>کل درست</small></div>
+<div class="stat"><b id="stStreak">۰</b><small>استریک</small></div>
+<div class="stat"><b id="stXP">۰</b><small>XP</small></div>
+<div class="stat"><b id="stLevel">۱</b><small>سطح</small></div>
 </div>
-<div class="agrid" id="agrid"></div>
+</div>
+
+<div class="card">
+<h3>📚 عملکرد درسی</h3>
+<div class="rows" id="subjectProgress"></div>
+</div>
+
+<div class="card">
+<h3>🎯 نقاط ضعف</h3>
+<div class="rows" id="weakPoints"></div>
 </div>
 </section>
 
-<section class="view" id="v-profile">
-<div class="set">
+<!-- ═══════ دستاوردها ═══════ -->
+<section id="v-awards" class="hidden">
+<div class="card">
+<h2>🏆 دستاوردها</h2>
+<p style="text-align:center;color:#6b7299;font-size:13px;margin-bottom:18px" id="awardsSubtitle">هنوز شروع نکردی!</p>
+<div class="awards" id="awardsGrid"></div>
+</div>
+</section>
+
+<!-- ═══════ پروفایل ═══════ -->
+<section id="v-profile" class="hidden">
+<div class="card">
 <div class="ucard">
-<div class="avL" id="uavL">👤</div>
-<div class="info">
-<strong id="uname">مهمان</strong>
-<small id="umeta">وارد نشده</small>
-<div class="badges" id="ubadges"></div>
+<div class="av" id="userAvatar">👤</div>
+<div class="tx">
+<b id="userNameFull">مهمان</b>
+<small id="userMetaFull">وارد نشده</small>
 </div>
 </div>
-<h2>تنظیمات</h2>
-<p class="sub">اپ رو مطابق سلیقه‌ات شخصی‌سازی کن.</p>
-<div class="sg">
+
+<h3>تنظیمات</h3>
+
+<div class="set">
 <label>رنگ اصلی</label>
-<div class="crow" id="crow">
-<button class="cdot" data-c="#5b3df5" style="background:#5b3df5"></button>
-<button class="cdot" data-c="#12b58f" style="background:#12b58f"></button>
-<button class="cdot" data-c="#ff7a3d" style="background:#ff7a3d"></button>
-<button class="cdot" data-c="#ff5c93" style="background:#ff5c93"></button>
-<button class="cdot" data-c="#0ea5e9" style="background:#0ea5e9"></button>
-<button class="cdot" data-c="#f59e0b" style="background:#f59e0b"></button>
+<div class="colors" id="colorBox">
+<div class="color" data-c="#5b3df5" style="background:#5b3df5"></div>
+<div class="color" data-c="#12b58f" style="background:#12b58f"></div>
+<div class="color" data-c="#ff7a3d" style="background:#ff7a3d"></div>
+<div class="color" data-c="#ff5c93" style="background:#ff5c93"></div>
+<div class="color" data-c="#0ea5e9" style="background:#0ea5e9"></div>
 </div>
 </div>
-<div class="sg">
+
+<div class="set">
 <label>اندازه فونت</label>
-<div class="seg" id="frow">
-<button class="sbtn2" data-s="14">کوچک</button>
-<button class="sbtn2" data-s="16">متوسط</button>
-<button class="sbtn2" data-s="18">بزرگ</button>
+<div class="seg" id="fontBox">
+<button type="button" data-s="14">کوچک</button>
+<button type="button" data-s="16" class="on">متوسط</button>
+<button type="button" data-s="18">بزرگ</button>
 </div>
 </div>
-<div class="sg">
-<label>پس‌زمینه</label>
-<div class="seg" id="brow">
-<button class="sbtn2" data-b="bg-grid">شطرنجی</button>
-<button class="sbtn2" data-b="bg-dots">نقطه‌ای</button>
-<button class="sbtn2" data-b="bg-plain">ساده</button>
-</div>
-</div>
-<button class="reset" id="resetBtn">بازگردانی به حالت اولیه</button>
+
+<button type="button" class="btn2" id="resetSettings" style="width:100%;margin-top:6px">بازگردانی تنظیمات</button>
+
 <div class="about">
-<h3><span>📜</span> شناسنامه اثر</h3>
-<div class="row"><span>نام اثر</span><span>آموزیار — پلتفرم یادگیری تطبیقی</span></div>
-<div class="row"><span>سازنده</span><span id="abAuthor">—</span></div>
-<div class="row"><span>شماره تماس</span><span id="abPhone" dir="ltr" style="text-align:left">—</span></div>
-<div class="row"><span>پایه و رشته</span><span id="abGM">—</span></div>
-<div class="row"><span>نسخه</span><span>۱.۰.۰</span></div>
-<div class="row"><span>تاریخ</span><span id="abDate">—</span></div>
-<div class="row"><span>مخاطب</span><span>دانش‌آموزان متوسطه دوم</span></div>
-<div class="row"><span>فناوری</span><span>HTML، CSS، JavaScript</span></div>
-<div class="row"><span>نوع اثر</span><span>نرم‌افزار کاربردی</span></div>
+<h3>📜 شناسنامه اثر</h3>
+<div class="arow"><span>نام اثر</span><span>آموزیار — پلتفرم یادگیری تطبیقی</span></div>
+<div class="arow"><span>سازنده</span><span id="aboutAuthor">—</span></div>
+<div class="arow"><span>شماره تماس</span><span id="aboutPhone" dir="ltr">—</span></div>
+<div class="arow"><span>پایه و رشته</span><span id="aboutGradeMajor">—</span></div>
+<div class="arow"><span>نسخه</span><span>۱.۰.۰</span></div>
+<div class="arow"><span>تاریخ</span><span id="aboutDate">—</span></div>
+<div class="arow"><span>مخاطب</span><span>دانش‌آموزان متوسطه دوم</span></div>
+<div class="arow"><span>فناوری</span><span>HTML، CSS، JavaScript</span></div>
+<div class="arow"><span>نوع اثر</span><span>نرم‌افزار کاربردی</span></div>
 </div>
 </div>
 </section>
 
 </main>
-<div class="dock-wrap">
+
 <nav class="dock" id="dock">
-<button class="ditem active" data-tab="home"><span class="i">🏠</span><span class="l">خانه</span></button>
-<button class="ditem" data-tab="quiz"><span class="i">📝</span><span class="l">آزمون</span></button>
-<button class="ditem" data-tab="practice"><span class="i">🎯</span><span class="l">تمرین</span></button>
-<button class="ditem" data-tab="progress"><span class="i">📊</span><span class="l">پیشرفت</span></button>
-<button class="ditem" data-tab="awards"><span class="i">🏆</span><span class="l">دستاوردها</span></button>
-<button class="ditem" data-tab="profile"><span class="i">👤</span><span class="l">پروفایل</span></button>
+<button type="button" class="on" data-tab="home"><span class="ico">🏠</span>خانه</button>
+<button type="button" data-tab="quiz"><span class="ico">📝</span>آزمون</button>
+<button type="button" data-tab="practice"><span class="ico">🎯</span>تمرین</button>
+<button type="button" data-tab="progress"><span class="ico">📊</span>پیشرفت</button>
+<button type="button" data-tab="awards"><span class="ico">🏆</span>دستاوردها</button>
+<button type="button" data-tab="profile"><span class="ico">👤</span>پروفایل</button>
 </nav>
-</div>
-<div class="toasts" id="toasts"></div>
-<canvas id="confetti"></canvas>
-</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 (function(){
 "use strict";
 
-/* ⚠️ متغیرهای مهم قبل از هر چیز */
-let chartInst=null;
+function $(id){return document.getElementById(id)}
+function $$(sel){return document.querySelectorAll(sel)}
+function fa(n){return String(n).replace(/\d/g,function(d){return "۰۱۲۳۴۵۶۷۸۹"[+d]})}
 
-/* ============ تنظیمات ============ */
-const CK={
-auth:"amozyar:v2:auth",profile:"amozyar:v2:profile",settings:"amozyar:v2:settings",
-theme:"amozyar:v2:theme",quiz:"amozyar:v2:quiz",quizH:"amozyar:v2:quizH",
-practice:"amozyar:v2:practice",awards:"amozyar:v2:awards",xp:"amozyar:v2:xp",streak:"amozyar:v2:streak"
+var store={
+read:function(k){try{return JSON.parse(localStorage.getItem(k))||{}}catch(e){return{}}},
+write:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 };
 
-const MAJORS={math:{l:"ریاضی فیزیک"},exp:{l:"علوم تجربی"},human:{l:"علوم انسانی"}};
-const GRADES={10:"دهم",11:"یازدهم",12:"دوازدهم"};
-const SUBJECTS={
-math:{10:["ریاضی ۱","هندسه ۱","فیزیک ۱","شیمی ۱","عربی، زبان قرآن ۱","فارسی ۱","دین و زندگی ۱","زبان انگلیسی ۱","نگارش ۱","کارگاه کارآفرینی"],11:["حسابان ۱","هندسه ۲","آمار و احتمال","فیزیک ۲","شیمی ۲","عربی، زبان قرآن ۲","فارسی ۲","دین و زندگی ۲","زبان انگلیسی ۲","نگارش ۲","زمین‌شناسی"],12:["حسابان ۲","هندسه ۳","ریاضیات گسسته","فیزیک ۳","شیمی ۳","عربی، زبان قرآن ۳","فارسی ۳","دین و زندگی ۳","زبان انگلیسی ۳","نگارش ۳","سلامت و بهداشت"]},
-exp:{10:["ریاضی ۱","زیست‌شناسی ۱","فیزیک ۱","شیمی ۱","عربی، زبان قرآن ۱","فارسی ۱","دین و زندگی ۱","زبان انگلیسی ۱","نگارش ۱","کارگاه کارآفرینی"],11:["ریاضی ۲","زیست‌شناسی ۲","فیزیک ۲","شیمی ۲","عربی، زبان قرآن ۲","فارسی ۲","دین و زندگی ۲","زبان انگلیسی ۲","نگارش ۲","زمین‌شناسی"],12:["ریاضی ۳","زیست‌شناسی ۳","فیزیک ۳","شیمی ۳","عربی، زبان قرآن ۳","فارسی ۳","دین و زندگی ۳","زبان انگلیسی ۳","نگارش ۳","سلامت و بهداشت"]},
-human:{10:["ریاضی و آمار ۱","اقتصاد","تاریخ ۱","جغرافیا ۱","منطق","عربی، زبان قرآن ۱","فارسی ۱","دین و زندگی ۱","زبان انگلیسی ۱","نگارش ۱","جامعه‌شناسی ۱"],11:["ریاضی و آمار ۲","روان‌شناسی","تاریخ ۲","جغرافیا ۲","فلسفه ۱","جامعه‌شناسی ۲","عربی، زبان قرآن ۲","فارسی ۲","دین و زندگی ۲","زبان انگلیسی ۲","نگارش ۲"],12:["ریاضی و آمار ۳","فلسفه ۲","جامعه‌شناسی ۳","تاریخ ۳","جغرافیا ۳","عربی، زبان قرآن ۳","فارسی ۳","دین و زندگی ۳","زبان انگلیسی ۳","نگارش ۳","سلامت و بهداشت"]}
-};
+var MAJORS={math:"ریاضی فیزیک",exp:"علوم تجربی",human:"علوم انسانی"};
+var GRADES={10:"دهم",11:"یازدهم",12:"دوازدهم"};
 
-const SUBJECT_MAP=[
+var SUBJECTS={
+math:{
+10:["ریاضی ۱","هندسه ۱","فیزیک ۱","شیمی ۱","عربی ۱","فارسی ۱","دین و زندگی ۱","زبان انگلیسی ۱"],
+11:["حسابان ۱","هندسه ۲","آمار و احتمال","فیزیک ۲","شیمی ۲","عربی ۲","فارسی ۲","دین و زندگی ۲","زبان انگلیسی ۲"],
+12:["حسابان ۲","هندسه ۳","ریاضیات گسسته","فیزیک ۳","شیمی ۳","عربی ۳","فارسی ۳","دین و زندگی ۳","زبان انگلیسی ۳"]
+},
+exp:{
+10:["ریاضی ۱","زیست‌شناسی ۱","فیزیک ۱","شیمی ۱","عربی ۱","فارسی ۱","دین و زندگی ۱","زبان انگلیسی ۱"],
+11:["ریاضی ۲","زیست‌شناسی ۲","فیزیک ۲","شیمی ۲","عربی ۲","فارسی ۲","دین و زندگی ۲","زبان انگلیسی ۲"],
+12:["ریاضی ۳","زیست‌شناسی ۳","فیزیک ۳","شیمی ۳","عربی ۳","فارسی ۳","دین و زندگی ۳","زبان انگلیسی ۳"]
+},
+human:{
+10:["ریاضی و آمار ۱","اقتصاد","تاریخ ۱","جغرافیا ۱","منطق","فارسی ۱","دین و زندگی ۱","عربی ۱"],
+11:["ریاضی و آمار ۲","روان‌شناسی","تاریخ ۲","جغرافیا ۲","فلسفه ۱","فارسی ۲","دین و زندگی ۲","عربی ۲"],
+12:["ریاضی و آمار ۳","فلسفه ۲","جامعه‌شناسی","تاریخ ۳","جغرافیا ۳","فارسی ۳","دین و زندگی ۳","عربی ۳"]
+}};
+
+var SMAP=[
 {c:"math",k:["ریاضی","حسابان","هندسه","آمار","گسسته"]},
-{c:"science",k:["فیزیک","شیمی","زیست","زمین‌شناسی"]},
+{c:"science",k:["فیزیک","شیمی","زیست","زمین"]},
 {c:"literature",k:["فارسی","نگارش"]},
 {c:"religion",k:["دین","عربی","قرآن","زندگی"]},
 {c:"english",k:["انگلیسی"]},
@@ -690,900 +549,1025 @@ const SUBJECT_MAP=[
 {c:"economics",k:["اقتصاد","کارآفرینی"]},
 {c:"general",k:["سلامت","بهداشت","هنر"]}
 ];
-function findCat(n){n=String(n||"");for(const m of SUBJECT_MAP){for(const k of m.k){if(n.includes(k))return m.c;}}return "general";}
 
-/* ============ بانک آزمون ============ */
-const QB={
+function findCat(name){
+name=String(name||"");
+for(var i=0;i<SMAP.length;i++){
+for(var j=0;j<SMAP[i].k.length;j++){
+if(name.indexOf(SMAP[i].k[j])>-1)return SMAP[i].c;
+}
+}
+return "general";
+}
+
+var QB={
 math:[
-{q:"مجموع اعداد ۱ تا ۱۰؟",options:["۴۵","۵۰","۵۵","۶۰"],correct:2},
-{q:"x+۵=۱۲ ⇒ x؟",options:["۵","۶","۷","۸"],correct:2},
-{q:"جواب x²=۹؟",options:["۳ و ۹","۳ و −۳","۹ و −۹","فقط ۳"],correct:1},
-{q:"a=۲ ⇒ ۳a²؟",options:["۶","۸","۱۲","۱۸"],correct:2},
-{q:"وتر مثلث ۳ و ۴؟",options:["۵","۶","۷","۲۵"],correct:0},
-{q:"۲⁵؟",options:["۱۰","۲۵","۳۲","۶۴"],correct:2},
-{q:"مجموع زوایای مثلث؟",options:["۹۰","۱۸۰","۲۷۰","۳۶۰"],correct:1},
-{q:"۵!؟",options:["۲۵","۶۰","۱۲۰","۷۲۰"],correct:2},
-{q:"A∩B وقتی A={۱،۲،۳} B={۲،۳،۴}؟",options:["۱","۲","۳","۴"],correct:1},
-{q:"۲۰٪ از ۱۵۰؟",options:["۲۰","۳۰","۴۵","۷۵"],correct:1}
+{q:"مجموع اعداد ۱ تا ۱۰ چقدر است؟",o:["۴۵","۵۰","۵۵","۶۰"],c:2},
+{q:"اگر x+۵=۱۲ باشد، x چقدر است؟",o:["۵","۶","۷","۸"],c:2},
+{q:"جواب‌های معادله x²=۹ کدام‌اند؟",o:["۳ و ۹","۳ و −۳","۹ و −۹","فقط ۳"],c:1},
+{q:"اگر a=۲ باشد، ۳a² چقدر است؟",o:["۶","۸","۱۲","۱۸"],c:2},
+{q:"در مثلث قائم‌الزاویه با اضلاع ۳ و ۴، وتر چقدر است؟",o:["۵","۶","۷","۲۵"],c:0},
+{q:"حاصل ۲ به قوه ۵ چقدر است؟",o:["۱۰","۲۵","۳۲","۶۴"],c:2},
+{q:"مجموع زوایای داخلی مثلث چند درجه است؟",o:["۹۰","۱۸۰","۲۷۰","۳۶۰"],c:1},
+{q:"حاصل ۵ فاکتوریل چقدر است؟",o:["۲۵","۶۰","۱۲۰","۷۲۰"],c:2},
+{q:"اگر A={۱،۲،۳} و B={۲،۳،۴}، A∩B چند عضو دارد؟",o:["۱","۲","۳","۴"],c:1},
+{q:"حاصل ۲۰٪ از ۱۵۰ چقدر است؟",o:["۲۰","۳۰","۴۵","۷۵"],c:1}
 ],
 science:[
-{q:"واحد نیرو در SI؟",options:["ژول","نیوتون","وات","پاسکال"],correct:1},
-{q:"شتاب گرانش؟",options:["۵","۹.۸","۱۵","۲۰"],correct:1},
-{q:"سرعت ثابت ⇒ شتاب؟",options:["صفر","ثابت","زیاد","منفی"],correct:0},
-{q:"واحد کار در SI؟",options:["نیوتون","ژول","وات","آمپر"],correct:1},
-{q:"قانون اول نیوتون؟",options:["شتاب","اینرسی","اصطکاک","گرانش"],correct:1},
-{q:"چگالی آب؟",options:["۱۰۰","۵۰۰","۱۰۰۰","۱۰۰۰۰"],correct:2},
-{q:"انرژی جنبشی؟",options:["mv","mv²","½mv²","۲mv²"],correct:2},
-{q:"کمیت برداری؟",options:["جرم","دما","سرعت","زمان"],correct:2},
-{q:"فرمول آب؟",options:["H₂O","CO₂","NaCl","O₂"],correct:0},
-{q:"واحد زنده؟",options:["بافت","سلول","اندام","مولکول"],correct:1}
+{q:"واحد نیرو در SI چیست؟",o:["ژول","نیوتون","وات","پاسکال"],c:1},
+{q:"شتاب گرانش زمین تقریباً چقدر است؟",o:["۵","۹.۸","۱۵","۲۰"],c:1},
+{q:"اگر جسمی با سرعت ثابت حرکت کند، شتابش چقدر است؟",o:["صفر","ثابت","زیاد","منفی"],c:0},
+{q:"واحد کار در SI چیست؟",o:["نیوتون","ژول","وات","آمپر"],c:1},
+{q:"قانون اول نیوتون به کدام مفهوم مربوط است؟",o:["شتاب","اینرسی","اصطکاک","گرانش"],c:1},
+{q:"چگالی آب چند kg/m³ است؟",o:["۱۰۰","۵۰۰","۱۰۰۰","۱۰۰۰۰"],c:2},
+{q:"فرمول انرژی جنبشی کدام است؟",o:["mv","mv²","½mv²","۲mv²"],c:2},
+{q:"کدام کمیت برداری است؟",o:["جرم","دما","سرعت","زمان"],c:2},
+{q:"فرمول شیمیایی آب کدام است؟",o:["H₂O","CO₂","NaCl","O₂"],c:0},
+{q:"واحد ساختاری موجودات زنده چیست؟",o:["بافت","سلول","اندام","مولکول"],c:1}
 ],
 literature:[
-{q:"رکن اصلی جمله؟",options:["فعل","قید","صفت","حرف اضافه"],correct:0},
-{q:"«کتاب»؟",options:["فعل","اسم","صفت","قید"],correct:1},
-{q:"مترادف «شجاع»؟",options:["ترسو","دلیر","ضعیف","خسته"],correct:1},
-{q:"متضاد «سخاوتمند»؟",options:["بخشنده","کریم","بخیل","مهربان"],correct:2},
-{q:"ترکیب وصفی؟",options:["کتاب خواندن","کتاب خوب","کتاب و قلم","کتاب را"],correct:1},
-{q:"فاعل «علی به مدرسه رفت»؟",options:["علی","مدرسه","رفت","به"],correct:0},
-{q:"«مادر»؟",options:["جمع","مفرد","اسم خاص","ضمیر"],correct:1},
-{q:"زمان «خواهم رفت»؟",options:["گذشته","حال","آینده","ماضی نقلی"],correct:2},
-{q:"آرایه «چون ماه زیبا بود»؟",options:["تشبیه","استعاره","کنایه","مجاز"],correct:0},
-{q:"آرایه «شیر شجاع است»؟",options:["تشبیه","استعاره","کنایه","مجاز"],correct:1}
+{q:"کدام گزینه از ارکان اصلی جمله است؟",o:["فعل","قید","صفت","حرف اضافه"],c:0},
+{q:"کلمه «کتاب» چه نوع کلمه‌ای است؟",o:["فعل","اسم","صفت","قید"],c:1},
+{q:"مترادف کلمه «شجاع» کدام است؟",o:["ترسو","دلیر","ضعیف","خسته"],c:1},
+{q:"متضاد کلمه «سخاوتمند» چیست؟",o:["بخشنده","کریم","بخیل","مهربان"],c:2},
+{q:"کدام یک ترکیب وصفی است؟",o:["کتاب خواندن","کتاب خوب","کتاب و قلم","کتاب را"],c:1},
+{q:"در جمله «علی به مدرسه رفت»، فاعل کدام است؟",o:["علی","مدرسه","رفت","به"],c:0},
+{q:"کلمه «مادر» چه نوع کلمه‌ای است؟",o:["جمع","مفرد","اسم خاص","ضمیر"],c:1},
+{q:"زمان فعل «خواهم رفت» کدام است؟",o:["گذشته","حال","آینده","ماضی نقلی"],c:2},
+{q:"«چون ماه، زیبا بود» چه آرایه‌ای دارد؟",o:["تشبیه","استعاره","کنایه","مجاز"],c:0},
+{q:"«شیر در جنگل شجاع است» چه آرایه‌ای دارد؟",o:["تشبیه","استعاره","کنایه","مجاز"],c:1}
 ],
 religion:[
-{q:"نماز واجب روزانه؟",options:["۳","۴","۵","۶"],correct:2},
-{q:"اولین امام؟",options:["علی","حسن","حسین","رضا"],correct:0},
-{q:"کتاب مسلمانان؟",options:["تورات","انجیل","قرآن","زبور"],correct:2},
-{q:"سوره‌های قرآن؟",options:["۱۰۰","۱۱۴","۱۲۰","۱۴۰"],correct:1},
-{q:"ماه روزه؟",options:["محرم","رمضان","شعبان","رجب"],correct:1},
-{q:"رکعت مغرب؟",options:["۲","۳","۴","۵"],correct:1},
-{q:"قبله؟",options:["کعبه","مدینه","قدس","نجف"],correct:0},
-{q:"معنی «کتاب»؟",options:["قلم","دفتر","کتاب","خواندن"],correct:2},
-{q:"ارکان نماز؟",options:["سلام","حمد","تشهد","همه"],correct:3},
-{q:"«علم» یعنی؟",options:["نوشتن","دانستن","خواندن","دیدن"],correct:1}
+{q:"تعداد نمازهای واجب روزانه چند است؟",o:["۳","۴","۵","۶"],c:2},
+{q:"اولین امام شیعیان کیست؟",o:["حضرت علی","حضرت حسن","حضرت حسین","امام رضا"],c:0},
+{q:"کتاب آسمانی مسلمانان کدام است؟",o:["تورات","انجیل","قرآن","زبور"],c:2},
+{q:"تعداد سوره‌های قرآن چند است؟",o:["۱۰۰","۱۱۴","۱۲۰","۱۴۰"],c:1},
+{q:"ماه روزه در اسلام کدام ماه است؟",o:["محرم","رمضان","شعبان","رجب"],c:1},
+{q:"تعداد رکعت‌های نماز مغرب چند است؟",o:["۲","۳","۴","۵"],c:1},
+{q:"قبله مسلمانان کدام است؟",o:["کعبه","مدینه","قدس","نجف"],c:0},
+{q:"معنی کلمه عربی «کتاب» چیست؟",o:["قلم","دفتر","کتاب","خواندن"],c:2},
+{q:"کدام یک از ارکان نماز است؟",o:["سلام","قرائت حمد","تشهد","همه موارد"],c:3},
+{q:"کلمه «علم» در زبان عربی به چه معناست؟",o:["نوشتن","دانستن","خواندن","دیدن"],c:1}
 ],
 english:[
-{q:"معنی book؟",options:["دفتر","کتاب","قلم","میز"],correct:1},
-{q:"ترجمه Hello؟",options:["خداحافظ","سلام","ممنون","بله"],correct:1},
-{q:"گذشته go؟",options:["goed","gone","went","going"],correct:2},
-{q:"جمع child؟",options:["childs","childes","children","child"],correct:2},
-{q:"معنی teacher؟",options:["دانش‌آموز","معلم","مدیر","پدر"],correct:1},
-{q:"معنی cat؟",options:["سگ","گربه","پرنده","ماهی"],correct:1},
-{q:"گذشته eat؟",options:["eated","ate","eaten","eating"],correct:1},
-{q:"برتر big؟",options:["bigger","biggest","more big","biger"],correct:0},
-{q:"معنی red؟",options:["آبی","سبز","قرمز","زرد"],correct:2},
-{q:"زمان I will go؟",options:["گذشته","حال","آینده","حال کامل"],correct:2}
+{q:"معنی کلمه book چیست؟",o:["دفتر","کتاب","قلم","میز"],c:1},
+{q:"ترجمه کلمه Hello کدام است؟",o:["خداحافظ","سلام","ممنون","بله"],c:1},
+{q:"شکل گذشته فعل go کدام است؟",o:["goed","gone","went","going"],c:2},
+{q:"جمع کلمه child کدام است؟",o:["childs","childes","children","child"],c:2},
+{q:"معنی کلمه teacher چیست؟",o:["دانش‌آموز","معلم","مدیر","پدر"],c:1},
+{q:"معنی کلمه cat چیست؟",o:["سگ","گربه","پرنده","ماهی"],c:1},
+{q:"شکل گذشته فعل eat کدام است؟",o:["eated","ate","eaten","eating"],c:1},
+{q:"حالت تفضیلی صفت big کدام است؟",o:["bigger","biggest","more big","biger"],c:0},
+{q:"معنی کلمه red چیست؟",o:["آبی","سبز","قرمز","زرد"],c:2},
+{q:"زمان جمله I will go کدام است؟",o:["گذشته","حال","آینده","حال کامل"],c:2}
 ],
 social:[
-{q:"پایتخت ایران؟",options:["اصفهان","تهران","مشهد","شیراز"],correct:1},
-{q:"بنیان‌گذار هخامنشیان؟",options:["داریوش","کوروش","خشایارشا","اردشیر"],correct:1},
-{q:"بزرگ‌ترین قاره؟",options:["آفریقا","اروپا","آسیا","آمریکا"],correct:2},
-{q:"طولانی‌ترین رود ایران؟",options:["زاینده‌رود","کارون","ارس","سفیدرود"],correct:1},
-{q:"پایتخت فرانسه؟",options:["لندن","برلین","پاریس","رم"],correct:2},
-{q:"بزرگ‌ترین کشور؟",options:["چین","آمریکا","روسیه","کانادا"],correct:2},
-{q:"شروع جنگ جهانی دوم؟",options:["۱۹۱۴","۱۹۳۹","۱۹۴۵","۱۹۵۰"],correct:1},
-{q:"دوره مشروطه؟",options:["قاجار","پهلوی","صفویه","زندیه"],correct:0},
-{q:"پدر روان‌کاوی؟",options:["یونگ","فروید","اسکینر","پیاژه"],correct:1},
-{q:"پرجمعیت‌ترین کشور؟",options:["آمریکا","اندونزی","چین","هند"],correct:3}
+{q:"پایتخت ایران کدام شهر است؟",o:["اصفهان","تهران","مشهد","شیراز"],c:1},
+{q:"بنیان‌گذار سلسله هخامنشیان کیست؟",o:["داریوش","کوروش","خشایارشا","اردشیر"],c:1},
+{q:"بزرگ‌ترین قاره جهان کدام است؟",o:["آفریقا","اروپا","آسیا","آمریکا"],c:2},
+{q:"طولانی‌ترین رود ایران کدام است؟",o:["زاینده‌رود","کارون","ارس","سفیدرود"],c:1},
+{q:"پایتخت فرانسه کدام است؟",o:["لندن","برلین","پاریس","رم"],c:2},
+{q:"بزرگ‌ترین کشور جهان از نظر وسعت کدام است؟",o:["چین","آمریکا","روسیه","کانادا"],c:2},
+{q:"جنگ جهانی دوم در چه سالی شروع شد؟",o:["۱۹۱۴","۱۹۳۹","۱۹۴۵","۱۹۵۰"],c:1},
+{q:"انقلاب مشروطه ایران در چه دوره‌ای بود؟",o:["قاجار","پهلوی","صفویه","زندیه"],c:0},
+{q:"بنیان‌گذار روان‌کاوی کیست؟",o:["یونگ","فروید","اسکینر","پیاژه"],c:1},
+{q:"پرجمعیت‌ترین کشور جهان کدام است؟",o:["آمریکا","اندونزی","چین","هند"],c:3}
 ],
 philosophy:[
-{q:"بنیان‌گذار منطق؟",options:["سقراط","افلاطون","ارسطو","کنت"],correct:2},
-{q:"استدلال قطعی؟",options:["استقرا","قیاس","تمثیل","حدس"],correct:1},
-{q:"انواع استدلال؟",options:["قیاس","استقرا","تمثیل","همه"],correct:3},
-{q:"در شرطی، «اگر»؟",options:["تالی","مقدم","حد وسط","حد اصغر"],correct:1},
-{q:"کلی و جزئی مربوط به؟",options:["ریاضی","فلسفه","منطق","روان"],correct:2},
-{q:"پارادوکس؟",options:["ساده","متناقض","درست","هیچ"],correct:1},
-{q:"مغالطه؟",options:["درست","غلط","ساده","پیچیده"],correct:1},
-{q:"صدق و کذب مربوط به؟",options:["مفهوم","مصداق","قضیه","واژه"],correct:2},
-{q:"برهان؟",options:["شک","استدلال محکم","حدس","خیال"],correct:1},
-{q:"فلسفه یعنی؟",options:["عشق به دانش","عشق به پول","عشق به قدرت","عشق به طبیعت"],correct:0}
+{q:"منطق را چه کسی بنیان گذاشت؟",o:["سقراط","افلاطون","ارسطو","کنت"],c:2},
+{q:"استدلالی که نتیجه‌اش قطعی است چه نام دارد؟",o:["استقرا","قیاس","تمثیل","حدس"],c:1},
+{q:"کدام یک از انواع استدلال است؟",o:["قیاس","استقرا","تمثیل","همه موارد"],c:3},
+{q:"در قضیه شرطی، قسمت «اگر» چه نام دارد؟",o:["تالی","مقدم","حد وسط","حد اصغر"],c:1},
+{q:"کلی و جزئی از مباحث کدام علم است؟",o:["ریاضی","فلسفه","منطق","روان‌شناسی"],c:2},
+{q:"پارادوکس چیست؟",o:["استدلال ساده","استدلال متناقض","استدلال درست","هیچکدام"],c:1},
+{q:"مغالطه به چه معناست؟",o:["استدلال درست","استدلال غلط","استدلال ساده","استدلال پیچیده"],c:1},
+{q:"صدق و کذب مربوط به کدام است؟",o:["مفهوم","مصداق","قضیه","واژه"],c:2},
+{q:"برهان در فلسفه به چه معناست؟",o:["شک","استدلال محکم","حدس","خیال"],c:1},
+{q:"فلسفه به چه معناست؟",o:["عشق به دانش","عشق به پول","عشق به قدرت","عشق به طبیعت"],c:0}
 ],
 economics:[
-{q:"عرضه و تقاضا؟",options:["همیشه برابر","عرضه بیشتر","تقاضا بیشتر","بستگی به قیمت"],correct:3},
-{q:"تورم؟",options:["کاهش قیمت","افزایش قیمت","ثبات","کاهش تولید"],correct:1},
-{q:"GDP؟",options:["صادرات","واردات","ارزش کل تولید","درآمد دولت"],correct:2},
-{q:"بانک مرکزی؟",options:["وام مسکن","کنترل پول","مالیات","فروش نفت"],correct:1},
-{q:"بودجه؟",options:["درآمد خانوار","برنامه مالی سالانه","وام","مالیات"],correct:1},
-{q:"پول از چه زمانی؟",options:["ابتدای تاریخ","بعد از پایاپای","قرن ۲۰","بعد از اینترنت"],correct:1},
-{q:"مالیات؟",options:["هدیه","پرداخت اجباری","وام","سود"],correct:1},
-{q:"قانون عرضه؟",options:["کاهش","افزایش","ثابت","بی‌ربط"],correct:1},
-{q:"انحصار؟",options:["رقابت کامل","نبود رقابت","قیمت ثابت","بازار آزاد"],correct:1},
-{q:"بیکاری؟",options:["نبود شغل برای جویا","برای همه","کمبود کارگر","کمبود متخصص"],correct:0}
+{q:"رابطه عرضه و تقاضا در بازار چگونه است؟",o:["همیشه برابرند","عرضه بیشتر","تقاضا بیشتر","بستگی به قیمت دارد"],c:3},
+{q:"تورم به چه معناست؟",o:["کاهش قیمت‌ها","افزایش قیمت‌ها","ثبات قیمت","کاهش تولید"],c:1},
+{q:"تولید ناخالص داخلی چیست؟",o:["مجموع صادرات","مجموع واردات","ارزش کل کالا و خدمات","درآمد دولت"],c:2},
+{q:"بانک مرکزی چه وظیفه‌ای دارد؟",o:["وام مسکن","کنترل پول و اعتبار","مالیات","فروش نفت"],c:1},
+{q:"بودجه چیست؟",o:["درآمد خانوار","برنامه مالی سالانه","وام بانکی","مالیات"],c:1},
+{q:"پول از چه زمانی به وجود آمد؟",o:["از ابتدای تاریخ","بعد از سیستم پایاپای","قرن بیستم","بعد از اینترنت"],c:1},
+{q:"مالیات چیست؟",o:["هدیه به دولت","پرداخت اجباری به دولت","وام","سود بانکی"],c:1},
+{q:"قانون عرضه می‌گوید با افزایش قیمت:",o:["عرضه کاهش می‌یابد","عرضه افزایش می‌یابد","عرضه ثابت می‌ماند","بازار تعطیل می‌شود"],c:1},
+{q:"انحصار یعنی چه؟",o:["رقابت کامل","نبود رقابت","قیمت ثابت","بازار آزاد"],c:1},
+{q:"بیکاری در اقتصاد یعنی:",o:["نبود شغل برای جویا","نبود شغل برای همه","کمبود کارگر","کمبود متخصص"],c:0}
 ],
 general:[
-{q:"ویتامین از نور خورشید؟",options:["A","B","C","D"],correct:3},
-{q:"ورزش روزانه؟",options:["۱۰ دقیقه","۳۰ دقیقه","۲ ساعت","۵ ساعت"],correct:1},
-{q:"تغذیه سالم؟",options:["فقط گوشت","فقط میوه","همه گروه‌ها","فقط سبزیجات"],correct:2},
-{q:"خواب نوجوان؟",options:["۴","۶","۸-۹","۱۲"],correct:2},
-{q:"شستن دست‌ها؟",options:["زیبایی","جلوگیری از بیماری","سلامت پوست","هیچ"],correct:1},
-{q:"وعده‌های غذایی؟",options:["۱","۲","۳-۴","۷-۸"],correct:2},
-{q:"برای استخوان؟",options:["کلسیم","آهن","روی","مس"],correct:0},
-{q:"پروتئین بیشتر در؟",options:["برنج","گوشت","شکر","روغن"],correct:1},
-{q:"سیستم ایمنی؟",options:["تنفس","گوارش","دفاع","حرکت"],correct:2},
-{q:"متابولیسم؟",options:["تپش قلب","سوخت‌وساز","تنفس","گوارش"],correct:1}
+{q:"کدام ویتامین از نور خورشید ساخته می‌شود؟",o:["A","B","C","D"],c:3},
+{q:"ورزش روزانه حداقل چقدر باید باشد؟",o:["۱۰ دقیقه","۳۰ دقیقه","۲ ساعت","۵ ساعت"],c:1},
+{q:"تغذیه سالم شامل چه چیزهایی است؟",o:["فقط گوشت","فقط میوه","همه گروه‌های غذایی","فقط سبزیجات"],c:2},
+{q:"خواب کافی برای نوجوانان چند ساعت است؟",o:["۴","۶","۸-۹","۱۲"],c:2},
+{q:"شستن دست‌ها برای چه ضروری است؟",o:["زیبایی","جلوگیری از بیماری","سلامت پوست","هیچکدام"],c:1},
+{q:"تعداد وعده‌های غذایی توصیه‌شده در روز:",o:["۱","۲","۳-۴","۷-۸"],c:2},
+{q:"کدام ماده برای ساخت استخوان ضروری است؟",o:["کلسیم","آهن","روی","مس"],c:0},
+{q:"پروتئین بیشتر در کدام ماده غذایی یافت می‌شود؟",o:["برنج","گوشت","شکر","روغن"],c:1},
+{q:"سیستم ایمنی بدن مسئول چیست؟",o:["تنفس","گوارش","دفاع در برابر بیماری","حرکت"],c:2},
+{q:"متابولیسم به چه معناست؟",o:["تپش قلب","سوخت‌وساز بدن","تنفس","گوارش"],c:1}
 ]};
 
-/* ============ بانک تمرین ============ */
-const PB={
+var PB={
 math:[
-{q:"۵+۳×۲؟",options:["۱۱","۱۶","۱۳","۱۰"],correct:0,level:1},
-{q:"x−۴=۷ ⇒ x؟",options:["۳","۱۰","۱۱","۲۸"],correct:1,level:1},
-{q:"۲+۸؟",options:["۶","۱۰","۱۶","۶۴"],correct:1,level:1},
-{q:"۱ متر چند سانتی‌متر؟",options:["۱۰","۱۰۰","۱۰۰۰","۱۰۰۰۰"],correct:1,level:1},
-{q:"۲۰٪ از ۵۰؟",options:["۵","۱۰","۱۵","۲۵"],correct:1,level:1},
-{q:"۲x+۳=۱۱ ⇒ x؟",options:["۳","۴","۵","۷"],correct:1,level:2},
-{q:"(x+۲)(x+۳)؟",options:["x²+۵x+۶","x²+۶x+۵","x²+۵","x²+۶"],correct:0,level:2},
-{q:"زیرمجموعه‌های {۱،۲،۳}؟",options:["۳","۶","۸","۹"],correct:2,level:2},
-{q:"وتر مثلث ۶ و ۸؟",options:["۱۰","۱۲","۱۴","۴۸"],correct:0,level:2},
-{q:"۳⁴؟",options:["۱۲","۶۴","۸۱","۲۴۳"],correct:2,level:2},
-{q:"جواب x²−۵x+۶=۰؟",options:["۲ و ۳","۱ و ۶","−۲ و −۳","۵ و ۶"],correct:0,level:3},
-{q:"√(۱۶+۹)؟",options:["۵","۷","۲۵","۴"],correct:0,level:3},
-{q:"log₂(۸)؟",options:["۲","۳","۴","۸"],correct:1,level:3},
-{q:"مجموع ۱ تا ۱۰۰؟",options:["۵۰۰۰","۵۰۵۰","۱۰۱۰۰","۵۱۰۰"],correct:1,level:3},
-{q:"f(x)=۲x+۱ ⇒ f(۳)؟",options:["۵","۶","۷","۹"],correct:2,level:3}
+{q:"حاصل ۵+۳×۲ چقدر است؟",o:["۱۱","۱۶","۱۳","۱۰"],c:0,l:1},
+{q:"اگر x−۴=۷ باشد، x چقدر است؟",o:["۳","۱۰","۱۱","۲۸"],c:1,l:1},
+{q:"مجموع ۲ و ۸ چقدر است؟",o:["۶","۱۰","۱۶","۶۴"],c:1,l:1},
+{q:"۱ متر چند سانتی‌متر است؟",o:["۱۰","۱۰۰","۱۰۰۰","۱۰۰۰۰"],c:1,l:1},
+{q:"۲۰٪ از ۵۰ چقدر است؟",o:["۵","۱۰","۱۵","۲۵"],c:1,l:1},
+{q:"جواب معادله ۲x+۳=۱۱ چقدر است؟",o:["۳","۴","۵","۷"],c:1,l:2},
+{q:"حاصل (x+۲)(x+۳) کدام است؟",o:["x²+۵x+۶","x²+۶x+۵","x²+۵","x²+۶"],c:0,l:2},
+{q:"تعداد زیرمجموعه‌های {۱،۲،۳} چقدر است؟",o:["۳","۶","۸","۹"],c:2,l:2},
+{q:"وتر مثلث قائم‌الزاویه با اضلاع ۶ و ۸ چقدر است؟",o:["۱۰","۱۲","۱۴","۴۸"],c:0,l:2},
+{q:"حاصل ۳ به قوه ۴ چقدر است؟",o:["۱۲","۶۴","۸۱","۲۴۳"],c:2,l:2},
+{q:"جواب‌های معادله x²−۵x+۶=۰ کدام‌اند؟",o:["۲ و ۳","۱ و ۶","−۲ و −۳","۵ و ۶"],c:0,l:3},
+{q:"حاصل √(۱۶+۹) چقدر است؟",o:["۵","۷","۲۵","۴"],c:0,l:3},
+{q:"حاصل log₂(۸) چقدر است؟",o:["۲","۳","۴","۸"],c:1,l:3},
+{q:"مجموع اعداد ۱ تا ۱۰۰ چقدر است؟",o:["۵۰۰۰","۵۰۵۰","۱۰۱۰۰","۵۱۰۰"],c:1,l:3},
+{q:"اگر f(x)=۲x+۱ باشد، f(۳) چقدر است؟",o:["۵","۶","۷","۹"],c:2,l:3}
 ],
 science:[
-{q:"یک ساعت؟",options:["۳۰","۶۰","۹۰","۱۰۰"],correct:1,level:1},
-{q:"واحد جرم؟",options:["گرم","کیلوگرم","نیوتون","پوند"],correct:1,level:1},
-{q:"۱۰ متر در ۲ ثانیه ⇒ سرعت؟",options:["۲","۵","۱۰","۲۰"],correct:1,level:1},
-{q:"۱ کیلومتر؟",options:["۱۰","۱۰۰","۱۰۰۰","۱۰۰۰۰"],correct:2,level:1},
-{q:"گاز ضروری تنفس؟",options:["نیتروژن","اکسیژن","CO₂","هلیوم"],correct:1,level:1},
-{q:"نیرو؟",options:["فقط جرم","فقط شتاب","جرم×شتاب","جرم÷شتاب"],correct:2,level:2},
-{q:"واحد شتاب؟",options:["m/s","m/s²","kg·m/s","N"],correct:1,level:2},
-{q:"انرژی پتانسیل؟",options:["mgh","mv²","½mv²","ma"],correct:0,level:2},
-{q:"pH آب؟",options:["۵","۷","۹","۱۴"],correct:1,level:2},
-{q:"انرژی سلول؟",options:["هسته","ریبوزوم","میتوکندری","لیزوزوم"],correct:2,level:2},
-{q:"قانون سوم نیوتون؟",options:["هم‌جهت","برابر و مخالف","متفاوت","بی‌ربط"],correct:1,level:3},
-{q:"جرم نصف، سرعت دو برابر ⇒ Ek؟",options:["نصف","دو برابر","چهار برابر","بدون تغییر"],correct:1,level:3},
-{q:"اتم از؟",options:["پروتون","پروتون، نوترون، الکترون","الکترون","نوترون"],correct:1,level:3},
-{q:"فتوسنتز در؟",options:["میتوکندری","کلروپلاست","هسته","واکوئل"],correct:1,level:3},
-{q:"واحد زنده؟",options:["بافت","سلول","اندام","مولکول"],correct:1,level:3}
+{q:"یک ساعت چند دقیقه است؟",o:["۳۰","۶۰","۹۰","۱۰۰"],c:1,l:1},
+{q:"واحد جرم در SI چیست؟",o:["گرم","کیلوگرم","نیوتون","پوند"],c:1,l:1},
+{q:"اگر جسمی در ۲ ثانیه ۱۰ متر جابجا شود، سرعت متوسطش چقدر است؟",o:["۲","۵","۱۰","۲۰"],c:1,l:1},
+{q:"یک کیلومتر چند متر است؟",o:["۱۰","۱۰۰","۱۰۰۰","۱۰۰۰۰"],c:2,l:1},
+{q:"کدام گاز برای تنفس ضروری است؟",o:["نیتروژن","اکسیژن","CO₂","هلیوم"],c:1,l:1},
+{q:"نیرو با کدام کمیت‌ها رابطه دارد؟",o:["فقط جرم","فقط شتاب","جرم×شتاب","جرم÷شتاب"],c:2,l:2},
+{q:"واحد شتاب در SI چیست؟",o:["m/s","m/s²","kg·m/s","N"],c:1,l:2},
+{q:"انرژی پتانسیل گرانشی برابر است با:",o:["mgh","mv²","½mv²","ma"],c:0,l:2},
+{q:"pH آب خالص چقدر است؟",o:["۵","۷","۹","۱۴"],c:1,l:2},
+{q:"کدام اندامک مسئول تولید انرژی در سلول است؟",o:["هسته","ریبوزوم","میتوکندری","لیزوزوم"],c:2,l:2},
+{q:"طبق قانون سوم نیوتون:",o:["هم‌جهت","اندازه برابر و جهت مخالف","اندازه متفاوت","بی‌ربط"],c:1,l:3},
+{q:"اگر جرم نصف و سرعت دو برابر شود، انرژی جنبشی:",o:["نصف","دو برابر","چهار برابر","بدون تغییر"],c:1,l:3},
+{q:"اتم از چه ذراتی ساخته شده است؟",o:["پروتون","پروتون، نوترون، الکترون","الکترون","نوترون"],c:1,l:3},
+{q:"فتوسنتز در کدام اندامک انجام می‌شود؟",o:["میتوکندری","کلروپلاست","هسته","واکوئل"],c:1,l:3},
+{q:"واحد ساختاری موجودات زنده چیست؟",o:["بافت","سلول","اندام","مولکول"],c:1,l:3}
 ],
 literature:[
-{q:"جمع «کتاب»؟",options:["کتب","کتاب‌ها","کاتبان","کتابین"],correct:1,level:1},
-{q:"اسم خاص؟",options:["شهر","تهران","کتاب","مدرسه"],correct:1,level:1},
-{q:"ضمیر؟",options:["کتاب","او","رفت","خوب"],correct:1,level:1},
-{q:"نوع فعل؟",options:["ماضی","مضاف","موصوف","مفعول"],correct:0,level:1},
-{q:"ترکیب اضافی؟",options:["کتاب خوب","کتاب علی","کتاب و قلم","کتاب را"],correct:1,level:2},
-{q:"برتر «بزرگ»؟",options:["بزرگ‌تر","بزرگ‌ترین","بزرگا","بزرگی"],correct:0,level:2},
-{q:"زمان «خواهم رفت»؟",options:["گذشته","حال","آینده","ماضی نقلی"],correct:2,level:2},
-{q:"مفعول «کتاب را خواندم»؟",options:["کتاب","را","خواندم","من"],correct:0,level:2},
-{q:"آرایه «چون ماه»؟",options:["تشبیه","استعاره","کنایه","مجاز"],correct:0,level:3},
-{q:"آرایه «شیر شجاع»؟",options:["تشبیه","استعاره","کنایه","مجاز"],correct:1,level:3},
-{q:"آرایه «دست‌وپا کردن»؟",options:["تشبیه","استعاره","کنایه","مجاز"],correct:2,level:3},
-{q:"آرایه «سر نیزه»؟",options:["تشبیه","استعاره","کنایه","مجاز"],correct:3,level:3}
+{q:"جمع کلمه «کتاب» کدام است؟",o:["کتب","کتاب‌ها","کاتبان","کتابین"],c:1,l:1},
+{q:"کدام یک اسم خاص است؟",o:["شهر","تهران","کتاب","مدرسه"],c:1,l:1},
+{q:"کدام یک ضمیر است؟",o:["کتاب","او","رفت","خوب"],c:1,l:1},
+{q:"کدام یک از انواع فعل است؟",o:["ماضی","مضاف","موصوف","مفعول"],c:0,l:1},
+{q:"کدام ترکیب اضافی است؟",o:["کتاب خوب","کتاب علی","کتاب و قلم","کتاب را"],c:1,l:2},
+{q:"صفت برتر کلمه «بزرگ» کدام است؟",o:["بزرگ‌تر","بزرگ‌ترین","بزرگا","بزرگی"],c:0,l:2},
+{q:"زمان فعل «خواهم رفت» کدام است؟",o:["گذشته","حال","آینده","ماضی نقلی"],c:2,l:2},
+{q:"در جمله «کتاب را خواندم»، مفعول کدام است؟",o:["کتاب","را","خواندم","من"],c:0,l:2},
+{q:"«چون ماه، زیبا بود» چه آرایه‌ای دارد؟",o:["تشبیه","استعاره","کنایه","مجاز"],c:0,l:3},
+{q:"«شیر در جنگل شجاع است» چه آرایه‌ای دارد؟",o:["تشبیه","استعاره","کنایه","مجاز"],c:1,l:3},
+{q:"«دست‌وپا کردن» چه آرایه‌ای است؟",o:["تشبیه","استعاره","کنایه","مجاز"],c:2,l:3},
+{q:"«سر نیزه» چه آرایه‌ای دارد؟",o:["تشبیه","استعاره","کنایه","مجاز"],c:3,l:3}
 ],
 religion:[
-{q:"قبله؟",options:["مدینه","کعبه","قدس","نجف"],correct:1,level:1},
-{q:"رکعت صبح؟",options:["۱","۲","۳","۴"],correct:1,level:1},
-{q:"رکعت مغرب؟",options:["۲","۳","۴","۵"],correct:1,level:1},
-{q:"معنی «سلام»؟",options:["جنگ","صلح","سلامتی","خدا"],correct:2,level:1},
-{q:"معنی «کتاب»؟",options:["قلم","دفتر","کتاب","خواندن"],correct:2,level:2},
-{q:"مضاف در «کتاب العلم»؟",options:["کتاب","العلم","هر دو","هیچ"],correct:0,level:2},
-{q:"فعل ماضی؟",options:["آینده","گذشته","حال","امر"],correct:1,level:2},
-{q:"جمع مکسر «کتاب»؟",options:["کتب","کاتب","مکتب","کتابان"],correct:0,level:2},
-{q:"نویسنده نهج‌البلاغه؟",options:["پیامبر","امام علی","امام حسین","امام رضا"],correct:1,level:3},
-{q:"ثلاثی مزید؟",options:["سه حرف اصلی","سه حرفی با اضافه","مجرد","دو حرفی"],correct:1,level:3},
-{q:"مجهول کردن؟",options:["حذف فاعل","تغییر زمان","تغییر صیغه","اضافه مفعول"],correct:0,level:3},
-{q:"اعراب مرفوع «کتاب»؟",options:["کتابَ","کتابُ","کتابِ","کتابْ"],correct:1,level:3}
+{q:"قبله مسلمانان کجاست؟",o:["مدینه","کعبه","قدس","نجف"],c:1,l:1},
+{q:"نماز صبح چند رکعت است؟",o:["۱","۲","۳","۴"],c:1,l:1},
+{q:"تعداد رکعت‌های نماز مغرب چند است؟",o:["۲","۳","۴","۵"],c:1,l:1},
+{q:"معنی «سلام» در عربی چیست؟",o:["جنگ","صلح","سلامتی","خدا"],c:2,l:1},
+{q:"معنی «کتاب» در عربی چیست؟",o:["قلم","دفتر","کتاب","خواندن"],c:2,l:2},
+{q:"در ترکیب «کتاب العلم» مضاف کدام است؟",o:["کتاب","العلم","هر دو","هیچکدام"],c:0,l:2},
+{q:"فعل ماضی در عربی به چه معناست؟",o:["آینده","گذشته","حال","امر"],c:1,l:2},
+{q:"جمع مکسر کلمه «کتاب» کدام است؟",o:["کتب","کاتب","مکتب","کتابان"],c:0,l:2},
+{q:"نهج‌البلاغه اثر کیست؟",o:["پیامبر","امام علی","امام حسین","امام رضا"],c:1,l:3},
+{q:"«ثلاثی مزید» یعنی چه؟",o:["سه حرف اصلی","سه حرفی با حروف اضافه","سه حرفی مجرد","دو حرفی"],c:1,l:3},
+{q:"مجهول کردن فعل یعنی:",o:["حذف فاعل","تغییر زمان","تغییر صیغه","اضافه کردن مفعول"],c:0,l:3},
+{q:"اعراب کلمه «کتاب» در حالت مرفوع کدام است؟",o:["کتابَ","کتابُ","کتابِ","کتابْ"],c:1,l:3}
 ],
 english:[
-{q:"معنی cat؟",options:["سگ","گربه","پرنده","ماهی"],correct:1,level:1},
-{q:"معنی red؟",options:["آبی","سبز","قرمز","زرد"],correct:2,level:1},
-{q:"جمع book؟",options:["books","bookes","book","bookies"],correct:0,level:1},
-{q:"I am یعنی؟",options:["تو هستی","من هستم","او هست","ما هستیم"],correct:1,level:1},
-{q:"گذشته eat؟",options:["eated","ate","eaten","eating"],correct:1,level:2},
-{q:"برتر big؟",options:["bigger","biggest","more big","biger"],correct:0,level:2},
-{q:"زمان I am going؟",options:["گذشته","حال ساده","حال استمراری","آینده"],correct:2,level:2},
-{q:"modal verb؟",options:["go","can","eat","run"],correct:1,level:2},
-{q:"زمان I have eaten؟",options:["گذشته ساده","حال کامل","آینده","گذشته کامل"],correct:1,level:3},
-{q:"شرطی نوع اول؟",options:["If I go, I will see","If I went, I would see","If I had gone","If I go, I see"],correct:0,level:3},
-{q:"نقل قول غیرمستقیم He said I am tired؟",options:["he is tired","he was tired","I was tired","I am tired"],correct:1,level:3},
-{q:"معنی give up؟",options:["دادن","بالا رفتن","تسلیم شدن","بیدار شدن"],correct:2,level:3}
+{q:"معنی کلمه cat چیست؟",o:["سگ","گربه","پرنده","ماهی"],c:1,l:1},
+{q:"معنی کلمه red چیست؟",o:["آبی","سبز","قرمز","زرد"],c:2,l:1},
+{q:"جمع کلمه book کدام است؟",o:["books","bookes","book","bookies"],c:0,l:1},
+{q:"I am به چه معناست؟",o:["تو هستی","من هستم","او هست","ما هستیم"],c:1,l:1},
+{q:"شکل گذشته فعل eat کدام است؟",o:["eated","ate","eaten","eating"],c:1,l:2},
+{q:"حالت تفضیلی صفت big کدام است؟",o:["bigger","biggest","more big","biger"],c:0,l:2},
+{q:"زمان جمله I am going کدام است؟",o:["گذشته","حال ساده","حال استمراری","آینده"],c:2,l:2},
+{q:"کدام یک از modal verbs است؟",o:["go","can","eat","run"],c:1,l:2},
+{q:"زمان جمله I have eaten کدام است؟",o:["گذشته ساده","حال کامل","آینده","گذشته کامل"],c:1,l:3},
+{q:"جمله شرطی نوع اول کدام است؟",o:["If I go, I will see","If I went, I would see","If I had gone","If I go, I see"],c:0,l:3},
+{q:"نقل قول غیرمستقیم He said I am tired؟",o:["he is tired","he was tired","I was tired","I am tired"],c:1,l:3},
+{q:"معنی give up چیست؟",o:["دادن","بالا رفتن","تسلیم شدن","بیدار شدن"],c:2,l:3}
 ],
 social:[
-{q:"بزرگ‌ترین کشور؟",options:["چین","آمریکا","روسیه","کانادا"],correct:2,level:1},
-{q:"ایران در کدام قاره؟",options:["اروپا","آسیا","آفریقا","آمریکا"],correct:1,level:1},
-{q:"بزرگ‌ترین اقیانوس؟",options:["اطلس","هند","آرام","منجمد"],correct:2,level:1},
-{q:"پرجمعیت‌ترین؟",options:["آمریکا","اندونزی","چین","هند"],correct:3,level:1},
-{q:"دوره مشروطه؟",options:["قاجار","پهلوی","صفویه","زندیه"],correct:0,level:2},
-{q:"شروع جنگ دوم؟",options:["۱۹۱۴","۱۹۳۹","۱۹۴۵","۱۹۵۰"],correct:1,level:2},
-{q:"تأسیس صفویه؟",options:["۱۱۵۰","۱۲۵۰","۱۵۰۱","۱۷۵۰"],correct:2,level:2},
-{q:"آب و هوای مدیترانه‌ای؟",options:["تابستان سرد","تابستان گرم، زمستان معتدل","همیشه سرد","همیشه گرم"],correct:1,level:2},
-{q:"جنگ سرد بین؟",options:["آمریکا و انگلیس","آمریکا و شوروی","چین و روسیه","فرانسه و آلمان"],correct:1,level:3},
-{q:"همبستگی اجتماعی از؟",options:["فروید","دورکیم","وبر","مارکس"],correct:1,level:3},
-{q:"پدر روان‌کاوی؟",options:["یونگ","فروید","اسکینر","پیاژه"],correct:1,level:3},
-{q:"جهانی‌شدن؟",options:["جدایی","پیوستگی","افزایش مرزها","کاهش تجارت"],correct:1,level:3}
+{q:"بزرگ‌ترین کشور جهان کدام است؟",o:["چین","آمریکا","روسیه","کانادا"],c:2,l:1},
+{q:"قاره‌ای که ایران در آن قرار دارد:",o:["اروپا","آسیا","آفریقا","آمریکا"],c:1,l:1},
+{q:"بزرگ‌ترین اقیانوس جهان کدام است؟",o:["اطلس","هند","آرام","منجمد"],c:2,l:1},
+{q:"پرجمعیت‌ترین کشور جهان کدام است؟",o:["آمریکا","اندونزی","چین","هند"],c:3,l:1},
+{q:"انقلاب مشروطه ایران در چه دوره‌ای رخ داد؟",o:["قاجار","پهلوی","صفویه","زندیه"],c:0,l:2},
+{q:"جنگ جهانی دوم در چه سالی آغاز شد؟",o:["۱۹۱۴","۱۹۳۹","۱۹۴۵","۱۹۵۰"],c:1,l:2},
+{q:"سلسله صفویه در چه سالی تأسیس شد؟",o:["۱۱۵۰","۱۲۵۰","۱۵۰۱","۱۷۵۰"],c:2,l:2},
+{q:"آب و هوای مدیترانه‌ای چه ویژگی دارد؟",o:["تابستان سرد","تابستان گرم، زمستان معتدل","همیشه سرد","همیشه گرم"],c:1,l:2},
+{q:"جنگ سرد بین کدام دو کشور بود؟",o:["آمریکا و انگلیس","آمریکا و شوروی","چین و روسیه","فرانسه و آلمان"],c:1,l:3},
+{q:"نظریه «همبستگی اجتماعی» از کیست؟",o:["فروید","دورکیم","وبر","مارکس"],c:1,l:3},
+{q:"پدر روان‌کاوی کیست؟",o:["یونگ","فروید","اسکینر","پیاژه"],c:1,l:3},
+{q:"جهانی‌شدن به چه معناست؟",o:["جدایی کشورها","پیوستگی جهانی","افزایش مرزها","کاهش تجارت"],c:1,l:3}
 ],
 philosophy:[
-{q:"منطق چیست؟",options:["ریاضی","قواعد درست فکر کردن","تجربی","زبان"],correct:1,level:1},
-{q:"از جزء به کل؟",options:["قیاس","استقرا","تمثیل","برهان"],correct:1,level:1},
-{q:"صدق و کذب؟",options:["کلمه","قضیه","مفهوم","واژه"],correct:1,level:1},
-{q:"کدام مفهوم؟",options:["این کتاب","کتاب در کل","کتاب من","کتاب تو"],correct:1,level:1},
-{q:"ساختار قیاس؟",options:["مقدم، تالی، نتیجه","حد وسط، اصغر، اکبر","کلی، جزئی، خاص","موضوع، محمول، نسبت"],correct:1,level:2},
-{q:"عکس مستوی هر الف ب؟",options:["هیچ الف ب نیست","بعضی ب الف است","هیچ ب الف نیست","همه ب الف است"],correct:1,level:2},
-{q:"نقیض همه انسان‌ها فانی؟",options:["هیچ انسانی فانی نیست","بعضی انسان‌ها فانی نیستند","همه فانی نیستند","بعضی فانی هستند"],correct:1,level:2},
-{q:"قضیه شرطی از؟",options:["مقدم و تالی","موضوع و محمول","کلی و جزئی","حد وسط و اکبر"],correct:0,level:2},
-{q:"پارادوکس؟",options:["ساده","متناقض","درست","هیچ"],correct:1,level:3},
-{q:"برهان؟",options:["استقرایی","تمثیلی","قیاسی","حدسی"],correct:2,level:3},
-{q:"جدل؟",options:["برای کشف حقیقت","برای غلبه بر حریف","قطعی","تجربی"],correct:1,level:3},
-{q:"مغالطه؟",options:["درست","غلط","ساده","پیچیده"],correct:1,level:3}
+{q:"منطق چیست؟",o:["علم ریاضی","قواعد درست فکر کردن","علم تجربی","علم زبان"],c:1,l:1},
+{q:"استدلال از جزء به کل چه نام دارد؟",o:["قیاس","استقرا","تمثیل","برهان"],c:1,l:1},
+{q:"صدق و کذب مربوط به چیست؟",o:["کلمه","قضیه","مفهوم","واژه"],c:1,l:1},
+{q:"کدام یک مفهوم است؟",o:["این کتاب","کتاب در کل","کتاب من","کتاب تو"],c:1,l:1},
+{q:"شکل اول قیاس چه ساختاری دارد؟",o:["مقدم، تالی، نتیجه","حد وسط، اصغر، اکبر","کلی، جزئی، خاص","موضوع، محمول، نسبت"],c:1,l:2},
+{q:"عکس مستوی قضیه «هر الف ب است»:",o:["هیچ الف ب نیست","بعضی ب الف است","هیچ ب الف نیست","همه ب الف است"],c:1,l:2},
+{q:"نقیض قضیه «همه انسان‌ها فانی هستند»:",o:["هیچ انسانی فانی نیست","بعضی انسان‌ها فانی نیستند","همه فانی نیستند","بعضی فانی هستند"],c:1,l:2},
+{q:"قضیه شرطی از چه اجزایی تشکیل شده؟",o:["مقدم و تالی","موضوع و محمول","کلی و جزئی","حد وسط و اکبر"],c:0,l:2},
+{q:"پارادوکس یعنی چه؟",o:["استدلال ساده","استدلال متناقض","استدلال درست","هیچکدام"],c:1,l:3},
+{q:"برهان چه نوع استدلالی است؟",o:["استقرایی","تمثیلی","قیاسی","حدسی"],c:2,l:3},
+{q:"جدل در منطق چیست؟",o:["گفتگو برای کشف حقیقت","بحث برای غلبه بر حریف","استدلال قطعی","استدلال تجربی"],c:1,l:3},
+{q:"مغالطه به چه معناست؟",o:["استدلال درست","استدلال غلط","استدلال ساده","استدلال پیچیده"],c:1,l:3}
 ],
 economics:[
-{q:"پول چیست؟",options:["کالا","وسیله مبادله","طلا","خدمات"],correct:1,level:1},
-{q:"بانک؟",options:["فقط نگهداری","وام و خدمات","چاپ پول","مالیات"],correct:1,level:1},
-{q:"مالیات؟",options:["هدیه","پرداخت اجباری","وام","سود"],correct:1,level:1},
-{q:"قانون عرضه؟",options:["قیمت↑ عرضه↓","قیمت↑ عرضه↑","ثابت","بی‌ربط"],correct:1,level:2},
-{q:"انحصار؟",options:["رقابت کامل","نبود رقابت","قیمت ثابت","آزاد"],correct:1,level:2},
-{q:"کارآفرینی؟",options:["کار کردن","ایجاد کسب‌وکار","کارمندی","بیکاری"],correct:1,level:2},
-{q:"سیاست پولی؟",options:["کنترل پول","مالیات","افزایش حقوق","کنترل قیمت"],correct:0,level:3},
-{q:"تورم انتظاری؟",options:["واقعی","انتظار افزایش","کاهش","ثبات"],correct:1,level:3},
-{q:"بیکاری ساختاری؟",options:["فصل","تغییر ساختار","رکود","همه"],correct:1,level:3}
+{q:"پول چیست؟",o:["کالا","وسیله مبادله","طلا","خدمات"],c:1,l:1},
+{q:"بانک چه کاری انجام می‌دهد؟",o:["فقط نگهداری پول","وام و خدمات مالی","چاپ پول","مالیات"],c:1,l:1},
+{q:"مالیات چیست؟",o:["هدیه","پرداخت اجباری به دولت","وام","سود"],c:1,l:1},
+{q:"قانون عرضه چه می‌گوید؟",o:["کاهش عرضه","افزایش عرضه","ثابت","بی‌ربط"],c:1,l:2},
+{q:"انحصار در بازار یعنی:",o:["رقابت کامل","نبود رقابت","قیمت ثابت","بازار آزاد"],c:1,l:2},
+{q:"کارآفرینی به چه معناست؟",o:["کار کردن","ایجاد کسب‌وکار جدید","کارمندی","بیکاری"],c:1,l:2},
+{q:"سیاست پولی چیست؟",o:["کنترل پول","مالیات","افزایش حقوق","کنترل قیمت"],c:0,l:3},
+{q:"تورم انتظاری به چه معناست؟",o:["واقعی","انتظار افزایش قیمت","کاهش قیمت","ثبات"],c:1,l:3},
+{q:"بیکاری ساختاری ناشی از چیست؟",o:["فصل","تغییر ساختار اقتصاد","رکود","همه موارد"],c:1,l:3}
 ],
 general:[
-{q:"وعده غذایی سالم؟",options:["۱","۲","۳-۴","۷-۸"],correct:2,level:1},
-{q:"خواب نوجوان؟",options:["۴","۶","۸-۹","۱۲"],correct:2,level:1},
-{q:"شستن دست؟",options:["زیبایی","جلوگیری بیماری","سلامت پوست","هیچ"],correct:1,level:1},
-{q:"هرم غذایی؟",options:["نوع غذا","راهنمای تغذیه","رژیم","ورزش"],correct:1,level:2},
-{q:"کالری؟",options:["وزن","انرژی","حجم","طول"],correct:1,level:2},
-{q:"پروتئین در؟",options:["برنج","گوشت","شکر","روغن"],correct:1,level:2},
-{q:"سیستم ایمنی؟",options:["تنفس","گوارش","دفاع","حرکت"],correct:2,level:3},
-{q:"متابولیسم؟",options:["تپش","سوخت‌وساز","تنفس","گوارش"],correct:1,level:3},
-{q:"دیابت نوع ۲؟",options:["ویروس","مقاومت انسولین","کمبود ویتامین","ژنتیک"],correct:1,level:3}
+{q:"تعداد وعده‌های غذایی سالم در روز:",o:["۱","۲","۳-۴","۷-۸"],c:2,l:1},
+{q:"خواب کافی برای نوجوان:",o:["۴","۶","۸-۹","۱۲"],c:2,l:1},
+{q:"شستن دست‌ها برای چه ضروری است؟",o:["زیبایی","جلوگیری از بیماری","سلامت پوست","هیچکدام"],c:1,l:1},
+{q:"هرم غذایی چیست؟",o:["نوع غذا","راهنمای تغذیه","رژیم","ورزش"],c:1,l:2},
+{q:"کالری به چه معناست؟",o:["واحد وزن","واحد انرژی","واحد حجم","واحد طول"],c:1,l:2},
+{q:"پروتئین بیشتر در کدام یافت می‌شود؟",o:["برنج","گوشت","شکر","روغن"],c:1,l:2},
+{q:"سیستم ایمنی بدن مسئول چیست؟",o:["تنفس","گوارش","دفاع","حرکت"],c:2,l:3},
+{q:"متابولیسم به چه معناست؟",o:["تپش قلب","سوخت‌وساز","تنفس","گوارش"],c:1,l:3},
+{q:"دیابت نوع ۲ ناشی از چیست؟",o:["ویروس","مقاومت به انسولین","کمبود ویتامین","ژنتیک"],c:1,l:3}
 ]};
 
-/* ============ ابزارها ============ */
-const $=(s,r=document)=>r.querySelector(s);
-const $$=(s,r=document)=>r.querySelectorAll(s);
-const store={
-read(k){try{return JSON.parse(localStorage.getItem(k))||{};}catch(e){return{};}},
-write(k,d){try{localStorage.setItem(k,JSON.stringify(d));}catch(e);},
-del(k){try{localStorage.removeItem(k);}catch(e){}}
-};
-const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
-function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-function norm(s){return String(s).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[^\d]/g,"");}
-function validPhone(p){return /^09\d{9}$/.test(norm(p));}
-function getQ(name,bank){if(bank[name])return bank[name];return bank[findCat(name)]||bank.general||[];}
-
-function toast(icon,title,sub="",type=""){
-const c=$("#toasts");
-if(!c)return;
-const t=document.createElement("div");
-t.className="toast "+type;
-t.innerHTML=`<span class="i">${icon}</span><div class="t">${sub?`<small>${sub}</small>`:""}<strong>${title}</strong></div>`;
-c.appendChild(t);
-setTimeout(()=>t.classList.add("show"),30);
-setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),400);},2800);
+function getQ(name,bank){
+if(bank[name])return bank[name];
+return bank[findCat(name)]||bank.general||[];
 }
 
-function confetti(){
-const c=$("#confetti");if(!c)return;
-c.classList.add("show");
-c.width=innerWidth;c.height=innerHeight;
-const ctx=c.getContext("2d");
-const cols=["#5b3df5","#7c5cff","#12b58f","#ff7a3d","#ff5c93","#ffc93c","#10b981"];
-const ps=[];
-for(let i=0;i<100;i++)ps.push({x:Math.random()*c.width,y:-20-Math.random()*100,w:6+Math.random()*6,h:6+Math.random()*6,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,col:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.2});
-let f=0;
-function anim(){
-ctx.clearRect(0,0,c.width,c.height);
-ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.1;p.r+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});
-f++;
-if(f<180)requestAnimationFrame(anim);
-else{c.classList.remove("show");ctx.clearRect(0,0,c.width,c.height);}
+function shuffle(a){
+var b=a.slice();
+for(var i=b.length-1;i>0;i--){
+var j=Math.floor(Math.random()*(i+1));
+var t=b[i];b[i]=b[j];b[j]=t;
 }
-anim();
+return b;
 }
 
-/* ============ Theme ============ */
-function applyTheme(t){
-document.documentElement.dataset.theme=t;
-const b=$("#themeBtn");
-if(b)b.textContent=t==="dark"?"☀️":"🌙";
-store.write(CK.theme,{theme:t});
+function norm(s){
+return String(s).replace(/[۰-۹]/g,function(d){return "۰۱۲۳۴۵۶۷۸۹".indexOf(d)}).replace(/[^\d]/g,"");
 }
-$("#themeBtn").addEventListener("click",()=>{
-const cur=document.documentElement.dataset.theme||"light";
-applyTheme(cur==="dark"?"light":"dark");
+
+function validPhone(p){return /^09\d{9}$/.test(norm(p))}
+
+function toast(msg){
+var t=$("toast");
+t.textContent=msg;
+t.classList.add("on");
+clearTimeout(t._tid);
+t._tid=setTimeout(function(){t.classList.remove("on")},2500);
+}
+
+function setErr(name,show){
+var el=document.querySelector('[data-err="'+name+'"]');
+if(el)el.classList.toggle("on",!!show);
+}
+
+function clearErrs(){
+var errs=$$(".err");
+for(var i=0;i<errs.length;i++)errs[i].classList.remove("on");
+}
+
+var ST={info:{fname:"",lname:"",grade:"",major:""},subjects:{ranked:[],study:8,tests:30}};
+
+$$(".tab").forEach(function(t){
+t.addEventListener("click",function(){
+$$(".tab").forEach(function(x){x.classList.remove("on")});
+t.classList.add("on");
+var isL=t.dataset.tab==="login";
+$("fLogin").style.display=isL?"block":"none";
+$("fSignup").style.display=isL?"none":"block";
+clearErrs();
 });
-applyTheme((store.read(CK.theme).theme)||"light");
-
-/* ============ State ============ */
-const st={step:1,auth:{phone:"",method:""},info:{fname:"",lname:"",grade:"",major:""},subjects:{ranked:[],study:8,tests:30}};
-
-/* ============ Wizard ============ */
-function goStep(n){
-st.step=n;
-const r=Math.min(n,3);
-$("#pfill").style.width=(r/3*100)+"%";
-$("#plabel").textContent=fa(r)+" از ۳";
-$$(".step").forEach(p=>p.classList.toggle("active",parseInt(p.dataset.step,10)===n));
-if(n===3&&st.info.major&&st.info.grade)renderSubs();
-scrollTo({top:0,behavior:"smooth"});
-}
-document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!b)return;goStep(parseInt(b.dataset.go,10));});
-
-function setErr(fn,msg){const f=$(`[data-field="${fn}"]`);if(!f)return;f.classList.add("has-error");if(msg){const e=f.querySelector(".f-err");if(e)e.textContent=msg;}}
-function clearErr(form){form.querySelectorAll(".f").forEach(f=>f.classList.remove("has-error"));}
-
-$$(".tab").forEach(t=>t.addEventListener("click",()=>{
-$$(".tab").forEach(x=>x.classList.remove("active"));
-t.classList.add("active");
-const isL=t.dataset.tab==="login";
-$("#fLogin").classList.toggle("active",isL);
-$("#fSignup").classList.toggle("active",!isL);
-$("#e1").classList.remove("show");
-$("#ht1").textContent=isL?"خوش اومدی 👋":"بساز و شروع کن ✨";
-$("#hs1").textContent=isL?"برای شروع، وارد شو":"یه اکانت جدید بساز";
-}));
-
-document.addEventListener("click",e=>{
-const t=e.target.closest(".tp");if(!t)return;
-const inp=document.getElementById(t.dataset.t);
-if(!inp)return;
-const isP=inp.type==="password";
-inp.type=isP?"text":"password";
-t.innerHTML=isP
-?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
-:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
 });
 
-document.querySelectorAll('input[type=tel]').forEach(inp=>{
-inp.addEventListener("input",e=>{
-let v=e.target.value;
-v=v.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-v=v.replace(/[^\d]/g,"");
+["lphone","sphone"].forEach(function(id){
+$(id).addEventListener("input",function(e){
+var v=e.target.value.replace(/[۰-۹]/g,function(d){return "۰۱۲۳۴۵۶۷۸۹".indexOf(d)}).replace(/[^\d]/g,"");
 if(v.length>11)v=v.slice(0,11);
 e.target.value=v;
 });
 });
 
-$("#fLogin").addEventListener("submit",e=>{
+$("fLogin").addEventListener("submit",function(e){
 e.preventDefault();
-$("#e1").classList.remove("show");clearErr($("#fLogin"));
-const phone=$("#lphone").value.trim(),pass=$("#lpass").value;
-let ok=true;
-if(!validPhone(phone)){setErr("lphone","شماره معتبر وارد کن");ok=false;}
-if(pass.length<6){setErr("lpass","رمز حداقل ۶ کاراکتر");ok=false;}
+clearErrs();
+var phone=$("lphone").value.trim();
+var pass=$("lpass").value;
+var ok=true;
+if(!validPhone(phone)){setErr("lphone",true);ok=false;}
+if(pass.length<6){setErr("lpass",true);ok=false;}
 if(!ok)return;
-st.auth={phone:norm(phone),method:"login"};
-store.write(CK.auth,st.auth);
-goStep(2);
+store.write("amz:auth",{phone:norm(phone),method:"login"});
+showStep(2);
 });
 
-$("#fSignup").addEventListener("submit",e=>{
+$("fSignup").addEventListener("submit",function(e){
 e.preventDefault();
-$("#e1").classList.remove("show");clearErr($("#fSignup"));
-const phone=$("#sphone").value.trim(),pass=$("#spass").value,pass2=$("#spass2").value;
-let ok=true;
-if(!validPhone(phone)){setErr("sphone","شماره معتبر وارد کن");ok=false;}
-if(pass.length<6){setErr("spass","رمز حداقل ۶ کاراکتر");ok=false;}
-if(pass!==pass2){setErr("spass2","رمزها یکسان نیستن");ok=false;}
+clearErrs();
+var phone=$("sphone").value.trim();
+var pass=$("spass").value;
+var pass2=$("spass2").value;
+var ok=true;
+if(!validPhone(phone)){setErr("sphone",true);ok=false;}
+if(pass.length<6){setErr("spass",true);ok=false;}
+if(pass!==pass2){setErr("spass2",true);ok=false;}
 if(!ok)return;
-st.auth={phone:norm(phone),method:"signup"};
-store.write(CK.auth,st.auth);
-goStep(2);
+store.write("amz:auth",{phone:norm(phone),method:"signup"});
+showStep(2);
 });
 
-document.querySelectorAll(".iw input").forEach(inp=>inp.addEventListener("input",()=>{
-const f=inp.closest(".f");if(f)f.classList.remove("has-error");
-}));
-
-$("#fInfo").addEventListener("submit",e=>{
-e.preventDefault();
-$("#e2").classList.remove("show");clearErr($("#fInfo"));
-const fn=$("#fname").value.trim(),ln=$("#lname").value.trim();
-const g=$("#fInfo").querySelector('input[name=grade]:checked');
-const m=$("#fInfo").querySelector('input[name=major]:checked');
-let ok=true;
-if(!fn){setErr("fname","نامت رو بنویس");ok=false;}
-if(!ln){setErr("lname","نام خانوادگیت رو بنویس");ok=false;}
-if(!g){$("#e2").textContent="پایه‌ات رو انتخاب کن";$("#e2").classList.add("show");ok=false;}
-if(!m){$("#e2").textContent="رشته‌ات رو انتخاب کن";$("#e2").classList.add("show");ok=false;}
-if(!ok)return;
-st.info={fname:fn,lname:ln,grade:g.value,major:m.value};
-store.write(CK.profile,st.info);
-refreshChip();
-goStep(3);
+function showStep(n){
+["step1","step2","step3","step4"].forEach(function(id){
+var el=$(id);
+if(el)el.classList.add("hidden");
 });
-
-function renderSubs(){
-const subs=(SUBJECTS[st.info.major]||{})[st.info.grade]||[];
-$("#sorder").innerHTML="";
-st.subjects.ranked=[];
-const gl=GRADES[st.info.grade]||"",ml=(MAJORS[st.info.major]||{}).l||"";
-$("#s3sub").textContent=gl+" · "+ml+" · "+subs.length+" درس";
-subs.forEach(name=>{
-const b=document.createElement("button");
-b.type="button";b.className="sbtn";b.dataset.s=name;
-b.innerHTML=`<span>${name}</span><span class="badge">۰</span>`;
-b.addEventListener("click",()=>{toggleRank(b);});
-$("#sorder").appendChild(b);
-});
-updateBadges();
+var target=$("step"+n);
+if(target)target.classList.remove("hidden");
+window.scrollTo(0,0);
 }
-function toggleRank(b){
-const name=b.dataset.s;
-const i=st.subjects.ranked.indexOf(name);
-if(i>-1)st.subjects.ranked.splice(i,1);
-else st.subjects.ranked.push(name);
-updateBadges();
+
+var gradeEls=$("gradeBox").querySelectorAll(".grade");
+for(var gi=0;gi<gradeEls.length;gi++){
+(function(el){
+el.addEventListener("click",function(){
+for(var k=0;k<gradeEls.length;k++)gradeEls[k].classList.remove("on");
+el.classList.add("on");
+ST.info.grade=el.dataset.g;
+setErr("info",false);
+});
+})(gradeEls[gi]);
 }
+
+var majorEls=$("majorBox").querySelectorAll(".major");
+for(var mi=0;mi<majorEls.length;mi++){
+(function(el){
+el.addEventListener("click",function(){
+for(var k=0;k<majorEls.length;k++)majorEls[k].classList.remove("on");
+el.classList.add("on");
+ST.info.major=el.dataset.m;
+setErr("info",false);
+});
+})(majorEls[mi]);
+}
+
+$("fInfo").addEventListener("submit",function(e){
+e.preventDefault();
+clearErrs();
+var fn=$("fname").value.trim();
+var ln=$("lname").value.trim();
+var ok=true;
+if(!fn){setErr("fname",true);ok=false;}
+if(!ln){setErr("lname",true);ok=false;}
+if(!ST.info.grade||!ST.info.major){setErr("info",true);ok=false;}
+if(!ok)return;
+ST.info.fname=fn;
+ST.info.lname=ln;
+renderSubjects();
+showStep(3);
+});
+
+$("backToStep1").addEventListener("click",function(){showStep(1)});
+$("backToStep2").addEventListener("click",function(){showStep(2)});
+
+function renderSubjects(){
+var subs=(SUBJECTS[ST.info.major]||{})[ST.info.grade]||[];
+var box=$("subjectBox");
+box.innerHTML="";
+ST.subjects.ranked=[];
+for(var i=0;i<subs.length;i++){
+(function(name){
+var b=document.createElement("button");
+b.type="button";
+b.className="sub";
+b.innerHTML='<span>'+name+'</span><span class="n">۰</span>';
+b.addEventListener("click",function(){
+var idx=ST.subjects.ranked.indexOf(name);
+if(idx>-1)ST.subjects.ranked.splice(idx,1);
+else ST.subjects.ranked.push(name);
+updateBadges();
+setErr("subj",false);
+});
+box.appendChild(b);
+})(subs[i]);
+}
+}
+
 function updateBadges(){
-$$("#sorder .sbtn").forEach(b=>{
-const n=b.dataset.s,i=st.subjects.ranked.indexOf(n);
-const bd=b.querySelector(".badge");
-if(i>-1){bd.textContent=fa(i+1);b.classList.add("ranked");}
-else{bd.textContent="";b.classList.remove("ranked");}
-});
+var subs=$("subjectBox").querySelectorAll(".sub");
+for(var i=0;i<subs.length;i++){
+var b=subs[i];
+var name=b.querySelector("span").textContent;
+var idx=ST.subjects.ranked.indexOf(name);
+var badge=b.querySelector(".n");
+if(idx>-1){
+badge.textContent=fa(idx+1);
+b.classList.add("on");
+}else{
+badge.textContent="";
+b.classList.remove("on");
 }
-$("#study").addEventListener("input",()=>{
-const v=+$("#study").value;st.subjects.study=v;$("#studyv").textContent=fa(v)+" ساعت";
+}
+}
+
+$("studyRange").addEventListener("input",function(){
+var v=parseInt(this.value,10);
+ST.subjects.study=v;
+$("studyVal").textContent=fa(v)+" ساعت";
 });
-$("#tests").addEventListener("input",()=>{
-const v=+$("#tests").value;st.subjects.tests=v;$("#testsv").textContent=fa(v)+" تست";
+$("testRange").addEventListener("input",function(){
+var v=parseInt(this.value,10);
+ST.subjects.tests=v;
+$("testVal").textContent=fa(v)+" تست";
 });
 
-$("#finish").addEventListener("click",()=>{
-$("#e3").classList.remove("show");
-if(st.subjects.ranked.length<2){$("#e3").textContent="حداقل ۲ درس رو انتخاب کن";$("#e3").classList.add("show");return;}
-store.write(CK.profile,{...st.info,subjects:st.subjects.ranked,study:st.subjects.study,tests:st.subjects.tests,createdAt:new Date().toISOString()});
-const gl=GRADES[st.info.grade]||"",ml=(MAJORS[st.info.major]||{}).l||"";
-$("#wtitle").textContent="خوش اومدی "+st.info.fname+"!";
-$("#wgrade").textContent=gl;
-$("#wmajor").textContent=ml;
-$("#wstudy").textContent=fa(st.subjects.study)+" ساعت";
-$("#wtests").textContent=fa(st.subjects.tests)+" تست";
+$("finishBtn").addEventListener("click",function(){
+if(ST.subjects.ranked.length<2){setErr("subj",true);return;}
+var profile={
+fname:ST.info.fname,
+lname:ST.info.lname,
+grade:ST.info.grade,
+major:ST.info.major,
+subjects:ST.subjects.ranked,
+study:ST.subjects.study,
+tests:ST.subjects.tests,
+createdAt:new Date().toISOString()
+};
+store.write("amz:profile",profile);
+$("welcomeTitle").textContent="خوش اومدی "+ST.info.fname+"!";
+$("wGrade").textContent=GRADES[ST.info.grade]||"";
+$("wMajor").textContent=MAJORS[ST.info.major]||"";
+$("wStudy").textContent=fa(ST.subjects.study)+" ساعت";
+$("wTest").textContent=fa(ST.subjects.tests)+" تست";
 refreshChip();
-confetti();
-goStep(4);
+showStep(4);
 });
-$("#enterMain").addEventListener("click",()=>{prepQuiz();switchTab("quiz");});
 
-/* ============ Quiz ============ */
-const quiz={sub:"",qs:[],i:0,c:0,w:0,ans:false};
-function prepQuiz(){
-const p=store.read(CK.profile);
-const ranked=p.subjects||[];
-let ch="",qs=[];
-for(const s of ranked){
-const q=getQ(s,QB);
-if(q&&q.length){ch=s;qs=q;break;}
+$("enterApp").addEventListener("click",function(){
+prepareQuiz();
+switchTab("quiz");
+});
+
+function refreshChip(){
+var d=store.read("amz:profile");
+var chip=$("userChip");
+if(d.fname)chip.textContent="👤 "+d.fname;
+else chip.textContent="👤 مهمان";
 }
-if(!ch){$("#qisub").textContent="درس انتخابی";$("#startQuiz").disabled=true;$("#startQuiz").textContent="درسی یافت نشد";return;}
-$("#qisub").textContent=ch;
-$("#startQuiz").disabled=false;$("#startQuiz").textContent="شروع آزمون";
+refreshChip();
+
+var quiz={sub:"",qs:[],i:0,c:0,w:0,answered:false};
+
+function prepareQuiz(){
+var p=store.read("amz:profile");
+var ranked=p.subjects||[];
+var ch="",qs=[];
+for(var i=0;i<ranked.length;i++){
+var q=getQ(ranked[i],QB);
+if(q&&q.length){ch=ranked[i];qs=q;break;}
+}
+if(!ch){
+$("quizSubjectName").textContent="—";
+$("startQuizBtn").disabled=true;
+$("startQuizBtn").textContent="درسی یافت نشد";
+return;
+}
+$("quizSubjectName").textContent=ch;
+$("startQuizBtn").disabled=false;
+$("startQuizBtn").textContent="شروع آزمون";
 quiz.sub=ch;
-quiz.qs=shuffle([...qs]).slice(0,Math.min(10,qs.length));
+quiz.qs=shuffle(qs.slice()).slice(0,Math.min(10,qs.length));
 }
-function showQ(s){
-$$("#v-quiz .qs").forEach(x=>x.classList.remove("active"));
-const el=document.getElementById("q"+s);
-if(el)el.classList.add("active");
-scrollTo({top:0,behavior:"smooth"});
-}
-$("#startQuiz").addEventListener("click",()=>{
-quiz.i=0;quiz.c=0;quiz.w=0;quiz.ans=false;
-$("#qt").textContent=fa(quiz.qs.length);
-showQ("q");
-renderQ();
+
+$("startQuizBtn").addEventListener("click",function(){
+quiz.i=0;quiz.c=0;quiz.w=0;quiz.answered=false;
+$("qTot").textContent=fa(quiz.qs.length);
+$("quizIntro").classList.add("hidden");
+$("quizResult").classList.add("hidden");
+$("quizBox").classList.remove("hidden");
+renderQuizQ();
 });
-function renderQ(){
-const q=quiz.qs[quiz.i];if(!q)return;
-quiz.ans=false;
-const n=quiz.i+1,t=quiz.qs.length;
-$("#qc").textContent=fa(n);$("#qt").textContent=fa(t);
-$("#qprog").style.width=((n-1)/t*100)+"%";
-$("#qtext").textContent=q.q;
-const list=$("#qopts");list.innerHTML="";
-q.options.forEach((o,i)=>{
-const b=document.createElement("button");
-b.type="button";b.className="opt";
-b.innerHTML=`<span class="onum">${fa(i+1)}</span><span class="otext">${o}</span><span class="oico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>`;
-b.addEventListener("click",()=>ansQ(i));
-list.appendChild(b);
-});
+
+function renderQuizQ(){
+var q=quiz.qs[quiz.i];
+if(!q)return;
+quiz.answered=false;
+var n=quiz.i+1,t=quiz.qs.length;
+$("qCur").textContent=fa(n);
+$("qTot").textContent=fa(t);
+$("quizProgress").style.width=((n-1)/t*100)+"%";
+$("qText").textContent=q.q;
+var box=$("qOpts");
+box.innerHTML="";
+for(var i=0;i<q.o.length;i++){
+(function(idx){
+var b=document.createElement("button");
+b.type="button";
+b.className="opt";
+b.innerHTML='<span class="num">'+fa(idx+1)+'</span><span class="tx">'+q.o[idx]+'</span><span class="ic">✓</span>';
+b.addEventListener("click",function(){answerQuiz(idx)});
+box.appendChild(b);
+})(i);
 }
-function ansQ(idx){
-if(quiz.ans)return;quiz.ans=true;
-const q=quiz.qs[quiz.i];
-const ok=idx===q.correct;
+}
+
+function answerQuiz(idx){
+if(quiz.answered)return;
+quiz.answered=true;
+var q=quiz.qs[quiz.i];
+var ok=idx===q.c;
 if(ok)quiz.c++;else quiz.w++;
-$$("#qopts .opt").forEach((b,i)=>{
-b.classList.add("locked");
-if(i===q.correct){b.classList.add("correct");if(i!==idx)b.querySelector(".oico").innerHTML="✓";}
-else if(i===idx){b.classList.add("wrong");b.querySelector(".oico").innerHTML="✕";}
-else b.classList.add("dimmed");
-});
-const n=quiz.i+1,t=quiz.qs.length;
-$("#qprog").style.width=(n/t*100)+"%";
-setTimeout(()=>{
+var opts=$("qOpts").querySelectorAll(".opt");
+for(var i=0;i<opts.length;i++){
+opts[i].classList.add("done");
+if(i===q.c)opts[i].classList.add("ok");
+else if(i===idx)opts[i].classList.add("no");
+else opts[i].classList.add("dim");
+}
+$("quizProgress").style.width=((quiz.i+1)/quiz.qs.length*100)+"%";
+setTimeout(function(){
 quiz.i++;
-if(quiz.i>=quiz.qs.length)showR();
-else renderQ();
+if(quiz.i>=quiz.qs.length)showQuizResult();
+else renderQuizQ();
 },700);
 }
-function showR(){
-const total=quiz.qs.length,pct=Math.round(quiz.c/total*100);
-let lvl,label,em,desc,col;
-if(pct>=80){lvl="advanced";label="سطح پیشرفته";em="🏆";desc="عالی! بریم سراغ تمرین‌های چالشی.";col="var(--accent)";}
-else if(pct>=50){lvl="intermediate";label="سطح متوسط";em="💪";desc="خوبه! با تمرین پیشرفت می‌کنی.";col="#12b58f";}
-else{lvl="beginner";label="سطح مبتدی";em="🌱";desc="از پایه شروع می‌کنیم.";col="#ff7a3d";}
-$("#rem").textContent=em;
-const le=$("#rlvl");le.textContent=label;le.dataset.level=lvl;
-$("#rdesc").textContent=desc;
-$("#rc").textContent=fa(quiz.c);
-$("#rw").textContent=fa(quiz.w);
-$("#rp").textContent=fa(pct)+"٪";
-$("#rpct").textContent=fa(pct)+"٪";
-$("#rchart").style.background=`conic-gradient(${col} 0% ${pct}%, var(--line) ${pct}% 100%)`;
-store.write(CK.quiz,{sub:quiz.sub,level:lvl,correct:quiz.c,wrong:quiz.w,total,pct,date:new Date().toISOString()});
-const h=store.read(CK.quizH)||{list:[]};
-h.list.push({subject:quiz.sub,level:lvl,pct,correct:quiz.c,total,date:new Date().toISOString()});
-store.write(CK.quizH,h);
+
+function showQuizResult(){
+var total=quiz.qs.length;
+var pct=Math.round(quiz.c/total*100);
+var lvl,label,em,desc;
+if(pct>=80){lvl="advanced";label="سطح پیشرفته";em="🏆";desc="عالی! بریم سراغ تمرین‌های چالشی.";}
+else if(pct>=50){lvl="intermediate";label="سطح متوسط";em="💪";desc="خوبه! با تمرین هدفمند پیشرفت می‌کنی.";}
+else{lvl="beginner";label="سطح مبتدی";em="🌱";desc="از پایه شروع می‌کنیم و قدم‌به‌قدم قوی می‌شی.";}
+$("rEmoji").textContent=em;
+var le=$("rLevel");
+le.textContent=label;
+le.setAttribute("data-lv",lvl);
+$("rDesc").textContent=desc;
+$("rCorrect").textContent=fa(quiz.c);
+$("rWrong").textContent=fa(quiz.w);
+$("rPercent").textContent=fa(pct)+"٪";
+var bar=$("rBar");
+bar.style.width=pct+"%";
+bar.className=pct>=70?"":(pct>=40?"warn":"bad");
+
+store.write("amz:quiz",{sub:quiz.sub,level:lvl,correct:quiz.c,wrong:quiz.w,total:total,pct:pct,date:new Date().toISOString()});
+var h=store.read("amz:quizH")||{list:[]};
+if(!h.list)h.list=[];
+h.list.push({subject:quiz.sub,level:lvl,pct:pct,correct:quiz.c,total:total,date:new Date().toISOString()});
+store.write("amz:quizH",h);
 addXP(quiz.c*10);
 updateStreak();
 checkAwards();
-if(pct>=80)confetti();
-showQ("r");
-}
-$("#retry").addEventListener("click",()=>{prepQuiz();showQ("i");});
-$("#cont").addEventListener("click",()=>{startP();switchTab("practice");});
 
-/* ============ Practice ============ */
-const practice={sub:"",level:2,streak:0,wrongStreak:0,asked:[],c:0,w:0,ans:false,cur:null};
-function startP(){
-const p=store.read(CK.profile);
-const ranked=p.subjects||[];
-const qr=store.read(CK.quiz);
-let sub="";
-for(const s of ranked){const q=getQ(s,PB);if(q&&q.length){sub=s;break;}}
-if(!sub){toast("⚠️","درسی یافت نشد","","danger");return;}
-practice.sub=sub;
-practice.level=qr.level==="advanced"?3:qr.level==="beginner"?1:2;
-practice.streak=0;practice.wrongStreak=0;practice.asked=[];
-practice.c=0;practice.w=0;
-updatePUI();nextPQ();showPS("m");
+$("quizBox").classList.add("hidden");
+$("quizResult").classList.remove("hidden");
 }
-function updatePUI(){
-const b=$("#lbadge");
-const ic={1:"🌱",2:"💪",3:"🏆"},lb={1:"سطح مبتدی",2:"سطح متوسط",3:"سطح پیشرفته"};
-b.dataset.level=practice.level;
-$("#lico").textContent=ic[practice.level];
-$("#ltxt").textContent=lb[practice.level];
-$$("#sdots .sdot").forEach((d,i)=>d.classList.toggle("on",i<practice.streak));
-const total=practice.c+practice.w;
-const rate=total>0?Math.round(practice.c/total*100):0;
-$("#pc").textContent=fa(practice.c);
-$("#pw").textContent=fa(practice.w);
-$("#pr").textContent=fa(rate)+"٪";
-}
-function nextPQ(){
-const pool=getQ(practice.sub,PB);
-const lp=pool.map((q,i)=>({q,i})).filter(x=>x.q.level===practice.level&&!practice.asked.includes(x.i));
-let cand=lp;
-if(!cand.length)cand=pool.map((q,i)=>({q,i})).filter(x=>!practice.asked.includes(x.i));
-if(!cand.length){practice.asked=[];return nextPQ();}
-const pick=cand[Math.floor(Math.random()*cand.length)];
-practice.asked.push(pick.i);
-practice.cur=pick.q;
-practice.ans=false;
-renderPQ(pick.q);
-}
-function renderPQ(q){
-$("#ptext").textContent=q.q;
-const list=$("#popts");list.innerHTML="";
-q.options.forEach((o,i)=>{
-const b=document.createElement("button");
-b.type="button";b.className="opt";
-b.innerHTML=`<span class="onum">${fa(i+1)}</span><span class="otext">${o}</span><span class="oico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>`;
-b.addEventListener("click",()=>ansP(i));
-list.appendChild(b);
+
+$("retryQuiz").addEventListener("click",function(){
+prepareQuiz();
+$("quizResult").classList.add("hidden");
+$("quizBox").classList.add("hidden");
+$("quizIntro").classList.remove("hidden");
 });
+
+$("goToPractice").addEventListener("click",function(){
+startPractice();
+switchTab("practice");
+});
+
+var practice={sub:"",level:2,streak:0,wrongStreak:0,asked:[],c:0,w:0,answered:false,current:null};
+
+function startPractice(){
+var p=store.read("amz:profile");
+var ranked=p.subjects||[];
+var qr=store.read("amz:quiz");
+var sub="";
+for(var i=0;i<ranked.length;i++){
+var q=getQ(ranked[i],PB);
+if(q&&q.length){sub=ranked[i];break;}
 }
-function ansP(idx){
-if(practice.ans)return;practice.ans=true;
-const q=practice.cur;
-const ok=idx===q.correct;
+if(!sub){toast("درسی یافت نشد");return;}
+practice.sub=sub;
+practice.level=qr.level==="advanced"?3:(qr.level==="beginner"?1:2);
+practice.streak=0;
+practice.wrongStreak=0;
+practice.asked=[];
+practice.c=0;
+practice.w=0;
+updatePracticeUI();
+nextPracticeQ();
+$("practiceSummary").classList.add("hidden");
+$("practiceBox").classList.remove("hidden");
+}
+
+function updatePracticeUI(){
+var ic={1:"🌱",2:"💪",3:"🏆"};
+var lb={1:"سطح مبتدی",2:"سطح متوسط",3:"سطح پیشرفته"};
+var lb2=$("levelBox");
+lb2.setAttribute("data-lv",practice.level);
+$("levelIcon").textContent=ic[practice.level];
+$("levelText").textContent=lb[practice.level];
+var dots=$("streakDots").querySelectorAll(".dot");
+for(var i=0;i<dots.length;i++){
+dots[i].classList.toggle("on",i<practice.streak);
+}
+var total=practice.c+practice.w;
+var rate=total>0?Math.round(practice.c/total*100):0;
+$("pCorrect").textContent=fa(practice.c);
+$("pWrong").textContent=fa(practice.w);
+$("pPercent").textContent=fa(rate)+"%";
+}
+
+function nextPracticeQ(){
+var pool=getQ(practice.sub,PB);
+var cand=[];
+for(var i=0;i<pool.length;i++){
+if(pool[i].l===practice.level&&practice.asked.indexOf(i)===-1){
+cand.push({q:pool[i],i:i});
+}
+}
+if(!cand.length){
+cand=[];
+for(var j=0;j<pool.length;j++){
+if(practice.asked.indexOf(j)===-1)cand.push({q:pool[j],i:j});
+}
+}
+if(!cand.length){
+practice.asked=[];
+return nextPracticeQ();
+}
+var pick=cand[Math.floor(Math.random()*cand.length)];
+practice.asked.push(pick.i);
+practice.current=pick.q;
+practice.answered=false;
+renderPracticeQ(pick.q);
+}
+
+function renderPracticeQ(q){
+$("pText").textContent=q.q;
+var box=$("pOpts");
+box.innerHTML="";
+for(var i=0;i<q.o.length;i++){
+(function(idx){
+var b=document.createElement("button");
+b.type="button";
+b.className="opt";
+b.innerHTML='<span class="num">'+fa(idx+1)+'</span><span class="tx">'+q.o[idx]+'</span><span class="ic">✓</span>';
+b.addEventListener("click",function(){answerPractice(idx)});
+box.appendChild(b);
+})(i);
+}
+}
+
+function answerPractice(idx){
+if(practice.answered)return;
+practice.answered=true;
+var q=practice.current;
+var ok=idx===q.c;
 if(ok){
-practice.c++;practice.streak++;practice.wrongStreak=0;addXP(5);
+practice.c++;
+practice.streak++;
+practice.wrongStreak=0;
+addXP(5);
 if(practice.streak>=3&&practice.level<3){
-practice.level++;practice.streak=0;
-const b=$("#lbadge");b.classList.add("flash");
-setTimeout(()=>b.classList.remove("flash"),700);
+practice.level++;
+practice.streak=0;
 }
 }else{
-practice.w++;practice.wrongStreak++;practice.streak=0;
-if(practice.wrongStreak>=2&&practice.level>1){practice.level--;practice.wrongStreak=0;}
+practice.w++;
+practice.wrongStreak++;
+practice.streak=0;
+if(practice.wrongStreak>=2&&practice.level>1){
+practice.level--;
+practice.wrongStreak=0;
 }
-$$("#popts .opt").forEach((b,i)=>{
-b.classList.add("locked");
-if(i===q.correct)b.classList.add("correct");
-else if(i===idx){b.classList.add("wrong");b.querySelector(".oico").innerHTML="✕";}
-else b.classList.add("dimmed");
-});
-updatePUI();
+}
+var opts=$("pOpts").querySelectorAll(".opt");
+for(var i=0;i<opts.length;i++){
+opts[i].classList.add("done");
+if(i===q.c)opts[i].classList.add("ok");
+else if(i===idx)opts[i].classList.add("no");
+else opts[i].classList.add("dim");
+}
+updatePracticeUI();
 checkAwards();
-setTimeout(()=>nextPQ(),700);
+setTimeout(function(){nextPracticeQ()},700);
 }
-function showPS(s){
-$$("#v-practice .qs").forEach(x=>x.classList.remove("active"));
-const el=document.getElementById("p"+s);
-if(el)el.classList.add("active");
-scrollTo({top:0,behavior:"smooth"});
-}
-$("#pend").addEventListener("click",()=>{
-const total=practice.c+practice.w;
-const rate=total>0?Math.round(practice.c/total*100):0;
-$("#sc").textContent=fa(practice.c);
-$("#sw").textContent=fa(practice.w);
-$("#sr").textContent=fa(rate)+"٪";
-const h=store.read(CK.practice)||{};
+
+$("skipPractice").addEventListener("click",function(){nextPracticeQ()});
+
+$("endPractice").addEventListener("click",function(){
+var total=practice.c+practice.w;
+var rate=total>0?Math.round(practice.c/total*100):0;
+$("sCorrect").textContent=fa(practice.c);
+$("sWrong").textContent=fa(practice.w);
+$("sPercent").textContent=fa(rate)+"%";
+var h=store.read("amz:practice")||{};
 if(!h.sessions)h.sessions=[];
-h.sessions.push({subject:practice.sub,level:practice.level,correct:practice.c,wrong:practice.w,rate,date:new Date().toISOString()});
-store.write(CK.practice,h);
+h.sessions.push({
+subject:practice.sub,
+level:practice.level,
+correct:practice.c,
+wrong:practice.w,
+rate:rate,
+date:new Date().toISOString()
+});
+store.write("amz:practice",h);
 updateStreak();
 checkAwards();
-if(rate>=80)confetti();
-showPS("s");
+$("practiceBox").classList.add("hidden");
+$("practiceSummary").classList.remove("hidden");
 });
-$("#newP").addEventListener("click",()=>startP());
-$("#backH").addEventListener("click",()=>switchTab("home"));
-$("#pskip").addEventListener("click",()=>nextPQ());
 
-/* ============ XP / Streak ============ */
-function addXP(a){
-const d=store.read(CK.xp)||{xp:0,level:1};
-const old=d.level||1;
-d.xp=(d.xp||0)+a;
+$("newPractice").addEventListener("click",function(){startPractice()});
+$("goHome").addEventListener("click",function(){switchTab("home")});
+
+function addXP(amount){
+var d=store.read("amz:xp")||{xp:0,level:1};
+var old=d.level||1;
+d.xp=(d.xp||0)+amount;
 d.level=Math.floor(d.xp/100)+1;
-store.write(CK.xp,d);
-if(d.level>old)toast("🎉","سطح جدید!","سطح "+fa(d.level),"success");
+store.write("amz:xp",d);
+if(d.level>old)toast("🎉 سطح جدید! سطح "+fa(d.level));
 }
+
 function updateStreak(){
-const d=store.read(CK.streak)||{days:[],count:0,best:0};
-const today=new Date().toISOString().slice(0,10);
+var d=store.read("amz:streak")||{days:[],count:0,best:0};
+var today=new Date().toISOString().slice(0,10);
 if(!d.days)d.days=[];
-if(!d.days.includes(today))d.days.push(today);
-const uniq=[...new Set(d.days)].sort().reverse();
-let s=0,cd=new Date(today);
-for(let i=0;i<uniq.length;i++){
-const ds=cd.toISOString().slice(0,10);
-if(uniq.includes(ds)){s++;cd.setDate(cd.getDate()-1);}else break;
+if(d.days.indexOf(today)===-1)d.days.push(today);
+var uniq=[];
+for(var i=0;i<d.days.length;i++){
+if(uniq.indexOf(d.days[i])===-1)uniq.push(d.days[i]);
 }
-d.count=s;d.best=Math.max(d.best||0,s);
-store.write(CK.streak,d);
+uniq.sort().reverse();
+var s=0;
+var cd=new Date(today);
+for(var j=0;j<uniq.length;j++){
+var ds=cd.toISOString().slice(0,10);
+if(uniq.indexOf(ds)>-1){s++;cd.setDate(cd.getDate()-1);}
+else break;
+}
+d.count=s;
+d.best=Math.max(d.best||0,s);
+store.write("amz:streak",d);
 }
 
-/* ============ Awards ============ */
-const AWARDS=[
-{id:"first-quiz",i:"🎯",n:"اولین قدم",d:"اولین آزمون",c:()=>{const h=store.read(CK.quizH);return h.list&&h.list.length>=1;}},
-{id:"first-practice",i:"💪",n:"شروع تمرین",d:"اولین جلسه",c:()=>{const h=store.read(CK.practice);return h.sessions&&h.sessions.length>=1;}},
-{id:"perfect",i:"💯",n:"نمره کامل",d:"۱۰۰٪ در آزمون",c:()=>{const h=store.read(CK.quizH);return h.list&&h.list.some(q=>q.pct===100);}},
-{id:"adv",i:"🏆",n:"پیشرفت",d:"سطح پیشرفته",c:()=>{const q=store.read(CK.quiz);return q.level==="advanced";}},
-{id:"hundred",i:"🔥",n:"صد تایی",d:"۱۰۰ پاسخ درست",c:()=>{const h=store.read(CK.practice),qh=store.read(CK.quizH);const a=(h.sessions||[]).reduce((s,x)=>s+(x.correct||0),0);const b=(qh.list||[]).reduce((s,x)=>s+(x.correct||0),0);return a+b>=100;}},
-{id:"s3",i:"⚡",n:"سه‌روزه",d:"۳ روز متوالی",c:()=>{const s=store.read(CK.streak);return s.count>=3;}},
-{id:"s7",i:"🌟",n:"هفت‌روزه",d:"هفت روز متوالی",c:()=>{const s=store.read(CK.streak);return s.count>=7;}},
-{id:"sessions3",i:"📚",n:"درس‌خوان",d:"۳ جلسه تمرین",c:()=>{const h=store.read(CK.practice);return h.sessions&&h.sessions.length>=3;}},
-{id:"level5",i:"🚀",n:"سطح ۵",d:"سطح ۵ XP",c:()=>{const x=store.read(CK.xp);return x.level>=5;}},
-{id:"master",i:"👑",n:"استاد",d:"همه ۹ نشان",c:()=>{const a=store.read(CK.awards)||{};return (a.unlocked||[]).length>=9;}}
+var AWARDS=[
+{id:"q1",i:"🎯",n:"اولین قدم",d:"اولین آزمون",c:function(){var h=store.read("amz:quizH");return h.list&&h.list.length>=1;}},
+{id:"p1",i:"💪",n:"شروع تمرین",d:"اولین جلسه",c:function(){var h=store.read("amz:practice");return h.sessions&&h.sessions.length>=1;}},
+{id:"perfect",i:"💯",n:"نمره کامل",d:"۱۰۰٪ در آزمون",c:function(){var h=store.read("amz:quizH");if(!h.list)return false;for(var i=0;i<h.list.length;i++){if(h.list[i].pct===100)return true;}return false;}},
+{id:"adv",i:"🏆",n:"پیشرفت",d:"سطح پیشرفته",c:function(){var q=store.read("amz:quiz");return q.level==="advanced";}},
+{id:"hundred",i:"🔥",n:"صد تایی",d:"۱۰۰ پاسخ درست",c:function(){
+var h=store.read("amz:practice"),qh=store.read("amz:quizH");
+var a=0,b=0;
+if(h.sessions)for(var i=0;i<h.sessions.length;i++)a+=h.sessions[i].correct||0;
+if(qh.list)for(var j=0;j<qh.list.length;j++)b+=qh.list[j].correct||0;
+return a+b>=100;
+}},
+{id:"s3",i:"⚡",n:"سه‌روزه",d:"۳ روز متوالی",c:function(){var s=store.read("amz:streak");return s.count>=3;}},
+{id:"s7",i:"🌟",n:"هفت‌روزه",d:"۷ روز متوالی",c:function(){var s=store.read("amz:streak");return s.count>=7;}},
+{id:"ses3",i:"📚",n:"درس‌خوان",d:"۳ جلسه تمرین",c:function(){var h=store.read("amz:practice");return h.sessions&&h.sessions.length>=3;}},
+{id:"lv5",i:"🚀",n:"سطح ۵",d:"سطح ۵ XP",c:function(){var x=store.read("amz:xp");return x.level>=5;}},
+{id:"master",i:"👑",n:"استاد",d:"همه نشان‌ها",c:function(){var a=store.read("amz:awards")||{};return (a.unlocked||[]).length>=9;}}
 ];
+
 function checkAwards(){
-const d=store.read(CK.awards)||{unlocked:[]};
+var d=store.read("amz:awards")||{unlocked:[]};
 if(!d.unlocked)d.unlocked=[];
-AWARDS.forEach(a=>{
-if(!d.unlocked.includes(a.id)&&a.c()){
+for(var i=0;i<AWARDS.length;i++){
+var a=AWARDS[i];
+if(d.unlocked.indexOf(a.id)===-1&&a.c()){
 d.unlocked.push(a.id);
-toast(a.i,"دستاورد جدید!",a.n,"success");
-confetti();
+toast(a.i+" دستاورد جدید: "+a.n);
 }
-});
-store.write(CK.awards,d);
 }
+store.write("amz:awards",d);
+}
+
 function renderAwards(){
-const d=store.read(CK.awards)||{unlocked:[]};
-const un=d.unlocked||[];
-const g=$("#agrid");g.innerHTML="";
-AWARDS.forEach(a=>{
-const u=un.includes(a.id);
-const c=document.createElement("div");
-c.className="acard"+(u?" unlocked":"");
-c.innerHTML=`<span class="lk">🔒</span><span class="i">${a.i}</span><h4 class="nm">${a.n}</h4><p class="ds">${a.d}</p>`;
+var d=store.read("amz:awards")||{unlocked:[]};
+var un=d.unlocked||[];
+var g=$("awardsGrid");
+g.innerHTML="";
+for(var i=0;i<AWARDS.length;i++){
+var a=AWARDS[i];
+var u=un.indexOf(a.id)>-1;
+var c=document.createElement("div");
+c.className="award"+(u?" on":"");
+c.innerHTML='<div class="i">'+a.i+'</div><div class="n">'+a.n+'</div><div class="d">'+a.d+'</div>';
 g.appendChild(c);
-});
-const c=un.length,t=AWARDS.length;
-$("#asub").textContent=c===0?"هنوز شروع نکردی!":`${fa(c)} از ${fa(t)} نشان رو گرفتی`;
+}
+var c2=un.length,t=AWARDS.length;
+$("awardsSubtitle").textContent=c2===0?"هنوز شروع نکردی!":fa(c2)+" از "+fa(t)+" نشان رو گرفتی";
 }
 
-/* ============ Dashboard ============ */
-function renderDash(){
-const qh=store.read(CK.quizH)||{list:[]};
-const ph=store.read(CK.practice)||{sessions:[]};
-const sd=store.read(CK.streak)||{count:0};
-const xp=store.read(CK.xp)||{xp:0,level:1};
-const qc=(qh.list||[]).length,pc=(ph.sessions||[]).length;
-const tc=(qh.list||[]).reduce((s,q)=>s+(q.correct||0),0)+(ph.sessions||[]).reduce((s,p)=>s+(p.correct||0),0);
-const allP=[...(qh.list||[]).map(x=>x.pct),...(ph.sessions||[]).map(x=>x.rate)];
-const avg=allP.length?Math.round(allP.reduce((a,b)=>a+b,0)/allP.length):0;
-$("#sq").textContent=fa(qc);
-$("#sp").textContent=fa(pc);
-$("#stc").textContent=fa(tc);
-$("#ss").textContent=fa(sd.count||0);
-$("#sx").textContent=fa(xp.xp||0);
-$("#sl").textContent=fa(xp.level||1);
-$("#savg").textContent=fa(avg)+"٪";
-$("#stime").textContent="۰";
-renderChart(qh.list||[],ph.sessions||[]);
-renderSP(qh.list||[],ph.sessions||[]);
-renderWeak(qh.list||[],ph.sessions||[]);
+function renderProgress(){
+var qh=store.read("amz:quizH")||{list:[]};
+var ph=store.read("amz:practice")||{sessions:[]};
+var sd=store.read("amz:streak")||{count:0};
+var xp=store.read("amz:xp")||{xp:0,level:1};
+var qc=(qh.list||[]).length;
+var pc=(ph.sessions||[]).length;
+var tc=0;
+if(qh.list)for(var i=0;i<qh.list.length;i++)tc+=qh.list[i].correct||0;
+if(ph.sessions)for(var j=0;j<ph.sessions.length;j++)tc+=ph.sessions[j].correct||0;
+$("stQuiz").textContent=fa(qc);
+$("stPractice").textContent=fa(pc);
+$("stCorrect").textContent=fa(tc);
+$("stStreak").textContent=fa(sd.count||0);
+$("stXP").textContent=fa(xp.xp||0);
+$("stLevel").textContent=fa(xp.level||1);
+
+var byS={};
+if(qh.list)for(var a=0;a<qh.list.length;a++){
+var q=qh.list[a];
+if(!q.subject)continue;
+if(!byS[q.subject])byS[q.subject]={c:0,t:0};
+byS[q.subject].c+=q.correct||0;
+byS[q.subject].t+=q.total||0;
 }
-function renderChart(ql,ps){
-const canvas=$("#chart");if(!canvas)return;
-if(chartInst){chartInst.destroy();chartInst=null;}
-if(typeof Chart==="undefined"){canvas.parentElement.innerHTML='<div class="empty"><div class="i">📈</div><p>نمودار در دسترس نیست</p></div>';return;}
-const all=[...ql.map(q=>({date:q.date,pct:q.pct})),...ps.map(p=>({date:p.date,pct:p.rate}))].sort((a,b)=>new Date(a.date)-new Date(b.date));
-if(!all.length){canvas.parentElement.innerHTML='<div class="empty"><div class="i">📈</div><p>هنوز داده‌ای نیست</p></div>';return;}
-if(!canvas.parentElement.querySelector("canvas")){canvas.parentElement.innerHTML='<canvas id="chart"></canvas>';return renderChart(ql,ps);}
-const labels=all.map((_,i)=>fa(i+1));
-const data=all.map(a=>a.pct);
-const accentColor=getComputedStyle(document.documentElement).getPropertyValue("--accent").trim()||"#5b3df5";
-const textColor=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#1d2457";
-const gridColor=getComputedStyle(document.documentElement).getPropertyValue("--line").trim()||"#e5e8f5";
-chartInst=new Chart(canvas,{
-type:"line",
-data:{labels,datasets:[{label:"درصد",data,borderColor:accentColor,backgroundColor:accentColor+"22",borderWidth:3,tension:.4,fill:true,pointBackgroundColor:"#fff",pointBorderColor:accentColor,pointBorderWidth:2,pointRadius:5}]},
-options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{rtl:true,titleFont:{family:"Vazirmatn"},bodyFont:{family:"Vazirmatn"},callbacks:{label:ctx=>`${ctx.parsed.y}٪`}}},scales:{y:{beginAtZero:true,max:100,ticks:{font:{family:"Vazirmatn"},color:textColor,callback:v=>v+"٪"},grid:{color:gridColor}},x:{ticks:{font:{family:"Vazirmatn"},color:textColor,maxTicksLimit:10},grid:{display:false}}}}
-});
-}
-function renderSP(ql,ps){
-const list=$("#splist");
-const byS={};
-ql.forEach(q=>{if(!q.subject)return;if(!byS[q.subject])byS[q.subject]={c:0,t:0};byS[q.subject].c+=q.correct||0;byS[q.subject].t+=q.total||0;});
-ps.forEach(p=>{if(!p.subject)return;if(!byS[p.subject])byS[p.subject]={c:0,t:0};byS[p.subject].c+=p.correct||0;byS[p.subject].t+=(p.correct||0)+(p.wrong||0);});
-const entries=Object.entries(byS);
-if(!entries.length){list.innerHTML='<div class="empty"><div class="i">📚</div><p>هنوز تمرینی نکردی</p></div>';return;}
-list.innerHTML="";
-entries.forEach(([n,d])=>{
-const r=d.t>0?Math.round(d.c/d.t*100):0;
-const row=document.createElement("div");row.className="sprow";
-let bc="var(--accent)";if(r>=80)bc="#10b981";else if(r<50)bc="#e11d48";
-row.innerHTML=`<span class="name">${n}</span><div class="bar"><div style="width:${r}%;background:${bc}"></div></div><span class="val">${fa(r)}٪</span>`;
-list.appendChild(row);
-});
-}
-function renderWeak(ql,ps){
-const list=$("#weaklist");
-const byS={};
-ql.forEach(q=>{if(!q.subject)return;if(!byS[q.subject])byS[q.subject]={c:0,t:0};byS[q.subject].c+=q.correct||0;byS[q.subject].t+=q.total||0;});
-ps.forEach(p=>{if(!p.subject)return;if(!byS[p.subject])byS[p.subject]={c:0,t:0};byS[p.subject].c+=p.correct||0;byS[p.subject].t+=(p.correct||0)+(p.wrong||0);});
-const weak=Object.entries(byS).map(([n,d])=>({n,r:d.t>0?Math.round(d.c/d.t*100):0,t:d.t})).filter(x=>x.t>=3).sort((a,b)=>a.r-b.r).slice(0,4);
-if(!weak.length){list.innerHTML='<div class="empty"><div class="i">🎯</div><p>هنوز داده کافی نداری</p></div>';return;}
-list.innerHTML="";
-weak.forEach(w=>{
-const row=document.createElement("div");row.className="sprow";
-const em=w.r<40?"🔴":w.r<70?"🟡":"🟢";
-row.innerHTML=`<span style="font-size:1.2rem">${em}</span><span class="name" style="min-width:auto;flex:1">${w.n}</span><span class="val">${fa(w.r)}٪</span>`;
-list.appendChild(row);
-});
+if(ph.sessions)for(var b=0;b<ph.sessions.length;b++){
+var p=ph.sessions[b];
+if(!p.subject)continue;
+if(!byS[p.subject])byS[p.subject]={c:0,t:0};
+byS[p.subject].c+=p.correct||0;
+byS[p.subject].t+=(p.correct||0)+(p.wrong||0);
 }
 
-/* ============ Profile ============ */
-function refreshChip(){
-const d=store.read(CK.profile);
-const ne=$("#pname"),me=$("#pmeta");
-if(d.fname){
-ne.textContent=d.fname+" "+(d.lname||"");
-const gl=GRADES[d.grade]||"",ml=(MAJORS[d.major]||{}).l||"";
-me.textContent=[gl,ml].filter(Boolean).join(" · ")||"آماده شروع";
-}else{ne.textContent="مهمان";me.textContent="وارد نشده";}
+var keys=Object.keys(byS);
+var sp=$("subjectProgress");
+var wk=$("weakPoints");
+if(!keys.length){
+sp.innerHTML='<div class="msg"><div class="i">📚</div>هنوز تمرینی نکردی</div>';
+wk.innerHTML='<div class="msg"><div class="i">🎯</div>هنوز داده کافی نداری</div>';
+return;
 }
-function renderProfile(){
-const d=store.read(CK.profile);
-const auth=store.read(CK.auth);
-const xp=store.read(CK.xp)||{xp:0,level:1};
-if(d.fname){
-$("#uname").textContent=d.fname+" "+(d.lname||"");
-const gl=GRADES[d.grade]||"",ml=(MAJORS[d.major]||{}).l||"";
-$("#umeta").textContent=[gl,ml].filter(Boolean).join(" · ");
-const b=$("#ubadges");b.innerHTML="";
-if(gl)b.innerHTML+=`<span class="ub">📚 ${gl}</span>`;
-if(ml)b.innerHTML+=`<span class="ub">🎓 ${ml}</span>`;
-b.innerHTML+=`<span class="ub">⚡ سطح ${fa(xp.level)}</span>`;
-$("#abAuthor").textContent=d.fname+" "+(d.lname||"");
-$("#abGM").textContent=[gl,ml].filter(Boolean).join(" · ");
-if(auth.phone)$("#abPhone").textContent=auth.phone.replace(/(\d{4})(\d{3})(\d{4})/,"$1 $2 $3");
-else $("#abPhone").textContent="—";
-if(d.createdAt){const dt=new Date(d.createdAt);$("#abDate").textContent=fa(dt.toLocaleDateString("fa-IR"));}
+sp.innerHTML="";
+for(var k=0;k<keys.length;k++){
+var name=keys[k];
+var dd=byS[name];
+var r=dd.t>0?Math.round(dd.c/dd.t*100):0;
+var cls=r>=70?"":(r>=40?"warn":"bad");
+var row=document.createElement("div");
+row.className="prow";
+row.innerHTML='<div class="t"><span>'+name+'</span><span>'+fa(r)+'٪</span></div><div class="pbar"><i class="'+cls+'" style="width:'+r+'%"></i></div>';
+sp.appendChild(row);
+}
+
+var weak=keys.map(function(kk){
+return {n:kk,r:byS[kk].t>0?Math.round(byS[kk].c/byS[kk].t*100):0,t:byS[kk].t};
+}).filter(function(x){return x.t>=3}).sort(function(x,y){return x.r-y.r}).slice(0,4);
+
+if(!weak.length){
+wk.innerHTML='<div class="msg"><div class="i">🎯</div>هنوز داده کافی نداری</div>';
 }else{
-$("#uname").textContent="مهمان";
-$("#umeta").textContent="وارد نشده";
-$("#ubadges").innerHTML="";
-$("#abAuthor").textContent="—";
-$("#abPhone").textContent="—";
-$("#abGM").textContent="—";
+wk.innerHTML="";
+for(var w=0;w<weak.length;w++){
+var ww=weak[w];
+var em=ww.r<40?"🔴":(ww.r<70?"🟡":"🟢");
+var rw=document.createElement("div");
+rw.className="prow";
+rw.innerHTML='<div class="t"><span>'+em+' '+ww.n+'</span><span>'+fa(ww.r)+'٪</span></div>';
+wk.appendChild(rw);
+}
 }
 }
 
-/* ============ Dock ============ */
-const dock=$("#dock");
-function switchTab(t){
-dock.querySelectorAll(".ditem").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));
-document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id==="v-"+t));
-if(t==="quiz"){
-const p=store.read(CK.profile);
-if(p.subjects&&p.subjects.length){prepQuiz();const ex=store.read(CK.quiz);if(!ex.sub)showQ("i");}
+function renderProfile(){
+var d=store.read("amz:profile");
+var auth=store.read("amz:auth");
+var xp=store.read("amz:xp")||{xp:0,level:1};
+if(d.fname){
+$("userNameFull").textContent=d.fname+" "+(d.lname||"");
+var gl=GRADES[d.grade]||"";
+var ml=MAJORS[d.major]||"";
+$("userMetaFull").textContent=[gl,ml].filter(Boolean).join(" · ")+" · سطح "+fa(xp.level);
+$("aboutAuthor").textContent=d.fname+" "+(d.lname||"");
+$("aboutGradeMajor").textContent=[gl,ml].filter(Boolean).join(" · ");
+if(auth.phone){
+var p=auth.phone;
+$("aboutPhone").textContent=p.replace(/(\d{4})(\d{3})(\d{4})/,"$1 $2 $3");
+}else $("aboutPhone").textContent="—";
+if(d.createdAt){
+var dt=new Date(d.createdAt);
+try{$("aboutDate").textContent=fa(dt.toLocaleDateString("fa-IR"))}
+catch(e){$("aboutDate").textContent=fa(dt.toLocaleDateString())}
 }
-if(t==="practice"){
-const p=store.read(CK.profile);
-if(p.subjects&&p.subjects.length){
-if(practice.c+practice.w===0)startP();
-else showPS("m");
+}else{
+$("userNameFull").textContent="مهمان";
+$("userMetaFull").textContent="وارد نشده";
+$("aboutAuthor").textContent="—";
+$("aboutPhone").textContent="—";
+$("aboutGradeMajor").textContent="—";
 }
 }
-if(t==="progress")renderDash();
-if(t==="awards")renderAwards();
-if(t==="profile")renderProfile();
-scrollTo({top:0,behavior:"smooth"});
-}
-dock.addEventListener("click",e=>{const b=e.target.closest(".ditem");if(!b)return;switchTab(b.dataset.tab);});
-$("#pchip").addEventListener("click",()=>switchTab("profile"));
 
-/* ============ Settings ============ */
-const DEF={color:"#5b3df5",fontSize:"16",background:"bg-grid"};
-function lighten(hex,amt){const h=hex.replace("#","");const r=Math.min(255,parseInt(h.substr(0,2),16)+amt);const g=Math.min(255,parseInt(h.substr(2,2),16)+amt);const b=Math.min(255,parseInt(h.substr(4,2),16)+amt);return "#"+[r,g,b].map(x=>x.toString(16).padStart(2,"0")).join("");}
-function hexRgba(hex,a){const h=hex.replace("#","");const r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return `rgba(${r},${g},${b},${a})`;}
-function applySet(s){
-const r=document.documentElement;
-r.style.setProperty("--accent",s.color);
-r.style.setProperty("--accent2",lighten(s.color,18));
-r.style.setProperty("--soft",hexRgba(s.color,.10));
-r.style.setProperty("--ring",hexRgba(s.color,.18));
-r.style.setProperty("--fs",s.fontSize+"px");
-document.body.classList.remove("bg-grid","bg-dots","bg-plain");
-document.body.classList.add(s.background);
-$$("#crow .cdot").forEach(d=>d.classList.toggle("active",d.dataset.c===s.color));
-$$("#frow .sbtn2").forEach(b=>b.classList.toggle("active",b.dataset.s===s.fontSize));
-$$("#brow .sbtn2").forEach(b=>b.classList.toggle("active",b.dataset.b===s.background));
+var DEF={color:"#5b3df5",fontSize:"16"};
+
+function applySettings(s){
+document.documentElement.style.setProperty("--accent",s.color);
+document.body.style.fontSize=s.fontSize+"px";
+var colors=$("colorBox").querySelectorAll(".color");
+for(var i=0;i<colors.length;i++){
+colors[i].classList.toggle("on",colors[i].dataset.c===s.color);
 }
-let settings=Object.assign({},DEF,store.read(CK.settings));
-applySet(settings);
-$("#crow").addEventListener("click",e=>{
-const d=e.target.closest(".cdot");if(!d)return;
-settings.color=d.dataset.c;
-store.write(CK.settings,settings);
-applySet(settings);
-if(chartInst){const qh=store.read(CK.quizH)||{list:[]};const ph=store.read(CK.practice)||{sessions:[]};renderChart(qh.list||[],ph.sessions||[]);}
+var fonts=$("fontBox").querySelectorAll("button");
+for(var j=0;j<fonts.length;j++){
+fonts[j].classList.toggle("on",fonts[j].dataset.s===s.fontSize);
+}
+}
+
+var settings=Object.assign({},DEF,store.read("amz:settings"));
+applySettings(settings);
+
+$("colorBox").addEventListener("click",function(e){
+var t=e.target.closest(".color");
+if(!t)return;
+settings.color=t.dataset.c;
+store.write("amz:settings",settings);
+applySettings(settings);
 });
-$("#frow").addEventListener("click",e=>{
-const b=e.target.closest(".sbtn2");if(!b)return;
+
+$("fontBox").addEventListener("click",function(e){
+var b=e.target.closest("button");
+if(!b)return;
 settings.fontSize=b.dataset.s;
-store.write(CK.settings,settings);
-applySet(settings);
-});
-$("#brow").addEventListener("click",e=>{
-const b=e.target.closest(".sbtn2");if(!b)return;
-settings.background=b.dataset.b;
-store.write(CK.settings,settings);
-applySet(settings);
-});
-$("#resetBtn").addEventListener("click",()=>{
-if(!confirm("همه تنظیمات به حالت اولیه برمی‌گرده. مطمئنی؟"))return;
-settings=Object.assign({},DEF);
-store.write(CK.settings,settings);
-applySet(settings);
+store.write("amz:settings",settings);
+applySettings(settings);
 });
 
-/* ============ Init ============ */
-$("#studyv").textContent=fa($("#study").value)+" ساعت";
-$("#testsv").textContent=fa($("#tests").value)+" تست";
-refreshChip();
+$("resetSettings").addEventListener("click",function(){
+if(!confirm("تنظیمات به حالت اولیه برگرده؟"))return;
+settings=Object.assign({},DEF);
+store.write("amz:settings",settings);
+applySettings(settings);
+});
+
+var dock=$("dock");
+
+function switchTab(tab){
+var btns=dock.querySelectorAll("button");
+for(var i=0;i<btns.length;i++){
+btns[i].classList.toggle("on",btns[i].dataset.tab===tab);
+}
+var views=["v-home","v-quiz","v-practice","v-progress","v-awards","v-profile"];
+for(var j=0;j<views.length;j++){
+var el=$(views[j]);
+if(el)el.classList.add("hidden");
+}
+var target=$("v-"+tab);
+if(target)target.classList.remove("hidden");
+
+if(tab==="quiz"){
+var p=store.read("amz:profile");
+if(p.subjects&&p.subjects.length){
+prepareQuiz();
+$("quizIntro").classList.remove("hidden");
+$("quizBox").classList.add("hidden");
+$("quizResult").classList.add("hidden");
+}
+}
+if(tab==="practice"){
+var p2=store.read("amz:profile");
+if(p2.subjects&&p2.subjects.length){
+if(practice.c+practice.w===0)startPractice();
+else{
+$("practiceBox").classList.remove("hidden");
+$("practiceSummary").classList.add("hidden");
+}
+}
+}
+if(tab==="progress")renderProgress();
+if(tab==="awards")renderAwards();
+if(tab==="profile")renderProfile();
+window.scrollTo(0,0);
+}
+
+dock.addEventListener("click",function(e){
+var b=e.target.closest("button");
+if(!b)return;
+if(!b.dataset.tab)return;
+switchTab(b.dataset.tab);
+});
+
+$("userChip").addEventListener("click",function(){switchTab("profile")});
+
+$("studyVal").textContent=fa($("studyRange").value)+" ساعت";
+$("testVal").textContent=fa($("testRange").value)+" تست";
 checkAwards();
 setInterval(checkAwards,30000);
 
-console.log("%c🎓 آموزیار بارگذاری شد","font-size:16px;font-weight:900;color:#5b3df5");
-console.log("📚 آزمون:",Object.values(QB).reduce((s,a)=>s+a.length,0),"سوال");
-console.log("💪 تمرین:",Object.values(PB).reduce((s,a)=>s+a.length,0),"سوال");
+console.log("✅ آموزیار با فونت وزیرمتن بارگذاری شد");
 
 })();
 </script>
